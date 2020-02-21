@@ -1,2 +1,7 @@
 # Projects
-Projekt som jag har gjort under min utbildning
+Projects done during my education
+
+* projektarbete - first project (i do apologize if this creates uncontrollable bleeding from the eyes)
+
+* TBA
+	
