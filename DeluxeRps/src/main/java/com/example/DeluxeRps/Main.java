@@ -1,12 +1,13 @@
-package com.example.dogedice;
+package com.example.DeluxeRps;
 
-import javafx.application.*;
-import javafx.scene.*;
-import javafx.stage.*;
-import javafx.scene.layout.*;
-import javafx.scene.control.*;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
 
 public class Main extends Application {
+
   public static void main(String[] args) {
     // Start the JavaFX application by calling launch().
     launch(args);
@@ -35,4 +36,3 @@ public class Main extends Application {
     myStage.show();
   }
 }
-
