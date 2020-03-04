@@ -1,10 +1,15 @@
 package com.example.DeluxeRps;
 
 import javafx.application.Application;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
+import com.example.DeluxeRps.Controllers.Helper;
+
+import java.io.IOException;
 
 public class Main extends Application {
 
@@ -13,26 +18,16 @@ public class Main extends Application {
     launch(args);
   }
 
-  // Override the start() method.
-  public void start(Stage myStage) {
+  @Override
+  public void start(Stage mainMenu) throws IOException {
 
-    // Give the stage a title.
-    myStage.setTitle("Use a JavaFX label.");
+    FXMLLoader loader = Helper.getLoader(Helper.mainMenuFXML);
+    Parent root = loader.load();
+    Scene scene = new Scene(root);
 
-    // Use a FlowPane for the root node.
-    FlowPane rootNode = new FlowPane();
-
-    // Create a scene.
-    Scene myScene = new Scene(rootNode, 300, 200);
-
-    // Set the scene on the stage.
-    myStage.setScene(myScene);
-
-    // Create a label, then add the label to the scene graph.
-    Label myLabel = new Label("JavaFX is a powerful GUI");
-    rootNode.getChildren().add(myLabel);
-
-    // Show the stage and its scene.
-    myStage.show();
+    mainMenu.setTitle(Helper.mainMenuTitle);
+    mainMenu.setScene(scene);
+    mainMenu.show();
+    mainMenu.toFront();
   }
 }
