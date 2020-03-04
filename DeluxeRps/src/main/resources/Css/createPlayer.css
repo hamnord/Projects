@@ -1,4 +1,4 @@
-#mainMenu {
+#createPlayer {
 	-fx-min-width: 300px;
   -fx-max-width: 400px;
   -fx-min-height: 400px;
@@ -10,21 +10,19 @@
 
 #header {
 	-fx-font: bold 30px "Arial";
+	-fx-alignment: center;
+	-fx-padding: 5;
 }
 
-#imageAlignment {
--fx-alignment: center;
--fx-padding: 10;
-}
-
-#buttonAlignment {
+#profilePictureAlignment {
 -fx-alignment: center;
 -fx-padding: 2;
 }
 
-#loginButton {
-
- }
+#inputAlignment {
+-fx-alignment: center;
+-fx-padding: 2;
+}
 
 Button {
 	-fx-color: #000000;
@@ -46,7 +44,28 @@ Button:pressed {
 	-fx-color: #545454;
 }
 
-#frontPage {
--fx-image: url("../Images/FrontPage.png");
+TextField {
+-fx-background-color: #303030;
+	-fx-shape: "M 350 300 L 500 300 L 500 200 L 350 200 L 350 300";
+	-fx-background-radius: 5em;
+	-fx-font: normal bold 20px 'Arial';
+	-fx-text-fill: #FFFFFF;
 }
+
+TextField:hover {
+	-fx-color: #545454;
+}
+
+TextField:focused {
+	-fx-background-insets: 0, 0, 1, 2;
+}
+
+TextField:pressed {
+	-fx-color: #545454;
+}
+
+#profilePicture {
+-fx-image: url("../Images/praisetheham.jpg");
+}
+
 

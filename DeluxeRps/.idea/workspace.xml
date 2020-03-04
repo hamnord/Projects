@@ -2,15 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f6c83ee-e1e9-4d78-a4cc-d2eb6e3049b6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Launcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Projects.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Css/createPlayer.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Fxml/CreatePlayer.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DesktopRPS/src/main/java/com/example/dogedice/Launcher.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DesktopRPS/src/main/java/com/example/dogedice/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/Helper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Css/mainMenu.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Css/mainMenu.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Fxml/MainMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Fxml/MainMenu.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +45,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -54,10 +62,44 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/gradle-5.2.1" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.DeluxeRps.Launcher" />
+      <module name="DeluxeRps.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.DeluxeRps.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Launcher" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -73,17 +115,71 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="552" y="179" key="#Other_File_Types" timestamp="1583352448439">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="179" key="#Other_File_Types/0.0.1920.1040/1920.2.1920.1040@0.0.1920.1040" timestamp="1583352448439" />
     <state x="396" y="94" width="838" height="676" key="#Project_Structure" timestamp="1583315052157">
       <screen x="0" y="0" width="1600" height="864" />
     </state>
     <state x="396" y="94" width="838" height="676" key="#Project_Structure/0.0.1600.864@0.0.1600.864" timestamp="1583315052157" />
+    <state x="552" y="179" key="#XML" timestamp="1583352433540">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="179" key="#XML/0.0.1920.1040/1920.2.1920.1040@0.0.1920.1040" timestamp="1583352433540" />
     <state x="645" y="324" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1583316421106">
       <screen x="0" y="0" width="1600" height="864" />
     </state>
     <state x="645" y="324" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1600.864@0.0.1600.864" timestamp="1583316421106" />
-    <state x="284" y="10" key="SettingsEditor" timestamp="1583315890620">
-      <screen x="0" y="0" width="1600" height="864" />
+    <state x="707" y="386" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1583350309553">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="707" y="386" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040/1920.2.1920.1040@0.0.1920.1040" timestamp="1583350309553" />
+    <state x="608" y="153" key="DetectedRootsChooserDialog" timestamp="1583350876103">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="608" y="153" key="DetectedRootsChooserDialog/0.0.1920.1040/1920.2.1920.1040@0.0.1920.1040" timestamp="1583350876103" />
+    <state x="620" y="124" key="FileChooserDialogImpl" timestamp="1583351434489">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="620" y="124" key="FileChooserDialogImpl/0.0.1920.1040/1920.2.1920.1040@0.0.1920.1040" timestamp="1583351434489" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1583362316769">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.2.1920.1040@0.0.1920.1040" timestamp="1583362316769" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1583362316769">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/1920.2.1920.1040@0.0.1920.1040" timestamp="1583362316769" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1583362316769">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/1920.2.1920.1040@0.0.1920.1040" timestamp="1583362316769" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1583362316769">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/1920.2.1920.1040@0.0.1920.1040" timestamp="1583362316769" />
+    <state x="341" y="12" key="SettingsEditor" timestamp="1583351439306">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="284" y="10" key="SettingsEditor/0.0.1600.864@0.0.1600.864" timestamp="1583315890620" />
+    <state x="341" y="12" key="SettingsEditor/0.0.1920.1040/1920.2.1920.1040@0.0.1920.1040" timestamp="1583351439306" />
+    <state x="616" y="240" width="672" height="677" key="run.anything.popup" timestamp="1583349904941">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" width="672" height="677" key="run.anything.popup/0.0.1920.1040/1920.2.1920.1040@0.0.1920.1040" timestamp="1583349904941" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1583361339898">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.2.1920.1040@0.0.1920.1040" timestamp="1583361339898" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand>
+      <path>
+        <item name="DeluxeRps" type="b2602c69:ProjectViewProjectNode" />
+        <item name="DeluxeRps" type="462c0819:PsiDirectoryNode" />
+      </path>
+    </expand>
+    <select />
   </component>
 </project>

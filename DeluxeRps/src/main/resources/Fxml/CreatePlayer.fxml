@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.cell.TextFieldListCell?>
+<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.control.cell.TextFieldTableCell?>
+<?import javafx.scene.image.ImageView?>
+
+<VBox id="createPlayer"
+      styleClass="createPlayer"
+      stylesheets="@/Css/createPlayer.css"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.DeluxeRps.Controllers.CreatePlayer">
+
+  <VBox id="header">
+    <Label id="header" text=" Create your player"/>
+  </VBox>
+
+  <VBox id="profilePictureAlignment">
+    <ImageView id="profilePicture" fitWidth="125" preserveRatio="true"/>
+
+    <Button id="profileButton"
+            text="Add profile picture"
+            focusTraversable="false"/>
+  </VBox>
+
+  <VBox id="inputAlignment">
+    <TextField id="userNameInput"
+            text="Enter UserName"
+            focusTraversable="false"/>
+  </VBox>
+
+  <VBox id="inputAlignment">
+    <TextField id="passwordInput"
+            text="Enter Password"
+            focusTraversable="false"/>
+  </VBox>
+  <VBox id="inputAlignment">
+    <TextField id="emailInput"
+            text="Enter Email"
+            focusTraversable="false"/>
+  </VBox>
+
+  <VBox id="inputAlignment">
+    <Button id="confirmButton"
+               text="Confirm"
+               focusTraversable="false"/>
+  </VBox>
+
+
+</VBox>

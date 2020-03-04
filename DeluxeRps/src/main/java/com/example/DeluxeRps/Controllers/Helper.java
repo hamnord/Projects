@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.graalvm.compiler.phases.common.NodeCounterPhase;
+import sun.text.resources.CollationData;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,20 +39,17 @@ public class Helper {
   }
 
   static void replaceScene(String fxmlPath, String windowTitle) throws IOException {
+
     Stage stage = new Stage();
-    stage.setTitle(windowTitle);
     FXMLLoader loader = getLoader(fxmlPath);
     Parent root = loader.load();
     Scene scene = new Scene(root);
 
-    try{
+    stage.setTitle(windowTitle);
     stage.setScene(scene);
     stage.show();
     stage.toFront();
-    }
-    catch (Exception e){
-      e.printStackTrace();
-    }
+   // currentStage.close();
 
   }
 
