@@ -1,12 +1,13 @@
 package com.example.DeluxeRps.Controllers;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.graalvm.compiler.phases.common.NodeCounterPhase;
-import sun.text.resources.CollationData;
+import javafx.scene.input.MouseEvent;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 
@@ -38,18 +39,20 @@ public class Helper {
     return new FXMLLoader(getRes(fxmlpath));
   }
 
-  static void replaceScene(String fxmlPath, String windowTitle) throws IOException {
+  static void replaceScene(String fxmlPath, String windowTitle, MouseEvent mouseEvent) throws IOException {
 
-    Stage stage = new Stage();
+    Stage stage = (Stage) ((Node) mouseEvent.getSource())
+        .getScene()
+        .getWindow();
+
     FXMLLoader loader = getLoader(fxmlPath);
     Parent root = loader.load();
     Scene scene = new Scene(root);
 
-    stage.setTitle(windowTitle);
-    stage.setScene(scene);
-    stage.show();
-    stage.toFront();
-   // currentStage.close();
+      stage.setScene(scene);
+      stage.setTitle(windowTitle);
+      stage.show();
+      stage.toFront();
 
   }
 

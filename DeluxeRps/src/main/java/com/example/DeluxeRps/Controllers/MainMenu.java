@@ -6,14 +6,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainMenu {
+public class MainMenu{
 
   public void loginButtonClicked (MouseEvent mouseEvent) throws IOException {
-    Helper.replaceScene(Helper.loginFXML,Helper.loginTitle);
+    Helper.replaceScene(Helper.loginFXML,Helper.loginTitle, mouseEvent);
   }
 
   public void createPlayerButtonClicked (MouseEvent mouseEvent) throws IOException {
-    Helper.replaceScene(Helper.createPlayerFXML,Helper.createPlayerTitle);
+    Helper.replaceScene(Helper.createPlayerFXML,Helper.createPlayerTitle, mouseEvent);
   }
 
 }
