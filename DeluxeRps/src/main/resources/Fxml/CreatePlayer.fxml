@@ -23,11 +23,12 @@
   </VBox>
 
   <VBox id="profilePictureAlignment">
-    <ImageView id="profilePicture" fitWidth="125" preserveRatio="true"/>
+    <ImageView id="profilePicture" fitWidth="125" preserveRatio="true" onMouseClicked="#addProfilePicture" />
 
     <Button id="profileButton"
             text="Add profile picture"
-            focusTraversable="false"/>
+            focusTraversable="false"
+            onMouseClicked="#addProfilePicture"/>
   </VBox>
 
   <VBox id="inputAlignment">
@@ -37,7 +38,7 @@
   </VBox>
 
   <VBox id="inputAlignment">
-    <TextField id="passwordInput"
+    <PasswordField id="passwordField"
             text="Enter Password"
             focusTraversable="false"/>
   </VBox>
@@ -50,7 +51,7 @@
   <VBox id="inputAlignment">
     <Button id="confirmButton"
                text="Confirm"
-               focusTraversable="false"/>
+               focusTraversable="false" onMouseClicked="#confirmButtonClicked"/>
   </VBox>
 
 

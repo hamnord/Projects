@@ -44,25 +44,32 @@ Button:pressed {
 	-fx-color: #545454;
 }
 
+PasswordField {
+-fx-background-color: #303030;
+	-fx-shape: "M 350 300 L 500 300 L 500 200 L 350 200 L 350 300";
+	-fx-background-radius: 5em;
+	-fx-font: normal bold 14px 'Arial';
+	-fx-text-fill: #545454;
+}
+
+PasswordField:focused {
+	-fx-background-insets: 0, 0, 1, 2;
+	}
+
+
 TextField {
 -fx-background-color: #303030;
 	-fx-shape: "M 350 300 L 500 300 L 500 200 L 350 200 L 350 300";
 	-fx-background-radius: 5em;
-	-fx-font: normal bold 20px 'Arial';
-	-fx-text-fill: #FFFFFF;
+	-fx-font: normal bold 14px 'Arial';
+	-fx-text-fill: #545454;
 }
 
-TextField:hover {
-	-fx-color: #545454;
-}
 
 TextField:focused {
 	-fx-background-insets: 0, 0, 1, 2;
 }
 
-TextField:pressed {
-	-fx-color: #545454;
-}
 
 #profilePicture {
 -fx-image: url("../Images/praisetheham.jpg");
