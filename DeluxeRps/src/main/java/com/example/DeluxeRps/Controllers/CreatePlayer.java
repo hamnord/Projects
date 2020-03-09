@@ -30,7 +30,6 @@ public class CreatePlayer {
   }
 
 
-
   public void confirmButtonClicked(MouseEvent mouseEvent) throws IOException {
     Helper.replaceScene(Helper.selectPlayerModeFXML,Helper.selectPlayerModeTitle, mouseEvent);
   }
