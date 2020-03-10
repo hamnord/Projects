@@ -1,7 +1,11 @@
 package com.example.DeluxeRps.Controllers;
 
+import com.sun.tools.javac.comp.Todo;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -29,9 +33,31 @@ public class CreatePlayer {
     }
   }
 
-
   public void confirmButtonClicked(MouseEvent mouseEvent) throws IOException {
-    Helper.replaceScene(Helper.selectPlayerModeFXML,Helper.selectPlayerModeTitle, mouseEvent);
+    String storedUser = null;
+    String newUser = null;
+
+    if (newUser == null){
+      Alert alert = new Alert(AlertType.NONE, "Error! Fields are empty", ButtonType.OK);
+      alert.setTitle("Error in creating user");
+      alert.show();
+    }
+
+    else if ( newUser == storedUser ) {
+      Alert alert = new Alert(AlertType.NONE, "Error! This user already exist",ButtonType.OK);
+      alert.setTitle("Error in creating user");
+      alert.show();
+    }
+    else {
+      //Todo place store user here
+
+      System.out.println("User: " + newUser + " has been created.");
+      Helper.replaceScene(Helper.selectPlayerModeFXML, Helper.selectPlayerModeTitle, mouseEvent);
+    }
+  }
+
+  public void backButtonClicked (MouseEvent mouseEvent) throws IOException {
+    Helper.replaceScene(Helper.mainMenuFXML,Helper.mainMenuTitle, mouseEvent);
   }
 
 

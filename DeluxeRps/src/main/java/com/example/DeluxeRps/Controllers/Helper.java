@@ -21,6 +21,7 @@ public class Helper {
   public static final String startGameTitle = "Start Game!";
   public static final String announceWinnerTitle = "You Won!";
   public static final String announceLoserTitle = "You Lost!";
+  public static final String instructionsTitle = "Game rules";
 
   //FXML
   public static final String createPlayerFXML = "Fxml/CreatePlayer.fxml";
@@ -30,6 +31,7 @@ public class Helper {
   public static final String startGameFXML = "Fxml/StartGame.fxml";
   public static final String announceWinnerFXML = "Fxml/AnnounceWinner.fxml";
   public static final String announceLoserFXML = "Fxml/AnnounceLoser.fxml";
+  public static final String instructionsFXML = "Fxml/Instructions.fxml";
 
   public static URL getRes(String fileName){
     return Thread.currentThread().getContextClassLoader().getResource(fileName);

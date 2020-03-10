@@ -39,7 +39,7 @@
 
   <VBox id="inputAlignment">
     <PasswordField id="passwordField"
-            text="Enter Password"
+            text="Password"
             focusTraversable="false"/>
   </VBox>
   <VBox id="inputAlignment">
@@ -53,6 +53,13 @@
                text="Confirm"
                focusTraversable="false" onMouseClicked="#confirmButtonClicked"/>
   </VBox>
+
+  <VBox id="inputAlignment">
+    <Button id="Back Button"
+            text="Back Button"
+            focusTraversable="false" onMouseClicked="#backButtonClicked"/>
+  </VBox>
+
 
 
 </VBox>

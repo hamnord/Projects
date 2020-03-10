@@ -38,4 +38,11 @@
             onMouseClicked="#createPlayerButtonClicked"/>
   </VBox>
 
+  <VBox id="buttonAlignment">
+    <Button id="instructionsButton"
+            text="Game rules"
+            focusTraversable="false"
+            onMouseClicked="#instructionsButtonClicked"/>
+  </VBox>
+
 </VBox>

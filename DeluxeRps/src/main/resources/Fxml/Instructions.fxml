@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.image.ImageView?>
+
+<VBox
+    id="instructions"
+    styleClass="instructions"
+    stylesheets="@/Css/Instructions.css"
+    xmlns="http://javafx.com/javafx"
+    xmlns:fx="http://javafx.com/fxml"
+    fx:controller="com.example.DeluxeRps.Controllers.Instructions" >
+
+  <Label id="header" text="Rules!"/>
+  <Label id="rules" text="Scissors beats Paper"/>
+  <Label id="rules" text="Rock beats Scissors"/>
+  <Label id="rules" text="Paper beats Rock"/>
+
+  <VBox id="instructions">
+    <Button id="backButton"
+            text="Main Menu"
+            focusTraversable="false"
+            onMouseClicked="#backButtonClicked"/>
+  </VBox>
+</VBox>
