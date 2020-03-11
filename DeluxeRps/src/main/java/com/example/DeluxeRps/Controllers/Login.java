@@ -15,25 +15,23 @@ import java.sql.SQLException;
 public class Login extends Main {
 
 
+  private Connection connection;
   private String username;
   private String password;
 
   public Login(Connection connection, String username, String password) {
-    super(connection);
+   this.connection = connection;
     this.username = username;
     this.password = password;
 
   }
 
-  public void loginButtonClicked (MouseEvent mouseEvent) throws IOException {
+  public void loginButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
 
-    //TODO implement database usage with credentials
-    //TODO implement with access token
-
-    PreparedStatement loginStmt;
+    PreparedStatement loginStmt = null;
 
     try {
-      loginStmt = getConnection().prepareStatement("Select * from \"users\" where \"username\" = ? and \"password\" = ?;");
+      loginStmt = connection.prepareStatement("Select * from \"users\" where \"username\" = ? and \"password\" = ?;");
       loginStmt.setString(1, username);
       loginStmt.setString(2,password);
       ResultSet validUser = loginStmt.executeQuery();
@@ -52,8 +50,14 @@ public class Login extends Main {
         Helper.replaceScene(Helper.selectPlayerModeFXML,Helper.selectPlayerModeTitle, mouseEvent);
       }
 
-    } catch (SQLException e) {
+    }
+    catch (SQLException e) {
       e.printStackTrace();
+    }
+    finally {
+      if (loginStmt != null){
+        loginStmt.close();
+      }
     }
 
   }

@@ -16,24 +16,15 @@ import java.sql.PreparedStatement;
 
 public class Main extends Application {
 
-  private Connection connection;
-
-  public Main(Connection connection){
-    this.connection = connection;
-  }
-
-  public Connection getConnection() {
-    return connection;
-  }
-
   public static void main(String[] args) {
     // Start the JavaFX application by calling launch().
     launch(args);
-
   }
 
   @Override
   public void start(Stage mainMenu) throws IOException {
+
+    Connection connection;
 
     try {
       Class.forName("org.postgresql.Driver");
