@@ -1,34 +1,61 @@
 package com.example.DeluxeRps.Controllers;
 
+import com.example.DeluxeRps.Main;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-public class Login {
+public class Login extends Main {
+
+
+  private String username;
+  private String password;
+
+  public Login(Connection connection, String username, String password) {
+    super(connection);
+    this.username = username;
+    this.password = password;
+
+  }
 
   public void loginButtonClicked (MouseEvent mouseEvent) throws IOException {
 
     //TODO implement database usage with credentials
     //TODO implement with access token
 
-    String userCredentials = null;
-    String storedCredentials = null;
+    PreparedStatement loginStmt;
 
-    if (userCredentials == null){
-      Alert alert = new Alert(AlertType.NONE, " Error! Credential fields are empty", ButtonType.OK);
-      alert.setTitle("Error in authentication");
-      alert.show();
-    } else if (!userCredentials.equals(storedCredentials)){
-      Alert alert = new Alert(AlertType.NONE, " Error! Credentials does not match", ButtonType.OK);
-      alert.setTitle("Error in authentication");
-      alert.show();
-    }else{
-      System.out.println("Authentication successful");
-    Helper.replaceScene(Helper.selectPlayerModeFXML,Helper.selectPlayerModeTitle, mouseEvent);
+    try {
+      loginStmt = getConnection().prepareStatement("Select * from \"users\" where \"username\" = ? and \"password\" = ?;");
+      loginStmt.setString(1, username);
+      loginStmt.setString(2,password);
+      ResultSet validUser = loginStmt.executeQuery();
+
+
+      if (validUser == null){
+        Alert alert = new Alert(AlertType.NONE, " Error! Credential fields are empty", ButtonType.OK);
+        alert.setTitle("Error in authentication");
+        alert.show();
+      } else if (!validUser.next()){
+        Alert alert = new Alert(AlertType.NONE, " Error! Credentials does not match", ButtonType.OK);
+        alert.setTitle("Error in authentication");
+        alert.show();
+      }else{
+        System.out.println("Authentication successful");
+        Helper.replaceScene(Helper.selectPlayerModeFXML,Helper.selectPlayerModeTitle, mouseEvent);
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
+
   }
 
   public void backButtonClicked (MouseEvent mouseEvent) throws IOException {
