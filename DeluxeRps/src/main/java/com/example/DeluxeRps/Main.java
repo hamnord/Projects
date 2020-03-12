@@ -3,8 +3,6 @@ package com.example.DeluxeRps;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import com.example.DeluxeRps.Controllers.Helper;
@@ -12,7 +10,6 @@ import com.example.DeluxeRps.Controllers.Helper;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 
 public class Main extends Application {
 
@@ -21,15 +18,20 @@ public class Main extends Application {
     launch(args);
   }
 
+  public Connection connection;
+
+
   @Override
   public void start(Stage mainMenu) throws IOException {
 
-    Connection connection;
 
     try {
       Class.forName("org.postgresql.Driver");
-      connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/testDB", "test", "123");
+      connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/testDB",
+          "test", // input own login creds
+          "123");  // input own login creds
       connection.setAutoCommit(false);
+
     } catch (Exception e) {
       e.printStackTrace();
     }

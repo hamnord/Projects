@@ -1,5 +1,6 @@
 package com.example.DeluxeRps.Controllers;
 
+import com.example.DeluxeRps.Models.ConnectionMaster;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -7,9 +8,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.security.SecureRandom;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Base64;
 
 public class Helper {
 
@@ -57,5 +62,7 @@ public class Helper {
       stage.toFront();
 
   }
+
+
 
 }

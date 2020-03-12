@@ -8,6 +8,6 @@ public class Instructions {
 
 
   public void backButtonClicked (MouseEvent mouseEvent) throws IOException {
-    Helper.replaceScene(Helper.mainMenuFXML,Helper.mainMenuTitle, mouseEvent);
+    Helper.replaceScene(Helper.mainMenuFXML, Helper.mainMenuTitle, mouseEvent);
   }
 }

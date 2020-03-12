@@ -1,8 +1,6 @@
 package com.example.DeluxeRps.Controllers;
 
-import com.sun.tools.javac.comp.Todo;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -57,7 +55,7 @@ public class CreatePlayer {
   }
 
   public void backButtonClicked (MouseEvent mouseEvent) throws IOException {
-    Helper.replaceScene(Helper.mainMenuFXML,Helper.mainMenuTitle, mouseEvent);
+    Helper.replaceScene(Helper.mainMenuFXML, Helper.mainMenuTitle, mouseEvent);
   }
 
 
