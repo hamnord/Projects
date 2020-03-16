@@ -18,6 +18,8 @@ public class CreatePlayer {
 
   final FileChooser fileChooser = new FileChooser();
 
+
+  // TODO just fix this shit when there is time bruh
   @FXML
   public void addProfilePicture (MouseEvent mouseEvent) throws MalformedURLException {
     Stage stage = new Stage();

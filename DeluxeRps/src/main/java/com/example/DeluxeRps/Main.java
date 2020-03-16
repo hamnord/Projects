@@ -20,16 +20,12 @@ public class Main extends Application {
 
   public Connection connection;
 
-
   @Override
   public void start(Stage mainMenu) throws IOException {
 
-
     try {
       Class.forName("org.postgresql.Driver");
-      connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/testDB",
-          "test", // input own login creds
-          "123");  // input own login creds
+      connection = DriverManager.getConnection("postgres://igblmsacvvtqrc:8aa6d775c64cc09d4e2aee35743c2ed90290530663b15d687f0e4bfff5542a68@ec2-176-34-97-213.eu-west-1.compute.amazonaws.com:5432/d2621gbprb812i");
       connection.setAutoCommit(false);
 
     } catch (Exception e) {
