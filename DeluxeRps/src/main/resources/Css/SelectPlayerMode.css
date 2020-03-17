@@ -1,0 +1,73 @@
+#selectPlayer {
+	-fx-min-width: 300px;
+  -fx-max-width: 400px;
+  -fx-min-height: 400px;
+  -fx-max-height: 600px;
+  -fx-background-color: white;
+  -fx-alignment: top-center;
+  -fx-padding: 15;
+}
+
+#header {
+	-fx-font: bold 30px "Arial";
+	-fx-alignment: center;
+	-fx-padding: 5;
+}
+
+#profilePictureAlignment {
+-fx-alignment: center;
+-fx-padding: 2;
+}
+
+#inputAlignment {
+-fx-alignment: center;
+-fx-padding: 2;
+}
+
+Button {
+	-fx-color: #000000;
+	-fx-shape: "M 350 300 L 500 300 L 500 200 L 350 200 L 350 300";
+	-fx-background-radius: 5em;
+	-fx-font: normal bold 20px 'Arial';
+	-fx-text-fill: #FFFFFF;
+}
+
+Button:hover {
+	-fx-color: #303030;
+}
+
+Button:focused {
+	-fx-background-insets: 0, 0, 1, 2;
+}
+
+Button:pressed {
+	-fx-color: #545454;
+}
+
+PasswordField {
+-fx-background-color: #303030;
+	-fx-shape: "M 350 300 L 500 300 L 500 200 L 350 200 L 350 300";
+	-fx-background-radius: 5em;
+	-fx-font: normal bold 14px 'Arial';
+	-fx-text-fill: #545454;
+}
+
+PasswordField:focused {
+	-fx-background-insets: 0, 0, 1, 2;
+	}
+
+
+TextField {
+-fx-background-color: #303030;
+	-fx-shape: "M 350 300 L 500 300 L 500 200 L 350 200 L 350 300";
+	-fx-background-radius: 5em;
+	-fx-font: normal bold 14px 'Arial';
+	-fx-text-fill: #545454;
+}
+
+
+TextField:focused {
+	-fx-background-insets: 0, 0, 1, 2;
+}
+
+
