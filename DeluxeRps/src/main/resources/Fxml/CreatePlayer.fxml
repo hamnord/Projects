@@ -32,19 +32,24 @@
   </VBox>
 
   <VBox id="inputAlignment">
-    <TextField id="userNameInput"
-            text="Enter UserName"
+    <TextField fx:id="newUserName"
+               text="Enter UserName"
             focusTraversable="false"/>
   </VBox>
 
   <VBox id="inputAlignment">
-    <PasswordField id="passwordField"
-            text="Password"
-            focusTraversable="false"/>
+    <PasswordField fx:id="newPassword"
+                   text="Password"
+                   focusTraversable="false"/>
   </VBox>
   <VBox id="inputAlignment">
-    <TextField id="emailInput"
-            text="Enter Email"
+    <PasswordField fx:id="repeatPassword"
+                   text="Password"
+                   focusTraversable="false"/>
+  </VBox>
+  <VBox id="inputAlignment">
+    <TextField fx:id="newEmail"
+               text="Enter Email"
             focusTraversable="false"/>
   </VBox>
 
