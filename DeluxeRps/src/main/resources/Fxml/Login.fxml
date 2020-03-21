@@ -23,14 +23,14 @@
   </VBox>
 
   <VBox id="inputAlignment">
-    <TextField id="userNameInput"
-               text="Enter UserName"
+    <TextField fx:id="userNameInput"
+               promptText="Enter UserName"
                focusTraversable="false"/>
   </VBox>
 
   <VBox id="inputAlignment">
-    <PasswordField id="passwordField"
-                   text="Password"
+    <PasswordField fx:id="passwordField"
+                   promptText="Password"
                    focusTraversable="false"/>
   </VBox>
 
