@@ -33,28 +33,28 @@
 
   <VBox id="inputAlignment">
     <TextField fx:id="newUserName"
-               text="Enter UserName"
+               promptText="Enter UserName"
             focusTraversable="false"/>
   </VBox>
 
   <VBox id="inputAlignment">
     <PasswordField fx:id="newPassword"
-                   text="Password"
+                   promptText="Password"
                    focusTraversable="false"/>
   </VBox>
   <VBox id="inputAlignment">
     <PasswordField fx:id="repeatPassword"
-                   text="Password"
+                   promptText="Reapeat Password"
                    focusTraversable="false"/>
   </VBox>
   <VBox id="inputAlignment">
     <TextField fx:id="newEmail"
-               text="Enter Email"
+               promptText="Enter Email"
             focusTraversable="false"/>
   </VBox>
 
   <VBox id="inputAlignment">
-    <Button id="confirmButton"
+    <Button fx:id="confirmButton"
                text="Confirm"
                focusTraversable="false" onMouseClicked="#confirmButtonClicked"/>
   </VBox>

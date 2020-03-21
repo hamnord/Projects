@@ -3,7 +3,6 @@ package com.example.DeluxeRps.Controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -17,21 +16,21 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.security.SecureRandom;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Base64;
 
 public class CreatePlayer {
 
+  
+
   public static final SecureRandom secure = new SecureRandom();
   public static final Base64.Encoder b64Encode = Base64.getUrlEncoder();
   final FileChooser fileChooser = new FileChooser();
-  public Connection connection;
+  public Connection connection = null;
   public PreparedStatement prepStmnt;
   public PreparedStatement userIDStmnt;
   public PreparedStatement existingUserStmnt;
+  public PreparedStatement tokenStmnt;
 
 
   public static String generateToken (){
@@ -40,11 +39,7 @@ public class CreatePlayer {
     return b64Encode.encodeToString(randomBytes);
   }
 
-  // osäker men inte lika mycket kaos
-  public static void insertToken (String token,ResultSet userid){
-    String input = String.format("INSERT INTO \"tokens\" (\"tokenid\") VALUES (" + token + " ) " +
-        "INNER JOIN user WHERE \"user_name\"='%s' and \"password\"='%s'", userid);
-  }
+
 
   @FXML
   private TextField newUserName;
@@ -55,20 +50,30 @@ public class CreatePlayer {
   @FXML
   private TextField newEmail;
 
+  String username, password, repeatPass, email;
 
-  @FXML
+
+
   public void confirmButtonClicked(MouseEvent mouseEvent) throws IOException, SQLException {
 
-    String username = newUserName.getText();
-    String password = newPassword.getText();
-    String repeatPass = repeatPassword.getText();
-    String email = newEmail.getText();
+    username = newUserName.getText();
+    password = newPassword.getText();
+    repeatPass = repeatPassword.getText();
+    email = newEmail.getText();
+
+    try {
+          Class.forName("org.postgresql.Driver");
+          connection = DriverManager.getConnection("jdbc:postgresql://ec2-176-34-97-213.eu-west-1.compute.amazonaws.com:5432/d2621gbprb812i", "igblmsacvvtqrc", "8aa6d775c64cc09d4e2aee35743c2ed90290530663b15d687f0e4bfff5542a68");
+        } catch (Exception e) {e.printStackTrace();}
+
 
     try {
 
-      existingUserStmnt = connection.prepareStatement("SELECT * FROM users WHERE username = ?");
-      existingUserStmnt.setString(1,username);
+      existingUserStmnt = connection.prepareStatement("SELECT * FROM gamedb.users WHERE username = ?");
+      existingUserStmnt.setString(1, username);
       ResultSet storedUser = existingUserStmnt.executeQuery();
+
+
 
       if (storedUser.next()){
         Alert alert = new Alert(AlertType.NONE, "Error! this user already exists", ButtonType.OK);
@@ -77,13 +82,13 @@ public class CreatePlayer {
       }
       else {
 
-        if (username.equals("") || username.equals("Enter UserName")) {
+        if (username.equals("")) {
           Alert alert = new Alert(AlertType.NONE, "Error! Username field are empty", ButtonType.OK);
           alert.setTitle("Error in creating user");
           alert.show();
         }
 
-      else  if (password.equals("") || password.equals("Password")) {
+      else  if (password.equals("")) {
           Alert alert = new Alert(AlertType.NONE, "Error! Password field is empty", ButtonType.OK);
           alert.setTitle("Error in creating user");
           alert.show();
@@ -94,12 +99,12 @@ public class CreatePlayer {
           alert.setTitle("Error in creating user");
           alert.show();
         }
-      else if (email.equals("") || email.equals("Enter Email")) {
+      else if (email.equals("")) {
           Alert alert = new Alert(AlertType.NONE, "Error! Email field is empty", ButtonType.OK);
           alert.setTitle("Error in creating user");
           alert.show();
         } else {
-          prepStmnt = connection.prepareStatement("INSERT INTO users (username, password, email) VALUES (?,?,?) ");
+          prepStmnt = connection.prepareStatement("INSERT INTO gamedb.users (username, password, email) VALUES (?,?,?) ");
           prepStmnt.setString(1, username);
           prepStmnt.setString(2, password);
           prepStmnt.setString(3, email);
@@ -108,12 +113,20 @@ public class CreatePlayer {
 
         String userToken = generateToken();
 
-        userIDStmnt = connection.prepareStatement("Select userid FROM users WHERE username = ? AND password = ?");
+        userIDStmnt = connection.prepareStatement("Select userid FROM gamedb.users WHERE username = ? AND password = ?");
         userIDStmnt.setString(1, username);
         userIDStmnt.setString(2, password);
         ResultSet userid = userIDStmnt.executeQuery();
+        int useridInt = userid.getInt("userid");
 
-        insertToken(userToken, userid);
+
+
+        tokenStmnt = connection.prepareStatement("INSERT INTO gamedb.tokens (tokenid, userid) VALUES (?, ?)");
+        tokenStmnt.setString(1, userToken);
+        tokenStmnt.setInt(2, useridInt);
+        tokenStmnt.executeUpdate();
+
+
         Helper.replaceScene(Helper.selectPlayerModeFXML, Helper.selectPlayerModeTitle, mouseEvent);
       }
     }
