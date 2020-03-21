@@ -84,57 +84,59 @@ public class CreatePlayer {
 
       else {
 
-          //Exceptions for input
-          if (username.equals("")) {
-          Alert alert = new Alert(AlertType.NONE, "Error! Username field are empty", ButtonType.OK);
-          alert.setTitle("Error in creating user");
-          alert.show();
-          }
-          else if (password.equals("")) {
-          Alert alert = new Alert(AlertType.NONE, "Error! Password field is empty", ButtonType.OK);
-          alert.setTitle("Error in creating user");
-          alert.show();
-          }
-          else if (!password.equals(repeatPass)) {
-          Alert alert = new Alert(AlertType.NONE, "Error! password fields does not match", ButtonType.OK);
-          alert.setTitle("Error in creating user");
-          alert.show();
-          }
-          else if (email.equals("")) {
-          Alert alert = new Alert(AlertType.NONE, "Error! Email field is empty", ButtonType.OK);
-          alert.setTitle("Error in creating user");
-          alert.show();
-          }
+       //Exceptions for input
+       if (username.equals("")) {
+         Alert alert = new Alert(AlertType.NONE, "Error! Username field are empty", ButtonType.OK);
+         alert.setTitle("Error in creating user");
+         alert.show();
+       } else if (password.equals("")) {
+         Alert alert = new Alert(AlertType.NONE, "Error! Password field is empty", ButtonType.OK);
+         alert.setTitle("Error in creating user");
+         alert.show();
+       } else if (!password.equals(repeatPass)) {
+         Alert alert = new Alert(AlertType.NONE, "Error! password fields does not match", ButtonType.OK);
+         alert.setTitle("Error in creating user");
+         alert.show();
+       } else if (email.equals("")) {
+         Alert alert = new Alert(AlertType.NONE, "Error! Email field is empty", ButtonType.OK);
+         alert.setTitle("Error in creating user");
+         alert.show();
+       }
 
-          //Adding user to DB
-          else {
-          prepStmnt = connection.prepareStatement("INSERT INTO gamedb.users (username, password, email) VALUES (?,?,?)");
-          prepStmnt.setString(1, username);
-          prepStmnt.setString(2, password);
-          prepStmnt.setString(3, email);
-          prepStmnt.executeUpdate();
-          }
+       //Adding user to DB
+       else {
+         prepStmnt = connection.prepareStatement("INSERT INTO gamedb.users (username, password, email) VALUES (?,?,?)");
+         prepStmnt.setString(1, username);
+         prepStmnt.setString(2, password);
+         prepStmnt.setString(3, email);
+         prepStmnt.executeUpdate();
+       }
+
+     }
+
+        //DOES NOT WORK
+        try {
+          String userToken = generateToken();
+
+          userIDStmnt = connection.prepareStatement("SELECT userid FROM gamedb.users WHERE username = ? AND password = ?");
+          userIDStmnt.setString(1, username);
+          userIDStmnt.setString(2, password);
+          ResultSet rs1 = userIDStmnt.executeQuery();
+          int userid = rs1.getInt("userid");
+
+          tokenStmnt = connection.prepareStatement("INSERT INTO gamedb.tokens (tokenid, userid) VALUES (?, ?)");
+          tokenStmnt.setString(1, userToken);
+          tokenStmnt.setInt(2, userid);
+          tokenStmnt.executeUpdate();
+
+        } catch (SQLException e){e.getStackTrace();}
 
 
-
-        //Not sure whats happening here, cant get tokens to work/not sure how
-        String userToken = generateToken();
-
-        userIDStmnt = connection.prepareStatement("SELECT userid FROM gamedb.users WHERE username = ? AND password = ?");
-        userIDStmnt.setString(1, username);
-        userIDStmnt.setString(2, password);
-        ResultSet userid = userIDStmnt.executeQuery();
-        int useridInt = userid.getInt("userid");
-
-        tokenStmnt = connection.prepareStatement("INSERT INTO gamedb.tokens (tokenid, userid) VALUES (?, ?)");
-        tokenStmnt.setString(1, userToken);
-        tokenStmnt.setInt(2, useridInt);
-        tokenStmnt.executeUpdate();
 
         Helper.replaceScene(Helper.selectPlayerModeFXML, Helper.selectPlayerModeTitle, mouseEvent);
 
 
-      }
+
     }
 
     //Exceptions
