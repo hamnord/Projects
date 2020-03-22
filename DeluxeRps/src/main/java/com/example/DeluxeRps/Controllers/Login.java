@@ -1,6 +1,6 @@
 package com.example.DeluxeRps.Controllers;
 
-import com.example.DeluxeRps.Models.ConnectionMaster;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -16,7 +16,7 @@ import java.security.SecureRandom;
 import java.sql.*;
 import java.util.Base64;
 
-import static com.example.DeluxeRps.Controllers.CreatePlayer.securePW;
+
 
 public class Login {
 
@@ -73,6 +73,7 @@ public class Login {
 
       while(validUser.next()){
 
+        //Checking if pw matches hashed pw
         if (BCrypt.checkpw(password, validUser.getString("password"))){
 
           System.out.println("Authentication successful");
@@ -93,7 +94,7 @@ public class Login {
 
       }
 
-        //Exception-alerts
+        //If no input
         if (validUser == null){
         Alert alert = new Alert(AlertType.NONE, " Error! Credential fields are empty", ButtonType.OK);
         alert.setTitle("Error in authentication");
