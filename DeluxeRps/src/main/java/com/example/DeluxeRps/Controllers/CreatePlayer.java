@@ -15,29 +15,35 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.*;
 import java.util.Base64;
+import java.util.Base64.Encoder;
 
 public class CreatePlayer {
 
-  
 
   public static final SecureRandom secure = new SecureRandom();
-  public static final Base64.Encoder b64Encode = Base64.getUrlEncoder();
+  public static final Encoder b64Encode = Base64.getUrlEncoder();
   final FileChooser fileChooser = new FileChooser();
   public Connection connection = null;
   public PreparedStatement prepStmnt;
   public PreparedStatement userIDStmnt;
   public PreparedStatement existingUserStmnt;
   public PreparedStatement tokenStmnt;
+  static String securePW;
 
 
-  public static String generateToken (){
+
+
+  public static String generateToken () throws NoSuchAlgorithmException{
     byte[] randomBytes = new byte[24];
     secure.nextBytes(randomBytes);
-    return b64Encode.encodeToString(randomBytes);
+    String tokenz = b64Encode.encodeToString(randomBytes);
+    return tokenz;
   }
+
 
   //FXML-Objects
   @FXML
@@ -54,13 +60,18 @@ public class CreatePlayer {
 
 
 
-  public void confirmButtonClicked(MouseEvent mouseEvent) throws IOException, SQLException {
+
+  public void confirmButtonClicked(MouseEvent mouseEvent) throws IOException, SQLException, NoSuchAlgorithmException {
 
     //Getting input
     username = newUserName.getText();
     password = newPassword.getText();
     repeatPass = repeatPassword.getText();
     email = newEmail.getText();
+
+
+    //Crypting pw with BCrypt
+    securePW = BCryptify.hashPassword(password);
 
 
     //Get Connection
@@ -107,7 +118,7 @@ public class CreatePlayer {
        else {
          prepStmnt = connection.prepareStatement("INSERT INTO gamedb.users (username, password, email) VALUES (?,?,?)");
          prepStmnt.setString(1, username);
-         prepStmnt.setString(2, password);
+         prepStmnt.setString(2, securePW);
          prepStmnt.setString(3, email);
          prepStmnt.executeUpdate();
        }

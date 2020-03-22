@@ -8,11 +8,15 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.*;
 import java.util.Base64;
+
+import static com.example.DeluxeRps.Controllers.CreatePlayer.securePW;
 
 public class Login {
 
@@ -22,6 +26,8 @@ public class Login {
   public PreparedStatement loginStmt;
   private String username;
   private String password;
+
+
 
 
   //FXML-Objects
@@ -45,11 +51,12 @@ public class Login {
 
 
 
-  public void loginButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
+  public void loginButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException, NoSuchAlgorithmException {
 
     //Getting input
     username = userNameInput.getText();
     password = passwordField.getText();
+
 
     //Get Connection
     try {
@@ -57,12 +64,34 @@ public class Login {
       connection = DriverManager.getConnection("jdbc:postgresql://ec2-176-34-97-213.eu-west-1.compute.amazonaws.com:5432/d2621gbprb812i", "igblmsacvvtqrc", "8aa6d775c64cc09d4e2aee35743c2ed90290530663b15d687f0e4bfff5542a68");
     } catch (Exception e) {e.printStackTrace();}
 
+
     //Check for user in DB
     try {
-      loginStmt = connection.prepareStatement("SELECT * FROM gamedb.users WHERE username = ? AND password = ?");
+      loginStmt = connection.prepareStatement("SELECT * FROM gamedb.users WHERE username = ?");
       loginStmt.setString(1, username);
-      loginStmt.setString(2, password);
       ResultSet validUser = loginStmt.executeQuery();
+
+      while(validUser.next()){
+
+        if (BCrypt.checkpw(password, validUser.getString("password"))){
+
+          System.out.println("Authentication successful");
+          generateToken();
+          insertToken(generateToken(), username, password);
+          Helper.replaceScene(Helper.selectPlayerModeFXML, Helper.selectPlayerModeTitle, mouseEvent);
+
+        }
+
+        else if (!BCrypt.checkpw(password, validUser.getString("password"))){
+
+          Alert alert = new Alert(AlertType.NONE, " Error! Credentials does not match", ButtonType.OK);
+          alert.setTitle("Error in authentication");
+          alert.show();
+
+        }
+
+
+      }
 
         //Exception-alerts
         if (validUser == null){
@@ -70,19 +99,7 @@ public class Login {
         alert.setTitle("Error in authentication");
         alert.show();
         }
-        else if (!validUser.next()){
-        Alert alert = new Alert(AlertType.NONE, " Error! Credentials does not match", ButtonType.OK);
-        alert.setTitle("Error in authentication");
-        alert.show();
-        }
 
-        //Logged in! Tokens wont work + also maybe add user til listofloggedinusers
-        else{
-        System.out.println("Authentication successful");
-        generateToken();
-        insertToken(generateToken(), username, password);
-        Helper.replaceScene(Helper.selectPlayerModeFXML, Helper.selectPlayerModeTitle, mouseEvent);
-        }
 
     }
 
