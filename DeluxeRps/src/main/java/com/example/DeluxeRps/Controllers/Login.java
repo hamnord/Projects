@@ -35,11 +35,11 @@ public class Login {
   PasswordField passwordField;
 
 
-  public static String generateToken (){
-    byte[] randomBytes = new byte[24];
-    secure.nextBytes(randomBytes);
-    String token = Base64.getEncoder().encodeToString(randomBytes);
-    return token;
+  public static String generateToken () {
+      byte[] randomBytes = new byte[24];
+      secure.nextBytes(randomBytes);
+      String token = Base64.getEncoder().encodeToString(randomBytes);
+      return token;
   }
 
 
