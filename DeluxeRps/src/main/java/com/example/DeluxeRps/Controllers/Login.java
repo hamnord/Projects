@@ -23,9 +23,13 @@ public class Login {
   public static final SecureRandom secure = new SecureRandom();
   public static final Base64.Encoder b64Encode = Base64.getUrlEncoder();
   public Connection connection;
+  public Connection connection1;
   public PreparedStatement loginStmt;
+  public PreparedStatement tokenStmnt;
+  public PreparedStatement userIDtest;
   private String username;
   private String password;
+
 
 
 
@@ -40,13 +44,34 @@ public class Login {
   public static String generateToken (){
     byte[] randomBytes = new byte[24];
     secure.nextBytes(randomBytes);
-    return b64Encode.encodeToString(randomBytes);
+    String token = Base64.getEncoder().encodeToString(randomBytes);
+    return token;
   }
 
-  // osäker men inte lika mycket kaos
-  public static void insertToken (String token, String userName, String passWord){
-    String input = String.format("INSERT INTO \"token\" (\"token_id\") VALUES (" + token + " ) " +
-        "INNER JOIN user WHERE \"user_name\"='%s' and \"password\"='%s'", userName, passWord);
+  //WONT WORK
+  public void insertToken (String token, String userName){
+
+    try {
+      Class.forName("org.postgresql.Driver");
+      connection1 = DriverManager.getConnection("jdbc:postgresql://ec2-176-34-97-213.eu-west-1.compute.amazonaws.com:5432/d2621gbprb812i", "igblmsacvvtqrc", "8aa6d775c64cc09d4e2aee35743c2ed90290530663b15d687f0e4bfff5542a68");
+      connection1.setAutoCommit(false);
+    } catch (Exception e) {e.printStackTrace();}
+
+
+    try {
+      userIDtest = connection1.prepareStatement("SELECT * FROM gamedb.users WHERE username = ?");
+      userIDtest.setString(1, username);
+      ResultSet rs1 = userIDtest.executeQuery();
+      int userId = rs1.getInt("userid");
+
+      tokenStmnt = connection1.prepareStatement("INSERT INTO gamedb.tokens (tokenid, userid) VALUES (?, ?)");
+      tokenStmnt.setString(1, token);
+      tokenStmnt.setInt(2, userId);
+      tokenStmnt.executeUpdate();
+
+      connection1.commit();
+
+    } catch (SQLException e){e.getStackTrace();}
   }
 
 
@@ -78,7 +103,9 @@ public class Login {
 
           System.out.println("Authentication successful");
           generateToken();
-          insertToken(generateToken(), username, password);
+
+          //WONT WORK
+          insertToken(generateToken(), username);
           Helper.replaceScene(Helper.selectPlayerModeFXML, Helper.selectPlayerModeTitle, mouseEvent);
 
         }

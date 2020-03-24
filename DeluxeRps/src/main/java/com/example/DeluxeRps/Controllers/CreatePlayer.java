@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.base64.Base64Encoder;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +19,7 @@ import java.net.MalformedURLException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.*;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Base64.Encoder;
 
@@ -37,11 +39,10 @@ public class CreatePlayer {
 
 
 
-  public static String generateToken () throws NoSuchAlgorithmException{
+  public static byte[] generateToken () throws NoSuchAlgorithmException{
     byte[] randomBytes = new byte[24];
     secure.nextBytes(randomBytes);
-    String tokenz = b64Encode.encodeToString(randomBytes);
-    return tokenz;
+    return randomBytes;
   }
 
 
@@ -75,13 +76,15 @@ public class CreatePlayer {
 
 
     //Get Connection
-    try {
-          Class.forName("org.postgresql.Driver");
-          connection = DriverManager.getConnection("jdbc:postgresql://ec2-176-34-97-213.eu-west-1.compute.amazonaws.com:5432/d2621gbprb812i", "igblmsacvvtqrc", "8aa6d775c64cc09d4e2aee35743c2ed90290530663b15d687f0e4bfff5542a68");
-        } catch (Exception e) {e.printStackTrace();}
+    try{
+      Class.forName("org.postgresql.Driver");
+      connection = DriverManager.getConnection("jdbc:postgresql://ec2-176-34-97-213.eu-west-1.compute.amazonaws.com:5432/d2621gbprb812i", "igblmsacvvtqrc", "8aa6d775c64cc09d4e2aee35743c2ed90290530663b15d687f0e4bfff5542a68");
+    } catch (SQLException | ClassNotFoundException e) {e.getStackTrace();}
+
 
     //Prep statement
     try {
+
       existingUserStmnt = connection.prepareStatement("SELECT * FROM gamedb.users WHERE username = ?");
       existingUserStmnt.setString(1, username);
       ResultSet storedUser = existingUserStmnt.executeQuery();
@@ -125,25 +128,25 @@ public class CreatePlayer {
 
      }
 
-        //DOES NOT WORK
+        //DOES NOT WORK but does not throw exception
         try {
-          String userToken = generateToken();
+          String userToken = Base64.getEncoder().encodeToString(generateToken());
 
-          userIDStmnt = connection.prepareStatement("SELECT userid FROM gamedb.users WHERE username = ? AND password = ?");
+          userIDStmnt = connection.prepareStatement("SELECT * FROM gamedb.users WHERE username = ?");
           userIDStmnt.setString(1, username);
-          userIDStmnt.setString(2, password);
           ResultSet rs1 = userIDStmnt.executeQuery();
-          int userid = rs1.getInt("userid");
+          int userId = rs1.getInt("userid");
 
           tokenStmnt = connection.prepareStatement("INSERT INTO gamedb.tokens (tokenid, userid) VALUES (?, ?)");
           tokenStmnt.setString(1, userToken);
-          tokenStmnt.setInt(2, userid);
+          tokenStmnt.setInt(2, userId);
           tokenStmnt.executeUpdate();
 
         } catch (SQLException e){e.getStackTrace();}
 
 
 
+        //This works tho
         Helper.replaceScene(Helper.selectPlayerModeFXML, Helper.selectPlayerModeTitle, mouseEvent);
 
 
