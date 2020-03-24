@@ -11,39 +11,22 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.base64.Base64Encoder;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.sql.*;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Base64.Encoder;
+import java.sql.Connection;
+
 
 public class CreatePlayer {
 
-
-  public static final SecureRandom secure = new SecureRandom();
-  public static final Encoder b64Encode = Base64.getUrlEncoder();
   final FileChooser fileChooser = new FileChooser();
-  public Connection connection = null;
-  public PreparedStatement prepStmnt;
-  public PreparedStatement userIDStmnt;
-  public PreparedStatement existingUserStmnt;
-  public PreparedStatement tokenStmnt;
-  static String securePW;
 
-
-
-
-  public static byte[] generateToken () throws NoSuchAlgorithmException{
-    byte[] randomBytes = new byte[24];
-    secure.nextBytes(randomBytes);
-    return randomBytes;
-  }
+  String username, password, repeatPass, email, securePW;
+  Connection con;
+  PreparedStatement existingUser, regPlayerStmnt, tokenStmnt, logIn;
 
 
   //FXML-Objects
@@ -55,10 +38,6 @@ public class CreatePlayer {
   private PasswordField repeatPassword;
   @FXML
   private TextField newEmail;
-
-  //Other useful objects
-  String username, password, repeatPass, email;
-
 
 
 
@@ -76,108 +55,81 @@ public class CreatePlayer {
 
 
     //Get Connection
-    try{
-      Class.forName("org.postgresql.Driver");
-      connection = DriverManager.getConnection("jdbc:postgresql://ec2-176-34-97-213.eu-west-1.compute.amazonaws.com:5432/d2621gbprb812i", "igblmsacvvtqrc", "8aa6d775c64cc09d4e2aee35743c2ed90290530663b15d687f0e4bfff5542a68");
-    } catch (SQLException | ClassNotFoundException e) {e.getStackTrace();}
+    con = ConDB.getConnection();
+    con.setAutoCommit(false);
 
 
     //Prep statement
     try {
 
-      existingUserStmnt = connection.prepareStatement("SELECT * FROM gamedb.users WHERE username = ?");
-      existingUserStmnt.setString(1, username);
-      ResultSet storedUser = existingUserStmnt.executeQuery();
+      ResultSet storedUser = existingUserMt(username);
 
-     //If user exists in users-table
-     if (storedUser.next()){
+      //If user exists in users-table
+      if (storedUser.next()) {
         Alert alert = new Alert(AlertType.NONE, "Error! this user already exists", ButtonType.OK);
         alert.setTitle("Error in creating user");
         alert.show();
+      } else {
+
+        //Exceptions for input
+        if (username.equals("")) {
+          Alert alert = new Alert(AlertType.NONE, "Error! Username field are empty", ButtonType.OK);
+          alert.setTitle("Error in creating user");
+          alert.show();
+        } else if (password.equals("")) {
+          Alert alert = new Alert(AlertType.NONE, "Error! Password field is empty", ButtonType.OK);
+          alert.setTitle("Error in creating user");
+          alert.show();
+        } else if (!password.equals(repeatPass)) {
+          Alert alert = new Alert(AlertType.NONE, "Error! password fields does not match", ButtonType.OK);
+          alert.setTitle("Error in creating user");
+          alert.show();
+        } else if (email.equals("")) {
+          Alert alert = new Alert(AlertType.NONE, "Error! Email field is empty", ButtonType.OK);
+          alert.setTitle("Error in creating user");
+          alert.show();
+        }
+
+        //Adding user to DB
+        else {
+
+          addPlayerToDB(username, securePW, email);
+
+        }
+
       }
 
-      else {
-
-       //Exceptions for input
-       if (username.equals("")) {
-         Alert alert = new Alert(AlertType.NONE, "Error! Username field are empty", ButtonType.OK);
-         alert.setTitle("Error in creating user");
-         alert.show();
-       } else if (password.equals("")) {
-         Alert alert = new Alert(AlertType.NONE, "Error! Password field is empty", ButtonType.OK);
-         alert.setTitle("Error in creating user");
-         alert.show();
-       } else if (!password.equals(repeatPass)) {
-         Alert alert = new Alert(AlertType.NONE, "Error! password fields does not match", ButtonType.OK);
-         alert.setTitle("Error in creating user");
-         alert.show();
-       } else if (email.equals("")) {
-         Alert alert = new Alert(AlertType.NONE, "Error! Email field is empty", ButtonType.OK);
-         alert.setTitle("Error in creating user");
-         alert.show();
-       }
-
-       //Adding user to DB
-       else {
-         prepStmnt = connection.prepareStatement("INSERT INTO gamedb.users (username, password, email) VALUES (?,?,?)");
-         prepStmnt.setString(1, username);
-         prepStmnt.setString(2, securePW);
-         prepStmnt.setString(3, email);
-         prepStmnt.executeUpdate();
-       }
-
-     }
-
-        //DOES NOT WORK but does not throw exception
-        try {
-          String userToken = Base64.getEncoder().encodeToString(generateToken());
-
-          userIDStmnt = connection.prepareStatement("SELECT * FROM gamedb.users WHERE username = ?");
-          userIDStmnt.setString(1, username);
-          ResultSet rs1 = userIDStmnt.executeQuery();
-          int userId = rs1.getInt("userid");
-
-          tokenStmnt = connection.prepareStatement("INSERT INTO gamedb.tokens (tokenid, userid) VALUES (?, ?)");
-          tokenStmnt.setString(1, userToken);
-          tokenStmnt.setInt(2, userId);
-          tokenStmnt.executeUpdate();
-
-        } catch (SQLException e){e.getStackTrace();}
-
-
-
-        //This works tho
-        Helper.replaceScene(Helper.selectPlayerModeFXML, Helper.selectPlayerModeTitle, mouseEvent);
-
-
+      Helper.replaceScene(Helper.loginFXML, Helper.loginTitle, mouseEvent);;
 
     }
 
     //Exceptions
     catch (Exception e) {
-        e.printStackTrace();
-      } finally {
-      if(prepStmnt != null){
-        prepStmnt.close();
+      e.printStackTrace();
+    } finally {
+      if (regPlayerStmnt != null) {
+        regPlayerStmnt.close();
       }
-      if(userIDStmnt != null){
-        userIDStmnt.close();
+      if (existingUser != null) {
+        existingUser.close();
       }
 
     }
-    }
+  }
 
 
   //Back-Button, works great
-  public void backButtonClicked (MouseEvent mouseEvent) throws IOException {
+  public void backButtonClicked(MouseEvent mouseEvent) throws IOException {
     Helper.replaceScene(Helper.mainMenuFXML, Helper.mainMenuTitle, mouseEvent);
   }
 
 
+  ///////////////////////////////
+
   // TODO just fix this shit when there is time bruh
   //Youll fix it bruh, I believe in ya
   @FXML
-  public void addProfilePicture (MouseEvent mouseEvent) throws MalformedURLException {
+  public void addProfilePicture(MouseEvent mouseEvent) throws MalformedURLException {
     Stage stage = new Stage();
     File file = fileChooser.showOpenDialog(stage);
     if (file != null) {
@@ -187,7 +139,35 @@ public class CreatePlayer {
       imageView.setImage(img);
 
     }
+
+    ////////////////////
+
   }
+
+  //SQL STATEMENTS:
+  public ResultSet existingUserMt(String username) throws SQLException {
+
+    existingUser = con.prepareStatement("SELECT * FROM gamedb.users WHERE username = ?");
+    existingUser.setString(1, username);
+    ResultSet storedUser = existingUser.executeQuery();
+    con.commit();
+
+    return storedUser;
+
+  }
+
+  public void addPlayerToDB(String username, String pw, String email) throws SQLException {
+
+    regPlayerStmnt = con.prepareStatement("INSERT INTO gamedb.users (username, password, email) VALUES (?,?,?)");
+    regPlayerStmnt.setString(1, username);
+    regPlayerStmnt.setString(2, pw);
+    regPlayerStmnt.setString(3, email);
+    regPlayerStmnt.executeUpdate();
+    con.commit();
+
+  }
+
+
 
 
 }

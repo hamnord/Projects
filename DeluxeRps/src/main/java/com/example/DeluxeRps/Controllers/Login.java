@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.Base64;
 
 
@@ -21,16 +22,9 @@ import java.util.Base64;
 public class Login {
 
   public static final SecureRandom secure = new SecureRandom();
-  public static final Base64.Encoder b64Encode = Base64.getUrlEncoder();
-  public Connection connection;
-  public Connection connection1;
-  public PreparedStatement loginStmt;
-  public PreparedStatement tokenStmnt;
-  public PreparedStatement userIDtest;
-  private String username;
-  private String password;
-
-
+  PreparedStatement logIn, logout, loginStmt, tokenStmt;
+  private String username, password;
+  Connection con;
 
 
 
@@ -48,34 +42,8 @@ public class Login {
     return token;
   }
 
-  //WONT WORK
-  public void insertToken (String token, String userName){
 
-    try {
-      Class.forName("org.postgresql.Driver");
-      connection1 = DriverManager.getConnection("jdbc:postgresql://ec2-176-34-97-213.eu-west-1.compute.amazonaws.com:5432/d2621gbprb812i", "igblmsacvvtqrc", "8aa6d775c64cc09d4e2aee35743c2ed90290530663b15d687f0e4bfff5542a68");
-      connection1.setAutoCommit(false);
-    } catch (Exception e) {e.printStackTrace();}
-
-
-    try {
-      userIDtest = connection1.prepareStatement("SELECT * FROM gamedb.users WHERE username = ?");
-      userIDtest.setString(1, username);
-      ResultSet rs1 = userIDtest.executeQuery();
-      int userId = rs1.getInt("userid");
-
-      tokenStmnt = connection1.prepareStatement("INSERT INTO gamedb.tokens (tokenid, userid) VALUES (?, ?)");
-      tokenStmnt.setString(1, token);
-      tokenStmnt.setInt(2, userId);
-      tokenStmnt.executeUpdate();
-
-      connection1.commit();
-
-    } catch (SQLException e){e.getStackTrace();}
-  }
-
-
-
+ //ON MOUSE CLICKED
   public void loginButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException, NoSuchAlgorithmException {
 
     //Getting input
@@ -84,17 +52,14 @@ public class Login {
 
 
     //Get Connection
-    try {
-      Class.forName("org.postgresql.Driver");
-      connection = DriverManager.getConnection("jdbc:postgresql://ec2-176-34-97-213.eu-west-1.compute.amazonaws.com:5432/d2621gbprb812i", "igblmsacvvtqrc", "8aa6d775c64cc09d4e2aee35743c2ed90290530663b15d687f0e4bfff5542a68");
-    } catch (Exception e) {e.printStackTrace();}
+    con = ConDB.getConnection();
+    con.setAutoCommit(false);
 
 
     //Check for user in DB
     try {
-      loginStmt = connection.prepareStatement("SELECT * FROM gamedb.users WHERE username = ?");
-      loginStmt.setString(1, username);
-      ResultSet validUser = loginStmt.executeQuery();
+
+      ResultSet validUser = checkUser(username);
 
       while(validUser.next()){
 
@@ -102,10 +67,12 @@ public class Login {
         if (BCrypt.checkpw(password, validUser.getString("password"))){
 
           System.out.println("Authentication successful");
-          generateToken();
+          int userid = validUser.getInt("userid");
 
-          //WONT WORK
-          insertToken(generateToken(), username);
+          logedIn(userid);
+          String token = generateToken();
+          insertToken(token, userid);
+
           Helper.replaceScene(Helper.selectPlayerModeFXML, Helper.selectPlayerModeTitle, mouseEvent);
 
         }
@@ -141,6 +108,53 @@ public class Login {
   public void backButtonClicked (MouseEvent mouseEvent) throws IOException {
     Helper.replaceScene(Helper.mainMenuFXML, Helper.mainMenuTitle, mouseEvent);
   }
+
+
+  //SQL-STATEMENTS:
+  public ResultSet checkUser(String username) throws SQLException{
+
+    loginStmt = con.prepareStatement("SELECT * FROM gamedb.users WHERE username = ?");
+    loginStmt.setString(1, username);
+    ResultSet validUser = loginStmt.executeQuery();
+    return validUser;
+
+  }
+
+
+  // WORKS
+  public void logedIn (int userid) throws SQLException {
+
+    logIn = con.prepareStatement("INSERT INTO gamedb.logedinusers VALUES (?, ?)");
+    logIn.setInt(1, userid);
+    logIn.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+    logIn.executeUpdate();
+    con.commit();
+
+  }
+
+  //NOT IN USE CURRENTLY BUT SHOULD BE CALLED WHEN SYSTEM.EXIT(0)
+  public void logOut (int userid) throws SQLException {
+
+    logout = con.prepareStatement("DELETE FROM gamedb.logedinusers VALUES (?)");
+    logout.setInt(1, userid);
+    logout.executeUpdate();
+    con.commit();
+
+  }
+
+  //WORKSSSSSS, NOT SURE HOW TO SET VALUE AND HOW TO MAKE TOKENS GO AWAY
+  public void insertToken (String token, int userid) throws SQLException{
+
+      tokenStmt = con.prepareStatement("INSERT INTO gamedb.tokens VALUES (?, ?, ?)");
+      tokenStmt.setString(1, token);
+      tokenStmt.setInt(2, userid);
+      tokenStmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+      tokenStmt.executeUpdate();
+      con.commit();
+
+  }
+
+
 
 
 }
