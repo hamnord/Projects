@@ -26,7 +26,8 @@ public class Login {
 
   public static final SecureRandom secure = new SecureRandom();
   PreparedStatement logIn, logout, loginStmt, tokenStmt, removeTokenStmnt;
-  private String username, password;
+  static String username;
+  private String password;
   Connection con;
 
 
