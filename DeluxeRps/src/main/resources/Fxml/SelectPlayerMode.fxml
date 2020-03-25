@@ -16,4 +16,19 @@
 
   <Label id="header" text="SelectPLayer"/>
 
+
+ <VBox id="buttonAlignment">
+  <Button id="playvscom"
+        text="Play vs Computer"
+        focusTraversable="false"
+        onMouseClicked="#playvscomButtonClicked"/>
+</VBox>
+
+<VBox id="buttonAlignment">
+  <Button id="playvsplayer"
+        text="Play vs Player"
+        focusTraversable="false"
+        onMouseClicked="#playvsplayerButtonClicked"/>
+</VBox>
+
 </VBox>

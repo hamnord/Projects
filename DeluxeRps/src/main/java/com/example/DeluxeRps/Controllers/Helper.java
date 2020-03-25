@@ -1,6 +1,5 @@
 package com.example.DeluxeRps.Controllers;
 
-import com.example.DeluxeRps.Models.ConnectionMaster;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -10,11 +9,6 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.security.SecureRandom;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Base64;
 
 public class Helper {
 
@@ -33,7 +27,7 @@ public class Helper {
   public static final String loginFXML = "Fxml/Login.fxml";
   public static final String mainMenuFXML = "Fxml/MainMenu.fxml";
   public static final String selectPlayerModeFXML = "Fxml/SelectPlayerMode.fxml";
-  public static final String startGameFXML = "Fxml/StartGame.fxml";
+  public static final String startGameFXML = "Fxml/StartGameCom.fxml";
   public static final String announceWinnerFXML = "Fxml/AnnounceWinner.fxml";
   public static final String announceLoserFXML = "Fxml/AnnounceLoser.fxml";
   public static final String instructionsFXML = "Fxml/Instructions.fxml";

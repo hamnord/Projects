@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.DeluxeRps.Controllers.StartGameCom"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <VBox id="buttonAlignment">
+        <Button fx:id="rock"
+                text="Rock"
+                focusTraversable="false"
+                onMouseClicked="#RockButtonClicked" />
+    </VBox>
+
+    <VBox id="buttonAlignment">
+        <Button fx:id="paper"
+                text="Paper"
+                focusTraversable="false"
+               onMouseClicked="#PaperButtonClicked" />
+    </VBox>
+
+    <VBox id="buttonAlignment">
+        <Button fx:id="scissor"
+                text="Scissor"
+                focusTraversable="false"
+                onMouseClicked="#ScissorButtonClicked" />
+
+    </VBox>
+
+
+
+
+</VBox>
