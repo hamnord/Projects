@@ -98,7 +98,7 @@ public class CreatePlayer {
         }
 
       }
-
+        //replaces scene to login
       Helper.replaceScene(Helper.loginFXML, Helper.loginTitle, mouseEvent);;
 
     }
@@ -166,8 +166,5 @@ public class CreatePlayer {
     con.commit();
 
   }
-
-
-
 
 }

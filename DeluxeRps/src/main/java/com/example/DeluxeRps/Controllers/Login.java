@@ -1,13 +1,16 @@
 package com.example.DeluxeRps.Controllers;
 
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import org.graalvm.compiler.phases.common.NodeCounterPhase;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
@@ -22,10 +25,9 @@ import java.util.Base64;
 public class Login {
 
   public static final SecureRandom secure = new SecureRandom();
-  PreparedStatement logIn, logout, loginStmt, tokenStmt;
+  PreparedStatement logIn, logout, loginStmt, tokenStmt, removeTokenStmnt;
   private String username, password;
   Connection con;
-
 
 
   //FXML-Objects
@@ -34,14 +36,12 @@ public class Login {
   @FXML
   PasswordField passwordField;
 
-
   public static String generateToken () {
       byte[] randomBytes = new byte[24];
       secure.nextBytes(randomBytes);
       String token = Base64.getEncoder().encodeToString(randomBytes);
       return token;
   }
-
 
  //ON MOUSE CLICKED
   public void loginButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException, NoSuchAlgorithmException {
@@ -50,11 +50,9 @@ public class Login {
     username = userNameInput.getText();
     password = passwordField.getText();
 
-
     //Get Connection
     con = ConDB.getConnection();
     con.setAutoCommit(false);
-
 
     //Check for user in DB
     try {
@@ -84,8 +82,6 @@ public class Login {
           alert.show();
 
         }
-
-
       }
 
         //If no input
@@ -94,10 +90,7 @@ public class Login {
         alert.setTitle("Error in authentication");
         alert.show();
         }
-
-
     }
-
     //Exceptions
     catch (SQLException e) {
       e.printStackTrace();
@@ -135,12 +128,16 @@ public class Login {
   //NOT IN USE CURRENTLY BUT SHOULD BE CALLED WHEN SYSTEM.EXIT(0)
   public void logOut (int userid) throws SQLException {
 
-    logout = con.prepareStatement("DELETE FROM gamedb.logedinusers VALUES (?)");
-    logout.setInt(1, userid);
-    logout.executeUpdate();
-    con.commit();
+      logout = con.prepareStatement("DELETE FROM gamedb.logedinusers VALUES (?)");
+      logout.setInt(1, userid);
+      logout.executeUpdate();
+      con.commit();
 
-  }
+      con.close();
+      logout.close();
+
+    }
+
 
   //WORKSSSSSS, NOT SURE HOW TO SET VALUE AND HOW TO MAKE TOKENS GO AWAY
   public void insertToken (String token, int userid) throws SQLException{
@@ -154,7 +151,33 @@ public class Login {
 
   }
 
+  public void removeToken ( String token, int userid) throws SQLException {
+
+      removeTokenStmnt = con.prepareStatement("DELETE FROM gamedb.tokens VALUES (?)");
+      removeTokenStmnt.setString(1, token);
+      removeTokenStmnt.setInt(2, userid);
+      removeTokenStmnt.executeUpdate();
+      con.commit();
+
+  }
 
 
+  private void closeButtonClicked(String token, int userid) throws SQLException {
+
+    Stage stage = (Stage) .getScene().getWindow();
+    stage.setOnCloseRequest(event -> {
+
+      try {
+        logOut(userid);
+        removeToken(token,userid);
+        con.close();
+        System.exit(0);
+
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+
+  });
+  }
 
 }
