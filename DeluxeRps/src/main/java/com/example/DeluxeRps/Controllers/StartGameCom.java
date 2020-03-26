@@ -1,16 +1,36 @@
 package com.example.DeluxeRps.Controllers;
 
+import javafx.scene.input.MouseEvent;
+
+import java.io.IOException;
 import java.util.Random;
 
-public class StartGame {
+public class StartGameCom {
 
     RPS player1, player2;
     Random generator = new Random();
 
 
-    //Koblas till vyer osvosv.
+    public void RockButtonClicked (MouseEvent mouseEvent) throws IOException {
+        player1 = RPS.ROCK;
+        gameResult();
+    }
+
+    public void PaperButtonClicked (MouseEvent mouseEvent) throws IOException {
+        player1 = RPS.PAPER;
+        gameResult();
+    }
+
+    public void ScissorButtonClicked (MouseEvent mouseEvent) throws IOException {
+        player1 = RPS.SCISSORS;
+        gameResult();
+    }
+
+
+
+    //Koblas till vyer
     public void gameResult(){
-        setPlayer1();
+
         cpGenerator();
 
         if (player1.beats(player2)){
@@ -35,11 +55,6 @@ public class StartGame {
 
 
 
-    //Koblas til XML-objekt och mouse-event
-    public void setPlayer1() {
-        player1 = RPS.ROCK;
-
-    }
 
     //player2-choices if computer
     public void cpGenerator(){

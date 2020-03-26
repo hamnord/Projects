@@ -26,7 +26,8 @@ public class Login {
 
   public static final SecureRandom secure = new SecureRandom();
   PreparedStatement logIn, logout, loginStmt, tokenStmt, removeTokenStmnt;
-  private String username, password;
+  static String username;
+  private String password;
   Connection con;
 
 
@@ -151,18 +152,17 @@ public class Login {
 
   }
 
-  public void removeToken ( String token, int userid) throws SQLException {
+  public void removeToken (int userid) throws SQLException {
 
       removeTokenStmnt = con.prepareStatement("DELETE FROM gamedb.tokens VALUES (?)");
-      removeTokenStmnt.setString(1, token);
-      removeTokenStmnt.setInt(2, userid);
+      removeTokenStmnt.setInt(1, userid);
       removeTokenStmnt.executeUpdate();
       con.commit();
 
   }
 
 
-  private void closeButtonClicked(String token, int userid) throws SQLException {
+  /* private void closeButtonClicked(String token, int userid) throws SQLException {
 
     Stage stage = (Stage) .getScene().getWindow();
     stage.setOnCloseRequest(event -> {
@@ -178,6 +178,6 @@ public class Login {
       }
 
   });
-  }
+  } */
 
 }
