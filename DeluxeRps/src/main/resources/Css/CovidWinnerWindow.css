@@ -1,4 +1,4 @@
-#selectPlayer {
+#covidWinner {
 	-fx-min-width: 400px;
   -fx-max-width: 600px;
   -fx-min-height: 400px;
@@ -8,6 +8,11 @@
   -fx-padding: 15;
 }
 
+#covidAlignment {
+-fx-alignment: center;
+-fx-padding: 5;
+}
+
 #header {
 	-fx-font: bold 30px "Arial";
 	-fx-alignment: center;
@@ -15,22 +20,10 @@
 	-fx-text-fill: #673500;
 }
 
-#buttonAlignment {
--fx-alignment: center;
-}
-
-
- #spacing {
- -fx-padding: 15;
- }
-
-
-  #pveButton {
-  -fx-image: url("../Images/pveButton.jpg");
+ #covidWinner {
+  -fx-image: url("../Images/CovidWon.jpg");
   }
 
-  #pvpButton {
-  -fx-image: url("../Images/pvpButton.jpg");
+  #backButton {
+  -fx-image: url("../Images/BackButton.jpg");
   }
-
-

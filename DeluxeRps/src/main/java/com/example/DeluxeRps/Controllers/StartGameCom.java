@@ -11,30 +11,44 @@ public class StartGameCom {
     Random generator = new Random();
 
 
-    public void RockButtonClicked (MouseEvent mouseEvent) throws IOException {
+    public void covidButtonClicked (MouseEvent mouseEvent) throws IOException {
         player1 = RPS.ROCK;
-        gameResult();
+        boolean winner = false;
+       if(gameResult(winner)){
+           Helper.replaceScene(Helper.covidWinnerFXML, Helper.covidWinnerTitle, mouseEvent);
+       } else {
+           Helper.replaceScene(Helper.paperWinnerFXML, Helper.paperWinnerTitle, mouseEvent);
+       }
     }
 
-    public void PaperButtonClicked (MouseEvent mouseEvent) throws IOException {
+    public void paperButtonClicked (MouseEvent mouseEvent) throws IOException {
         player1 = RPS.PAPER;
-        gameResult();
+        boolean winner = false;
+
+        if(gameResult(winner)){
+            Helper.replaceScene(Helper.paperWinnerFXML, Helper.paperWinnerTitle, mouseEvent);
+        } else {
+            Helper.replaceScene(Helper.handWinnerFXML, Helper.handWinnerTitle, mouseEvent);
+        }
     }
 
-    public void ScissorButtonClicked (MouseEvent mouseEvent) throws IOException {
+    public void handButtonClicked (MouseEvent mouseEvent) throws IOException {
         player1 = RPS.SCISSORS;
-        gameResult();
+        boolean winner = false;
+
+        if (gameResult(winner)){
+            Helper.replaceScene(Helper.handWinnerFXML, Helper.handWinnerTitle, mouseEvent);
+        } else {
+            Helper.replaceScene(Helper.covidWinnerFXML, Helper.covidWinnerTitle, mouseEvent);
+        }
     }
-
-
 
     //Koblas till vyer
-    public void gameResult(){
+    public boolean gameResult(boolean winner){
 
         cpGenerator();
 
         if (player1.beats(player2)){
-
             System.out.println("You win");
         }
 
@@ -49,7 +63,7 @@ public class StartGameCom {
 
         }
 
-        return;
+        return winner;
 
     }
 

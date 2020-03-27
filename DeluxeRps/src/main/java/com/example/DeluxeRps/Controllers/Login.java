@@ -84,13 +84,13 @@ public class Login {
 
         }
       }
-
         //If no input
         if (validUser == null){
         Alert alert = new Alert(AlertType.NONE, " Error! Credential fields are empty", ButtonType.OK);
         alert.setTitle("Error in authentication");
         alert.show();
         }
+
     }
     //Exceptions
     catch (SQLException e) {

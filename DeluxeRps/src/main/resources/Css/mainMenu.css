@@ -1,6 +1,6 @@
 #mainMenu {
-	-fx-min-width: 300px;
-  -fx-max-width: 400px;
+	-fx-min-width: 400px;
+  -fx-max-width: 600px;
   -fx-min-height: 400px;
   -fx-max-height: 600px;
   -fx-background-color: white;
@@ -8,45 +8,30 @@
   -fx-padding: 15;
 }
 
-#header {
-	-fx-font: bold 30px "Arial";
-}
-
 #imageAlignment {
 -fx-alignment: center;
--fx-padding: 10;
 }
 
 #buttonAlignment {
 -fx-alignment: center;
--fx-padding: 2;
+
+}
+
+
+#RpsLogo {
+-fx-image: url("../Images/RpsLogo.jpg");
 }
 
 #loginButton {
-
+ -fx-image: url("../Images/loginButton.jpg");
  }
 
-Button {
-	-fx-color: #000000;
-	-fx-shape: "M 350 300 L 500 300 L 500 200 L 350 200 L 350 300";
-	-fx-background-radius: 5em;
-	-fx-font: normal bold 20px 'Arial';
-	-fx-text-fill: #FFFFFF;
-}
+ #createUserButton {
+ -fx-image: url("../Images/createUserButton.jpg");
+ }
 
-Button:hover {
-	-fx-color: #303030;
-}
+  #rulesButton {
+  -fx-image: url("../Images/RulesButton.jpg");
+  }
 
-Button:focused {
-	-fx-background-insets: 0, 0, 1, 2;
-}
-
-Button:pressed {
-	-fx-color: #545454;
-}
-
-#frontPage {
--fx-image: url("../Images/FrontPage.png");
-}
 

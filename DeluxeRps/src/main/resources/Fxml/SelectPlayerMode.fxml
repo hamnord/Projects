@@ -6,6 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.image.ImageView?>
 <VBox
     id="selectPlayer"
     styleClass="selectPlayer"
@@ -14,21 +15,14 @@
     xmlns:fx="http://javafx.com/fxml"
     fx:controller="com.example.DeluxeRps.Controllers.SelectPlayerMode" >
 
-  <Label id="header" text="SelectPLayer"/>
+  <Label id="header" text="Select PLayer Mode"/>
 
+  <VBox id="spacing">
+  </VBox>
 
  <VBox id="buttonAlignment">
-  <Button id="playvscom"
-        text="Play vs Computer"
-        focusTraversable="false"
-        onMouseClicked="#playvscomButtonClicked"/>
-</VBox>
-
-<VBox id="buttonAlignment">
-  <Button id="playvsplayer"
-        text="Play vs Player"
-        focusTraversable="false"
-        onMouseClicked="#playvsplayerButtonClicked"/>
+   <ImageView id="pvpButton" fitWidth="250" preserveRatio="true" onMouseClicked="#playvsplayerButtonClicked"/>
+   <ImageView id="pveButton" fitWidth="250" preserveRatio="true" onMouseClicked="#playvscomButtonClicked"/>
 </VBox>
 
 </VBox>

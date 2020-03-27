@@ -17,8 +17,10 @@ public class Helper {
   public static final String loginTitle = "Login!";
   public static final String mainMenuTitle = "Main Menu!";
   public static final String selectPlayerModeTitle = "Select Player!";
-  public static final String startGameTitle = "Start Game!";
-  public static final String announceWinnerTitle = "You Won!";
+  public static final String startGameComTitle = "Start Game!";
+  public static final String handWinnerTitle = "Humans Won!";
+  public static final String covidWinnerTitle = "Covid Won!";
+  public static final String paperWinnerTitle = "TP Won!";
   public static final String announceLoserTitle = "You Lost!";
   public static final String instructionsTitle = "Game rules";
 
@@ -27,8 +29,10 @@ public class Helper {
   public static final String loginFXML = "Fxml/Login.fxml";
   public static final String mainMenuFXML = "Fxml/MainMenu.fxml";
   public static final String selectPlayerModeFXML = "Fxml/SelectPlayerMode.fxml";
-  public static final String startGameFXML = "Fxml/StartGameCom.fxml";
-  public static final String announceWinnerFXML = "Fxml/AnnounceWinner.fxml";
+  public static final String startGameComFXML = "Fxml/StartGameCom.fxml";
+  public static final String covidWinnerFXML = "Fxml/CovidWinnerWindow.fxml";
+  public static final String paperWinnerFXML = "Fxml/PaperWinnerWindow.fxml";
+  public static final String handWinnerFXML = "Fxml/HandWinnerWindow.fxml";
   public static final String announceLoserFXML = "Fxml/AnnounceLoser.fxml";
   public static final String instructionsFXML = "Fxml/Instructions.fxml";
 

@@ -1,0 +1,56 @@
+#startGameCom {
+	-fx-min-width: 400px;
+  -fx-max-width: 600px;
+  -fx-min-height: 400px;
+  -fx-max-height: 600px;
+  -fx-background-color: white;
+  -fx-alignment: top-center;
+  -fx-padding: 15;
+}
+
+#header {
+	-fx-font: bold 30px "Arial";
+	-fx-alignment: center;
+	-fx-padding: 5;
+	-fx-text-fill: #673500;
+}
+
+#buttonAlignment {
+-fx-alignment: center;
+-fx-padding: 5;
+}
+
+#covidAlignment {
+-fx-alignment: center;
+-fx-padding: 5;
+}
+
+ #spacing {
+ -fx-padding: 5;
+ }
+
+
+  #covidLogo {
+     -fx-image: url("../Images/CovidLogo.jpg");
+     }
+
+      #handLogo {
+       -fx-image: url("../Images/HumanLogo.jpg");
+       }
+
+     #paperLogo {
+     -fx-image: url("../Images/PaperLogo.jpg");
+     }
+
+      #covidLogo:hover {
+       -fx-image: url("../Images/CovidHover.jpg");
+       }
+
+        #handLogo:hover {
+         -fx-image: url("../Images/HumanHover.jpg");
+         }
+
+       #paperLogo:hover {
+       -fx-image: url("../Images/PaperHover.jpg");
+       }
+

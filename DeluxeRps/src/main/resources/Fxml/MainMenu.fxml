@@ -16,33 +16,14 @@
     xmlns:fx="http://javafx.com/fxml"
     fx:controller="com.example.DeluxeRps.Controllers.MainMenu" >
 
-  <Label id="header" text="Welcome"/>
-  <Label id="header" text="To"/>
-  <Label id="header" text="RPS"/>
-
   <VBox id="imageAlignment">
-    <ImageView id="frontPage" fitWidth="240" preserveRatio="true"/>
+    <ImageView id="RpsLogo" fitWidth="300" preserveRatio="true"/>
   </VBox>
 
   <VBox id="buttonAlignment">
-    <Button id="loginButton"
-            text="Login"
-            focusTraversable="false"
-            onMouseClicked="#loginButtonClicked"/>
-  </VBox>
-
-  <VBox id="buttonAlignment">
-    <Button id="createPlayerButton"
-            text="Create Player"
-            focusTraversable="false"
-            onMouseClicked="#createPlayerButtonClicked"/>
-  </VBox>
-
-  <VBox id="buttonAlignment">
-    <Button id="instructionsButton"
-            text="Game rules"
-            focusTraversable="false"
-            onMouseClicked="#instructionsButtonClicked"/>
+    <ImageView id="loginButton" fitWidth="200" preserveRatio="true" onMouseClicked="#loginButtonClicked"/>
+    <ImageView id="createUserButton" fitWidth="200" preserveRatio="true" onMouseClicked="#createPlayerButtonClicked"/>
+    <ImageView id="rulesButton" fitWidth="200" preserveRatio="true" onMouseClicked="#instructionsButtonClicked"/>
   </VBox>
 
 </VBox>

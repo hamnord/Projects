@@ -7,13 +7,13 @@ import java.io.IOException;
 public class SelectPlayerMode {
 
   public void playvscomButtonClicked (MouseEvent mouseEvent) throws IOException {
-    Helper.replaceScene(Helper.startGameFXML, Helper.startGameTitle, mouseEvent);
+    Helper.replaceScene(Helper.startGameComFXML, Helper.startGameComTitle, mouseEvent);
   }
 
   public void playvsplayerButtonClicked (MouseEvent mouseEvent) throws IOException {
 
     //EXCEPT different scene + controller
-    Helper.replaceScene(Helper.startGameFXML, Helper.startGameTitle, mouseEvent);
+    Helper.replaceScene(Helper.startGameComFXML, Helper.startGameComTitle, mouseEvent);
   }
 
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<VBox id="covidWinner"
+      styleClass="covidWinner"
+      stylesheets="@/Css/CovidWinnerWindow.css"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.DeluxeRps.Controllers.WinnerWindow">
+
+  <Label id="header" text="COVID WON!<"/>
+
+  <VBox id="covidAlignment">
+    <ImageView id="covidLogo" fitWidth="450" preserveRatio="true" />
+    <ImageView id="backButton" fitWidth="250" preserveRatio="true" onMouseClicked="#backButtonClicked"/>
+  </VBox>
+
+  </VBox>

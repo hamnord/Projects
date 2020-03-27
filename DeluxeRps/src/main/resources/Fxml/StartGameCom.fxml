@@ -3,34 +3,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.DeluxeRps.Controllers.StartGameCom"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.image.ImageView?>
+<VBox id="startGameCom"
+      styleClass="startGameCom"
+      stylesheets="@/Css/StartGameCom.css"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.DeluxeRps.Controllers.StartGameCom">
 
-    <VBox id="buttonAlignment">
-        <Button fx:id="rock"
-                text="Rock"
-                focusTraversable="false"
-                onMouseClicked="#RockButtonClicked" />
+    <Label id="header" text="MAKE YOUR MOVE"/>
+
+    <VBox id="covidAlignment">
+        <ImageView id="covidLogo" fitWidth="250" preserveRatio="true" onMouseClicked="#covidButtonClicked"/>
     </VBox>
 
-    <VBox id="buttonAlignment">
-        <Button fx:id="paper"
-                text="Paper"
-                focusTraversable="false"
-               onMouseClicked="#PaperButtonClicked" />
+    <VBox id="spacing">
     </VBox>
 
-    <VBox id="buttonAlignment">
-        <Button fx:id="scissor"
-                text="Scissor"
-                focusTraversable="false"
-                onMouseClicked="#ScissorButtonClicked" />
-
-    </VBox>
-
-
-
+    <HBox id="buttonAlignment">
+        <ImageView id="handLogo" fitWidth="200" preserveRatio="true" onMouseClicked="#handButtonClicked"/>
+        <ImageView id="paperLogo" fitWidth="165" preserveRatio="true" onMouseClicked="#paperButtonClicked"/>
+    </HBox>
 
 </VBox>
