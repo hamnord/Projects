@@ -3,12 +3,17 @@ package com.example.DeluxeRps.Controllers;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Random;
 
 public class StartGameCom {
 
     RPS player1, player2;
     Random generator = new Random();
+
+    public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
+        Helper.exitButtonClicked(mouseEvent);
+    }
 
 
     public void covidButtonClicked (MouseEvent mouseEvent) throws IOException {

@@ -34,3 +34,8 @@
   }
 
 
+ #exitButton {
+     -fx-image: url("../Images/ExitButton.jpg");
+     }
+
+

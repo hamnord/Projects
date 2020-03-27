@@ -42,6 +42,10 @@
      -fx-image: url("../Images/PaperLogo.jpg");
      }
 
+ #exitButton {
+     -fx-image: url("../Images/ExitButton.jpg");
+     }
+
       #covidLogo:hover {
        -fx-image: url("../Images/CovidHover.jpg");
        }

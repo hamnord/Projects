@@ -23,6 +23,7 @@
  <VBox id="buttonAlignment">
    <ImageView id="pvpButton" fitWidth="250" preserveRatio="true" onMouseClicked="#playvsplayerButtonClicked"/>
    <ImageView id="pveButton" fitWidth="250" preserveRatio="true" onMouseClicked="#playvscomButtonClicked"/>
+   <ImageView id="exitButton" fitWidth="150" preserveRatio="true" onMouseClicked="#exitButtonClicked"/>
 </VBox>
 
 </VBox>

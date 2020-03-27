@@ -25,4 +25,8 @@
         <ImageView id="paperLogo" fitWidth="165" preserveRatio="true" onMouseClicked="#paperButtonClicked"/>
     </HBox>
 
+    <VBox  id="buttonAlignment">
+        <ImageView id="exitButton" fitWidth="150" preserveRatio="true" onMouseClicked="#exitButtonClicked"/>
+    </VBox>
+
 </VBox>

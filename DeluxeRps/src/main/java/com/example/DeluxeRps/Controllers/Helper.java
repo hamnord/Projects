@@ -1,5 +1,6 @@
 package com.example.DeluxeRps.Controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -7,8 +8,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
 
+import javax.tools.ForwardingJavaFileManager;
+import javax.tools.JavaFileManager;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Helper {
 
@@ -36,11 +43,17 @@ public class Helper {
   public static final String announceLoserFXML = "Fxml/AnnounceLoser.fxml";
   public static final String instructionsFXML = "Fxml/Instructions.fxml";
 
-  public static URL getRes(String fileName){
+  public static int userid;
+  static String username;
+
+
+  static Connection con;
+
+  public static URL getRes(String fileName) {
     return Thread.currentThread().getContextClassLoader().getResource(fileName);
   }
 
-  public static FXMLLoader getLoader(String fxmlpath){
+  public static FXMLLoader getLoader(String fxmlpath) {
     return new FXMLLoader(getRes(fxmlpath));
   }
 
@@ -54,13 +67,52 @@ public class Helper {
     Parent root = loader.load();
     Scene scene = new Scene(root);
 
-      stage.setScene(scene);
-      stage.setTitle(windowTitle);
-      stage.show();
-      stage.toFront();
+    stage.setScene(scene);
+    stage.setTitle(windowTitle);
+    stage.show();
+    stage.toFront();
 
   }
 
+   static void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
 
+    try {
 
+     ResultSet user = Login.checkUser(username);
+      user.next();
+
+        int userid = user.getInt("userid");
+
+        logOut(userid);
+        System.out.println("exiting1 user id removed");
+        removeToken(userid);
+        System.out.println("exiting2 token removed");
+        System.exit(0);
+        Platform.exit();
+
+    }catch (Exception e){
+      e.printStackTrace();
+    }
+  }
+
+  public static void removeToken(int userid) throws SQLException {
+
+    PreparedStatement removeTokenStmnt = con.prepareStatement("DELETE FROM gamedb.tokens VALUES (?)");
+    removeTokenStmnt.setInt(1, userid);
+    removeTokenStmnt.executeUpdate();
+    con.commit();
+
+  }
+
+  public static void logOut(int userid) throws SQLException {
+
+    PreparedStatement logout = con.prepareStatement("DELETE FROM gamedb.logedinusers VALUES (?)");
+    logout.setInt(1, userid);
+    logout.executeUpdate();
+    con.commit();
+
+    con.close();
+    logout.close();
+
+  }
 }

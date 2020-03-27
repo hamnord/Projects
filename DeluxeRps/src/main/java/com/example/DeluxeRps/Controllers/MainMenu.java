@@ -3,6 +3,7 @@ package com.example.DeluxeRps.Controllers;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class MainMenu{
 
@@ -16,6 +17,10 @@ public class MainMenu{
 
   public void instructionsButtonClicked (MouseEvent mouseEvent) throws IOException {
     Helper.replaceScene(Helper.instructionsFXML, Helper.instructionsTitle, mouseEvent);
+  }
+
+  public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
+    Helper.exitButtonClicked(mouseEvent);
   }
 
 }
