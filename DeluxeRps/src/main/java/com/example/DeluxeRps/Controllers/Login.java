@@ -1,6 +1,7 @@
 package com.example.DeluxeRps.Controllers;
 
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -161,23 +162,17 @@ public class Login {
 
   }
 
+  //TODO implement so it remove token and logged in users
+// exit button
+  static void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
 
-  /* private void closeButtonClicked(String token, int userid) throws SQLException {
-
-    Stage stage = (Stage) .getScene().getWindow();
-    stage.setOnCloseRequest(event -> {
-
-      try {
-        logOut(userid);
+    /*   logOut(userid);
         removeToken(token,userid);
-        con.close();
+        con.close();*/
+    System.out.println("exiting fucking program");
         System.exit(0);
+    Platform.exit();
 
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
-
-  });
-  } */
+  }
 
 }
