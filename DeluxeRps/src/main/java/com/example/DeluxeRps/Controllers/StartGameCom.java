@@ -12,7 +12,7 @@ public class StartGameCom {
     Random generator = new Random();
 
     public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
-        Helper.exitButtonClicked(mouseEvent);
+        Login.exitButtonClicked(mouseEvent);
     }
 
 

@@ -18,7 +18,7 @@ public class SelectPlayerMode {
   }
 
   public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
-    Helper.exitButtonClicked(mouseEvent);
+    Login.exitButtonClicked(mouseEvent);
   }
 
 }
