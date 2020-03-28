@@ -29,7 +29,9 @@ public class Login {
   PreparedStatement logIn, logout, loginStmt, tokenStmt, removeTokenStmnt;
   static String username;
   private String password;
+  static int userid;
   Connection con;
+ static Connection connection;
 
 
   //FXML-Objects
@@ -71,7 +73,7 @@ public class Login {
 
           logedIn(userid);
           String token = generateToken();
-          insertToken(token, userid);
+          insertToken(token);
 
           Helper.replaceScene(Helper.selectPlayerModeFXML, Helper.selectPlayerModeTitle, mouseEvent);
 
@@ -128,21 +130,21 @@ public class Login {
   }
 
   //NOT IN USE CURRENTLY BUT SHOULD BE CALLED WHEN SYSTEM.EXIT(0)
-  public void logOut (int userid) throws SQLException {
+  public static void logOut() throws SQLException {
 
-      logout = con.prepareStatement("DELETE FROM gamedb.logedinusers VALUES (?)");
+    connection = ConDB.getConnection();
+    connection.setAutoCommit(false);
+
+    PreparedStatement logout = connection.prepareStatement("DELETE FROM gamedb.logedinusers WHERE \"userid\" = ?; ");
       logout.setInt(1, userid);
       logout.executeUpdate();
-      con.commit();
-
-      con.close();
-      logout.close();
+      connection.commit();
 
     }
 
 
   //WORKSSSSSS, NOT SURE HOW TO SET VALUE AND HOW TO MAKE TOKENS GO AWAY
-  public void insertToken (String token, int userid) throws SQLException{
+  public void insertToken (String token) throws SQLException{
 
       tokenStmt = con.prepareStatement("INSERT INTO gamedb.tokens VALUES (?, ?, ?)");
       tokenStmt.setString(1, token);
@@ -153,12 +155,15 @@ public class Login {
 
   }
 
-  public void removeToken (int userid) throws SQLException {
+  public static void removeToken() throws SQLException {
 
-      removeTokenStmnt = con.prepareStatement("DELETE FROM gamedb.tokens VALUES (?)");
+    connection = ConDB.getConnection();
+    connection.setAutoCommit(false);
+
+    PreparedStatement removeTokenStmnt = connection.prepareStatement("DELETE FROM gamedb.tokens WHERE \"userid\" = ?;");
       removeTokenStmnt.setInt(1, userid);
       removeTokenStmnt.executeUpdate();
-      con.commit();
+      connection.commit();
 
   }
 
@@ -166,13 +171,15 @@ public class Login {
 // exit button
   static void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
 
-    /*   logOut(userid);
-        removeToken(token,userid);
-        con.close();*/
-    System.out.println("exiting fucking program");
-        System.exit(0);
-    Platform.exit();
-
+    try {
+      logOut();
+      removeToken();
+      System.out.println("exiting fucking program");
+      System.exit(0);
+      Platform.exit();
+    } catch (Exception e){
+      e.printStackTrace();
+    }
   }
 
 }
