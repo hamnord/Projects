@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<VBox id="addFriend"
+      styleClass="covidResult"
+      stylesheets="@/Css/Login.css"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.DeluxeRps.Controllers.AddFriend">
+
+    <Label id="header" text="Login"/>
+
+    <VBox id="inputAlignment">
+        <TextField fx:id="addFriend"
+                   promptText="Enter UserName"
+                   focusTraversable="false"/>
+    </VBox>
+
+    <VBox id="buttonAlignment">
+    <ImageView id="confirmButton" fitWidth="250" preserveRatio="true" onMouseClicked="#confirmButtonClicked"/>
+    <ImageView id="backButton" fitWidth="150" preserveRatio="true" onMouseClicked="#backButtonClicked"/>
+    </VBox>
+
+
+
+</VBox>

@@ -1,6 +1,8 @@
 package com.example.DeluxeRps.Controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
@@ -15,7 +17,9 @@ public class AddFriend {
 
     Connection con;
     PreparedStatement checkFriendStmt, addFriendStmt;
-    String username;
+    String usernameFriend, username;
+    int userInt, userFriendInt;
+
 
     @FXML
     private TextField addFriend;
@@ -23,17 +27,41 @@ public class AddFriend {
 
     public void confirmButtonClicked(MouseEvent mouseEvent) throws IOException, SQLException, NoSuchAlgorithmException {
 
+
             con = ConDB.getConnection();
-            username = addFriend.getText();
+            username = Login.username;
+            usernameFriend = addFriend.getText();
 
-            checkUserId(username);
+            if(checkUserId(usernameFriend).next()){
 
+               ResultSet a = checkUserId(username);
+               ResultSet b = checkUserId(usernameFriend);
+               userInt = a.getInt("userid");
+               userFriendInt = b.getInt("userid");
+
+               addFriend(userInt, userFriendInt);
+
+            }
+            else {
+
+                Alert alert = new Alert(Alert.AlertType.NONE, "Error! this user don't exists", ButtonType.OK);
+                alert.setTitle("Error in adding friend");
+                alert.show();
+
+            }
 
 
     }
 
+    public void backButtonClicked(MouseEvent mouseEvent) throws IOException {
+        Helper.replaceScene(Helper.mainMenuFXML, Helper.mainMenuTitle, mouseEvent);
+    }
+
+
+
+
     //PREPARED STATEMENTS
-    public ResultSet checkUserId(String username) throws SQLException{
+    private ResultSet checkUserId(String username) throws SQLException{
 
         checkFriendStmt = con.prepareStatement("SELECT * FROM gamedb.users where username = ?");
         checkFriendStmt.setString(1, username);
@@ -44,6 +72,17 @@ public class AddFriend {
 
 
     }
+
+    private void addFriend(int user, int friend) throws SQLException{
+
+        addFriendStmt = con.prepareStatement("INSERT INTO gamedb.friendslist VALUES (?, ?)");
+        addFriendStmt.setInt(1, user);
+        addFriendStmt.setInt(2, friend);
+        addFriendStmt.executeUpdate();
+        con.commit();
+
+    }
+
 
 
 
