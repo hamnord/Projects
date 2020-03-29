@@ -21,7 +21,6 @@ public class StartGamePlayer{
 
 
 
-
     //BUTTONS NOT MADE IN FXML YET
     public void RockButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
         con = ConDB.getConnection();
@@ -47,7 +46,7 @@ public class StartGamePlayer{
 
 
     //Koblas till vyer
-    public void gameResult() throws SQLException {
+    private void gameResult() throws SQLException {
 
         getPlayer2();
 
@@ -67,7 +66,7 @@ public class StartGamePlayer{
 
         }
 
-        return;
+
 
     }
 
@@ -75,7 +74,7 @@ public class StartGamePlayer{
 
 
     //player2-choices if computer
-    public void getPlayer2() throws SQLException {
+    private void getPlayer2() throws SQLException {
 
         int playerMove = getMove(getUserId(username));
 
@@ -127,7 +126,7 @@ public class StartGamePlayer{
 
     //THESE ARE NOT DONE WHAT SO EVER, NEED TO ADJUST DB AND STUFF
 
-    public int getUserId(String username) throws SQLException{
+    private int getUserId(String username) throws SQLException{
 
        getUserId = con.prepareStatement("SELECT * FROM gamedb.users WHERE username = ?");
        getUserId.setString(1, username);
@@ -137,7 +136,7 @@ public class StartGamePlayer{
 
     }
 
-    public int getMove(int userid) throws SQLException{
+    private int getMove(int userid) throws SQLException{
 
         getMove = con.prepareStatement("SELECT * FROM gamedb(speltabell) WHERE userid = ?");
         getMove.setInt(1, userid);
@@ -147,7 +146,7 @@ public class StartGamePlayer{
 
     }
 
-    public void sendMove(int move) throws SQLException {
+    private void sendMove(int move) throws SQLException {
 
         sendMove = con.prepareStatement("INSERT INTO gamedb(speltabell) VALUES (?)");
         sendMove.setInt(1, move);
