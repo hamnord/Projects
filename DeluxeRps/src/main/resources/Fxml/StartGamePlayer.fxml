@@ -2,10 +2,31 @@
 
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx"
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<VBox id="startGamePlayer"
+      styleClass="startGamePlayer"
+      stylesheets="@/Css/StartGamePlayer.css"
+      xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.DeluxeRps.Controllers.StartGamePlayer"
-      prefHeight="400.0" prefWidth="600.0">
+      fx:controller="com.example.DeluxeRps.Controllers.StartGamePlayer">
 
+    <Label id="header" text="MAKE YOUR MOVE"/>
 
-</VBox>
+    <VBox id="covidAlignment">
+      <ImageView id="covidLogo" fitWidth="250" preserveRatio="true" onMouseClicked="#covidButtonClicked"/>
+    </VBox>
+
+    <VBox id="spacing">
+    </VBox>
+
+    <HBox id="buttonAlignment">
+      <ImageView id="handLogo" fitWidth="200" preserveRatio="true" onMouseClicked="#handButtonClicked"/>
+      <ImageView id="paperLogo" fitWidth="165" preserveRatio="true" onMouseClicked="#paperButtonClicked"/>
+    </HBox>
+
+    <VBox  id="buttonAlignment">
+      <ImageView id="exitButton" fitWidth="150" preserveRatio="true" onMouseClicked="#exitButtonClicked"/>
+    </VBox>
+
+  </VBox>

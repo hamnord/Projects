@@ -1,4 +1,4 @@
-#selectPlayer {
+#paperResult {
 	-fx-min-width: 600px;
   -fx-max-width: 800px;
   -fx-min-height: 600px;
@@ -8,6 +8,11 @@
   -fx-padding: 15;
 }
 
+#paperAlignment {
+-fx-alignment: center;
+-fx-padding: 5;
+}
+
 #header {
 	-fx-font: bold 30px "Arial";
 	-fx-alignment: center;
@@ -15,27 +20,23 @@
 	-fx-text-fill: #673500;
 }
 
-#buttonAlignment {
--fx-alignment: center;
-}
-
-
- #spacing {
- -fx-padding: 15;
- }
-
-
-  #pveButton {
-  -fx-image: url("../Images/pveButton.jpg");
+ #paperWinner {
+  -fx-image: url("../Images/paperWon.jpg");
   }
 
-  #pvpButton {
-  -fx-image: url("../Images/pvpButton.jpg");
-  }
+   #paperLost {
+    -fx-image: url("../Images/HandWon.jpg");
+    }
 
+    #paperTIE {
+     -fx-image: url("../Images/PaperTIE.jpg");
+     }
+
+
+  #backButton {
+  -fx-image: url("../Images/BackButton.jpg");
+  }
 
  #exitButton {
      -fx-image: url("../Images/ExitButton.jpg");
      }
-
-

@@ -5,22 +5,23 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Text?>
+
 <?import javafx.scene.image.ImageView?>
 
-<VBox
-    id="instructions"
-    styleClass="instructions"
-    stylesheets="@/Css/Instructions.css"
-    xmlns="http://javafx.com/javafx"
-    xmlns:fx="http://javafx.com/fxml"
-    fx:controller="com.example.DeluxeRps.Controllers.Instructions" >
+<VBox id="paperResult"
+      styleClass="paperResult"
+      stylesheets="@/Css/PaperResultWindow.css"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.DeluxeRps.Controllers.ResultWindow">
 
-  <VBox id="imageAlignment">
-    <ImageView id="rulesLogo" fitWidth="300" preserveRatio="true"/>
+  <Label id="header" text="IT'S A TIE!"/>
+
+
+  <VBox id="paperAlignment">
+    <ImageView id="paperTIE" fitWidth="425" preserveRatio="true" />
     <ImageView id="backButton" fitWidth="200" preserveRatio="true" onMouseClicked="#backButtonClicked"/>
     <ImageView id="exitButton" fitWidth="200" preserveRatio="true" onMouseClicked="#exitButtonClicked"/>
   </VBox>
 
-
-</VBox>
+  </VBox>

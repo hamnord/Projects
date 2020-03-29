@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 
 import javax.tools.ForwardingJavaFileManager;
 import javax.tools.JavaFileManager;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -25,10 +26,18 @@ public class Helper {
   public static final String mainMenuTitle = "Main Menu!";
   public static final String selectPlayerModeTitle = "Select Player!";
   public static final String startGameComTitle = "Start Game!";
-  public static final String handWinnerTitle = "Humans Won!";
-  public static final String covidWinnerTitle = "Covid Won!";
+  public static final String startGamePlayerTitle = "Start Game!";
+
+  public static final String handWinnerTitle = "HAND Won!";
+  public static final String handLoserTitle = "HAND Won!";
+  public static final String handTIETitle = "TIE!";
+  public static final String covidWinnerTitle = "COVID Won!";
+  public static final String covidLoserTitle = "COVID LOST!";
+  public static final String covidTIETitle = "TIE!";
   public static final String paperWinnerTitle = "TP Won!";
-  public static final String announceLoserTitle = "You Lost!";
+  public static final String paperLoserTitle = "TP LOST!";
+  public static final String paperTIETitle = "TIE!";
+
   public static final String instructionsTitle = "Game rules";
 
   //FXML
@@ -37,10 +46,18 @@ public class Helper {
   public static final String mainMenuFXML = "Fxml/MainMenu.fxml";
   public static final String selectPlayerModeFXML = "Fxml/SelectPlayerMode.fxml";
   public static final String startGameComFXML = "Fxml/StartGameCom.fxml";
+  public static final String startGamePlayerFXML = "Fxml/StartGamePlayer.fxml";
+
   public static final String covidWinnerFXML = "Fxml/CovidWinnerWindow.fxml";
+  public static final String covidLoserFXML = "Fxml/CovidLoserWindow.fxml";
+  public static final String covidTIEFXML = "Fxml/CovidTIEWindow.fxml";
   public static final String paperWinnerFXML = "Fxml/PaperWinnerWindow.fxml";
+  public static final String paperLoserFXML = "Fxml/PaperLoserWindow.fxml";
+  public static final String paperTIEFXML = "Fxml/PaperTIEWindow.fxml";
   public static final String handWinnerFXML = "Fxml/HandWinnerWindow.fxml";
-  public static final String announceLoserFXML = "Fxml/AnnounceLoser.fxml";
+  public static final String handLoserFXML = "Fxml/HandLoserWindow.fxml";
+  public static final String handTIEFXML = "Fxml/HandTIEWindow.fxml";
+
   public static final String instructionsFXML = "Fxml/Instructions.fxml";
 
   public static URL getRes(String fileName) {

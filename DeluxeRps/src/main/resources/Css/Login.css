@@ -1,8 +1,8 @@
 #login {
-	-fx-min-width: 400px;
-  -fx-max-width: 600px;
-  -fx-min-height: 400px;
-  -fx-max-height: 600px;
+	-fx-min-width: 600px;
+  -fx-max-width: 800px;
+  -fx-min-height: 600px;
+  -fx-max-height: 800px;
   -fx-background-color: white;
   -fx-alignment: top-center;
   -fx-padding: 15;
@@ -71,4 +71,8 @@ TextField:focused {
   #backButton {
   -fx-image: url("../Images/BackButton.jpg");
   }
+
+   #exitButton {
+       -fx-image: url("../Images/ExitButton.jpg");
+       }
 

@@ -1,8 +1,8 @@
 #instructions {
-	-fx-min-width: 400px;
-  -fx-max-width: 600px;
-  -fx-min-height: 400px;
-  -fx-max-height: 600px;
+	-fx-min-width: 500px;
+  -fx-max-width: 700px;
+  -fx-min-height: 500px;
+  -fx-max-height: 700px;
   -fx-background-color: white;
   -fx-alignment: top-center;
   -fx-padding: 15;
@@ -19,3 +19,8 @@
   #backButton {
   -fx-image: url("../Images/BackButton.jpg");
   }
+
+   #exitButton {
+         -fx-image: url("../Images/ExitButton.jpg");
+         }
+

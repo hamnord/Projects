@@ -7,18 +7,19 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.image.ImageView?>
-<VBox id="covidResult"
-      styleClass="covidResult"
-      stylesheets="@/Css/CovidResultWindow.css"
+
+<VBox id="paperResult"
+      styleClass="paperResult"
+      stylesheets="@/Css/PaperResultWindow.css"
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.DeluxeRps.Controllers.ResultWindow">
 
-  <Label id="header" text="YOU WON!"/>
-  <Label id="header" text="COVID BEATS HAND!"/>
+  <Label id="header" text="YOU LOST!"/>
+  <Label id="header" text="HAND BEATS PAPER!"/>
 
-  <VBox id="covidAlignment">
-    <ImageView id="covidWinner" fitWidth="425" preserveRatio="true" />
+  <VBox id="paperAlignment">
+    <ImageView id="paperLost" fitWidth="425" preserveRatio="true" />
     <ImageView id="backButton" fitWidth="200" preserveRatio="true" onMouseClicked="#backButtonClicked"/>
     <ImageView id="exitButton" fitWidth="200" preserveRatio="true" onMouseClicked="#exitButtonClicked"/>
   </VBox>

@@ -37,20 +37,6 @@ public class Main extends Application {
     mainMenu.show();
     mainMenu.toFront();
 
-  /*  mainMenu.setOnCloseRequest(e -> {
-
-      try {
-        ResultSet user = Login.checkUser(username);
-        Login.removeToken(userid);
-        Login.logOut(userid);
-        System.out.println("Everything closed");
-
-      } catch (SQLException ex) {
-        ex.printStackTrace();
-      }
-    });*/
-
-
     }
 }
 

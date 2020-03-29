@@ -12,9 +12,7 @@ public class SelectPlayerMode {
   }
 
   public void playvsplayerButtonClicked (MouseEvent mouseEvent) throws IOException {
-
-    //EXCEPT different scene + controller
-    Helper.replaceScene(Helper.startGameComFXML, Helper.startGameComTitle, mouseEvent);
+    Helper.replaceScene(Helper.startGamePlayerFXML, Helper.startGamePlayerTitle, mouseEvent);
   }
 
   public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {

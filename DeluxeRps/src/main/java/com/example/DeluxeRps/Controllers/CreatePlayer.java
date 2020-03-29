@@ -167,4 +167,7 @@ public class CreatePlayer {
 
   }
 
+  public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
+    Login.exitButtonClicked(mouseEvent);
+  }
 }

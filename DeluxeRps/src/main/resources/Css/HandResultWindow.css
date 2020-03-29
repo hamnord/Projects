@@ -1,4 +1,4 @@
-#selectPlayer {
+#handResult {
 	-fx-min-width: 600px;
   -fx-max-width: 800px;
   -fx-min-height: 600px;
@@ -8,6 +8,11 @@
   -fx-padding: 15;
 }
 
+#handAlignment {
+-fx-alignment: center;
+-fx-padding: 5;
+}
+
 #header {
 	-fx-font: bold 30px "Arial";
 	-fx-alignment: center;
@@ -15,27 +20,22 @@
 	-fx-text-fill: #673500;
 }
 
-#buttonAlignment {
--fx-alignment: center;
-}
-
-
- #spacing {
- -fx-padding: 15;
- }
-
-
-  #pveButton {
-  -fx-image: url("../Images/pveButton.jpg");
+ #handWinner {
+  -fx-image: url("../Images/HandWon.jpg");
   }
 
-  #pvpButton {
-  -fx-image: url("../Images/pvpButton.jpg");
-  }
+   #handLost {
+    -fx-image: url("../Images/CovidWon.jpg");
+    }
 
+       #handTIE {
+        -fx-image: url("../Images/HandTIE.jpg");
+        }
+
+  #backButton {
+  -fx-image: url("../Images/BackButton.jpg");
+  }
 
  #exitButton {
      -fx-image: url("../Images/ExitButton.jpg");
      }
-
-

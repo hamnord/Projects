@@ -156,6 +156,8 @@ public class StartGamePlayer{
 
     }
 
-
+    public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
+        Login.exitButtonClicked(mouseEvent);
+    }
 
 }

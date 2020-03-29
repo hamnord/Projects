@@ -61,7 +61,7 @@ public class Login {
     //Check for user in DB
     try {
 
-      ResultSet validUser = checkUser(username);
+      ResultSet validUser = checkUser();
 
       while(validUser.next()){
 
@@ -69,9 +69,9 @@ public class Login {
         if (BCrypt.checkpw(password, validUser.getString("password"))){
 
           System.out.println("Authentication successful");
-          int userid = validUser.getInt("userid");
+          userid = validUser.getInt("userid");
 
-          logedIn(userid);
+          logedIn();
           String token = generateToken();
           insertToken(token);
 
@@ -108,21 +108,20 @@ public class Login {
 
 
   //SQL-STATEMENTS:
-  public ResultSet checkUser(String username) throws SQLException{
+  public ResultSet checkUser() throws SQLException{
 
     loginStmt = con.prepareStatement("SELECT * FROM gamedb.users WHERE username = ?");
     loginStmt.setString(1, username);
-    ResultSet validUser = loginStmt.executeQuery();
-    return validUser;
+    return loginStmt.executeQuery();
 
   }
 
 
   // WORKS
-  public void logedIn (int userid) throws SQLException {
+  public void logedIn () throws SQLException {
 
-    logIn = con.prepareStatement("INSERT INTO gamedb.logedinusers VALUES (?, ?)");
-    logIn.setInt(1, userid);
+    logIn = con.prepareStatement("INSERT INTO gamedb.logedinusers VALUES (?,?)");
+    logIn.setInt(1,userid);
     logIn.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
     logIn.executeUpdate();
     con.commit();
@@ -146,7 +145,7 @@ public class Login {
   //WORKSSSSSS, NOT SURE HOW TO SET VALUE AND HOW TO MAKE TOKENS GO AWAY
   public void insertToken (String token) throws SQLException{
 
-      tokenStmt = con.prepareStatement("INSERT INTO gamedb.tokens VALUES (?, ?, ?)");
+      tokenStmt = con.prepareStatement("INSERT INTO gamedb.tokens VALUES (?, ?, ?);");
       tokenStmt.setString(1, token);
       tokenStmt.setInt(2, userid);
       tokenStmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
@@ -167,7 +166,6 @@ public class Login {
 
   }
 
-  //TODO implement so it remove token and logged in users
 // exit button
   static void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
 
@@ -182,4 +180,7 @@ public class Login {
     }
   }
 
+  public void closeButtonClicked(MouseEvent mouseEvent) throws SQLException {
+    exitButtonClicked(mouseEvent);
+  }
 }

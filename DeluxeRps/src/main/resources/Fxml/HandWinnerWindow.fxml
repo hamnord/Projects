@@ -6,9 +6,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Fxml.HandWinnerWindow"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.image.ImageView?>
+<VBox id="handResult"
+      styleClass="handResult"
+      stylesheets="@/Css/HandResultWindow.css"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.DeluxeRps.Controllers.ResultWindow">
 
-</AnchorPane>
+  <Label id="header" text="YOU WON!"/>
+  <Label id="header" text="HAND BEATS PAPER"/>
+
+  <VBox id="handAlignment">
+    <ImageView id="handWinner" fitWidth="425" preserveRatio="true" />
+    <ImageView id="backButton" fitWidth="200" preserveRatio="true" onMouseClicked="#backButtonClicked"/>
+    <ImageView id="exitButton" fitWidth="200" preserveRatio="true" onMouseClicked="#exitButtonClicked"/>
+  </VBox>
+
+</VBox>
