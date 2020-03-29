@@ -7,11 +7,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+
 
 public class AddFriend {
 
@@ -25,7 +26,7 @@ public class AddFriend {
     private TextField addFriend;
 
 
-    public void confirmButtonClicked(MouseEvent mouseEvent) throws IOException, SQLException, NoSuchAlgorithmException {
+    public void confirmButtonClicked(MouseEvent mouseEvent) throws SQLException {
 
 
             con = ConDB.getConnection();
