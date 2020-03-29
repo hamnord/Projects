@@ -8,71 +8,71 @@
   -fx-padding: 15;
 }
 
+TextField {
+-fx-background-color: #fce7c0;
+	-fx-shape: "M 350 300 L 500 300 L 500 200 L 350 200 L 350 300";
+	-fx-background-radius: 5em;
+	-fx-font: normal bold 18px 'Arial';
+	-fx-text-fill: #673500;
+	-fx-border-color: black;
+	-fx-border-width: 5;
+}
+
+PasswordField {
+-fx-background-color: #fce7c0;
+	-fx-shape: "M 350 300 L 500 300 L 500 200 L 350 200 L 350 300";
+	-fx-background-radius: 5em;
+	-fx-font: normal bold 18px 'Arial';
+	-fx-text-fill: #673500;
+	-fx-border-color: black;
+	-fx-border-width: 5;
+	-fx-border-radius: 4px;
+
+}
+
 #header {
 	-fx-font: bold 30px "Arial";
 	-fx-alignment: center;
 	-fx-padding: 5;
-}
-
-#profilePictureAlignment {
--fx-alignment: center;
--fx-padding: 2;
-}
-
-#inputAlignment {
--fx-alignment: center;
--fx-padding: 2;
-}
-
-Button {
-	-fx-color: #000000;
-	-fx-shape: "M 350 300 L 500 300 L 500 200 L 350 200 L 350 300";
-	-fx-background-radius: 5em;
-	-fx-font: normal bold 20px 'Arial';
-	-fx-text-fill: #FFFFFF;
-}
-
-Button:hover {
-	-fx-color: #303030;
-}
-
-Button:focused {
-	-fx-background-insets: 0, 0, 1, 2;
-}
-
-Button:pressed {
-	-fx-color: #545454;
-}
-
-PasswordField {
--fx-background-color: #303030;
-	-fx-shape: "M 350 300 L 500 300 L 500 200 L 350 200 L 350 300";
-	-fx-background-radius: 5em;
-	-fx-font: normal bold 14px 'Arial';
-	-fx-text-fill: #545454;
+	-fx-text-fill: #673500;
 }
 
 PasswordField:focused {
 	-fx-background-insets: 0, 0, 1, 2;
+	-fx-background-color: #fbd793;
 	}
-
-
-TextField {
--fx-background-color: #303030;
-	-fx-shape: "M 350 300 L 500 300 L 500 200 L 350 200 L 350 300";
-	-fx-background-radius: 5em;
-	-fx-font: normal bold 14px 'Arial';
-	-fx-text-fill: #545454;
-}
 
 
 TextField:focused {
 	-fx-background-insets: 0, 0, 1, 2;
+	-fx-background-color: #fbd793;
 }
 
 
-#profilePicture {
--fx-image: url("../Images/praisetheham.jpg");
-}
+#inputAlignment {
+ -fx-alignment: center;
+ -fx-padding: 5;
+ }
 
+ #buttonAlignment {
+ -fx-padding: 5;
+ -fx-alignment: center;
+ }
+
+ #spacing {
+ -fx-padding: 15;
+ }
+
+
+  #confirmButton {
+  -fx-image: url("../Images/ConfirmButton.jpg");
+  }
+
+  #backButton {
+  -fx-image: url("../Images/BackButton.jpg");
+  }
+
+   #exitButton {
+       -fx-image: url("../Images/ExitButton.jpg");
+       }
 

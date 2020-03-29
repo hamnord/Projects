@@ -19,16 +19,7 @@
       fx:controller="com.example.DeluxeRps.Controllers.CreatePlayer">
 
   <VBox id="header">
-    <Label id="header" text=" Create your player"/>
-  </VBox>
-
-  <VBox id="profilePictureAlignment">
-    <ImageView id="profilePicture" fitWidth="125" preserveRatio="true" onMouseClicked="#addProfilePicture" />
-
-    <Button id="profileButton"
-            text="Add profile picture"
-            focusTraversable="false"
-            onMouseClicked="#addProfilePicture"/>
+    <Label id="header" text=" CREATE USER"/>
   </VBox>
 
   <VBox id="inputAlignment">
@@ -53,18 +44,11 @@
             focusTraversable="false"/>
   </VBox>
 
-  <VBox id="inputAlignment">
-    <Button fx:id="confirmButton"
-               text="Confirm"
-               focusTraversable="false" onMouseClicked="#confirmButtonClicked"/>
+  <VBox id="buttonAlignment">
+    <ImageView id="confirmButton" fitWidth="250" preserveRatio="true" onMouseClicked="#confirmButtonClicked"/>
+    <ImageView id="backButton" fitWidth="150" preserveRatio="true" onMouseClicked="#backButtonClicked"/>
+    <ImageView id="exitButton" fitWidth="150" preserveRatio="true" onMouseClicked="#exitButtonClicked"/>
   </VBox>
-
-  <VBox id="inputAlignment">
-    <Button id="Back Button"
-            text="Back Button"
-            focusTraversable="false" onMouseClicked="#backButtonClicked"/>
-  </VBox>
-
 
 
 </VBox>
