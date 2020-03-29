@@ -27,7 +27,11 @@ public class Helper {
   public static final String selectPlayerModeTitle = "Select Player!";
   public static final String startGameComTitle = "Start Game!";
   public static final String startGamePlayerTitle = "Start Game!";
+  public static final String pvpMenuTitle = "PVP MENU!";
+  public static final String addFriendTitle = "ADD A FRIEND!";
+  public static final String inviteFriendTitle = "INVITE A FRIEND!";
 
+  //RESULT TITLES
   public static final String handWinnerTitle = "HAND Won!";
   public static final String handLoserTitle = "HAND Won!";
   public static final String handTIETitle = "TIE!";
@@ -47,7 +51,12 @@ public class Helper {
   public static final String selectPlayerModeFXML = "Fxml/SelectPlayerMode.fxml";
   public static final String startGameComFXML = "Fxml/StartGameCom.fxml";
   public static final String startGamePlayerFXML = "Fxml/StartGamePlayer.fxml";
+  public static final String pvpMenuFXML = "Fxml/PVPMenu.fxml";
+  public static final String addFriendFXML = "Fxml/AddFriendWindow.fxml";
+  public static final String inviteFriendFXML = "Fxml/InviteFriendWindow.fxml";
 
+
+  //RESULT FXML WINDOWS
   public static final String covidWinnerFXML = "Fxml/CovidWinnerWindow.fxml";
   public static final String covidLoserFXML = "Fxml/CovidLoserWindow.fxml";
   public static final String covidTIEFXML = "Fxml/CovidTIEWindow.fxml";

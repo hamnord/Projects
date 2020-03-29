@@ -1,6 +1,8 @@
 package com.example.DeluxeRps.Controllers;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.MouseEvent;
 
 import java.awt.*;
@@ -17,16 +19,20 @@ public class InviteFriend {
   static String username = Login.username;
   static int userid, useridplayer1,useridplayer2;
   static String matchstatus;
+  ObservableList availableFriends;
 
 
   //FXML-Objects
-  TextField friend;
+  @FXML
+   private ChoiceBox<String> pickFriendFromList;
 
 
 
 
   //TODO implement GameRequest with friend
   public void inviteFriendButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
+
+    availableFriends = pickFriendFromList.getItems();
 
     con = ConDB.getConnection();
 
@@ -65,6 +71,14 @@ public class InviteFriend {
 
   }
 
+  public void startGameButtonClicked (MouseEvent mouseEvent) throws IOException {
+    Helper.replaceScene(Helper.startGamePlayerFXML, Helper.startGamePlayerTitle, mouseEvent);
+  }
+
+
+  public void backButtonClicked(MouseEvent mouseEvent) throws IOException {
+    Helper.replaceScene(Helper.pvpMenuFXML, Helper.pvpMenuTitle, mouseEvent);
+  }
 
   public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
     Login.exitButtonClicked(mouseEvent);

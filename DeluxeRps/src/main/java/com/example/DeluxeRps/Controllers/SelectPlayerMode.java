@@ -12,7 +12,7 @@ public class SelectPlayerMode {
   }
 
   public void playvsplayerButtonClicked (MouseEvent mouseEvent) throws IOException {
-    Helper.replaceScene(Helper.startGamePlayerFXML, Helper.startGamePlayerTitle, mouseEvent);
+    Helper.replaceScene(Helper.pvpMenuFXML, Helper.pvpMenuTitle, mouseEvent);
   }
 
   public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {

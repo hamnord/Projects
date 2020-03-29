@@ -8,16 +8,16 @@
 
 <?import javafx.scene.image.ImageView?>
 <VBox id="addFriend"
-      styleClass="covidResult"
-      stylesheets="@/Css/Login.css"
+      styleClass="addFriend"
+      stylesheets="@/Css/AddFriendWindow.css"
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.DeluxeRps.Controllers.AddFriend">
 
-    <Label id="header" text="Login"/>
+    <Label id="header" text="ADD A FRIEND!"/>
 
     <VBox id="inputAlignment">
-        <TextField fx:id="addFriend"
+        <TextField fx:id="addFriendToList"
                    promptText="Enter UserName"
                    focusTraversable="false"/>
     </VBox>
@@ -25,6 +25,8 @@
     <VBox id="buttonAlignment">
     <ImageView id="confirmButton" fitWidth="250" preserveRatio="true" onMouseClicked="#confirmButtonClicked"/>
     <ImageView id="backButton" fitWidth="150" preserveRatio="true" onMouseClicked="#backButtonClicked"/>
+      <ImageView id="exitButton" fitWidth="150" preserveRatio="true" onMouseClicked="#exitButtonClicked"/>
+
     </VBox>
 
 

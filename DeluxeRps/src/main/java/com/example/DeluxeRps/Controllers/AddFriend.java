@@ -23,21 +23,23 @@ public class AddFriend {
 
 
     @FXML
-    private TextField addFriend;
+    private TextField addFriendToList;
 
 
     public void confirmButtonClicked(MouseEvent mouseEvent) throws SQLException {
 
 
             con = ConDB.getConnection();
+            con.setAutoCommit(false);
+
             username = Login.username;
-            usernameFriend = addFriend.getText();
+            usernameFriend = addFriendToList.getText();
 
             if(checkUserId(usernameFriend).next()){
 
                ResultSet a = checkUserId(username);
+              userInt = a.getInt("userid");
                ResultSet b = checkUserId(usernameFriend);
-               userInt = a.getInt("userid");
                userFriendInt = b.getInt("userid");
 
                addFriend(userInt, userFriendInt);
@@ -45,7 +47,7 @@ public class AddFriend {
             }
             else {
 
-                Alert alert = new Alert(Alert.AlertType.NONE, "Error! this user don't exists", ButtonType.OK);
+                Alert alert = new Alert(Alert.AlertType.NONE, "Error! this user does not exist", ButtonType.OK);
                 alert.setTitle("Error in adding friend");
                 alert.show();
 
@@ -55,8 +57,12 @@ public class AddFriend {
     }
 
     public void backButtonClicked(MouseEvent mouseEvent) throws IOException {
-        Helper.replaceScene(Helper.mainMenuFXML, Helper.mainMenuTitle, mouseEvent);
+        Helper.replaceScene(Helper.pvpMenuFXML, Helper.pvpMenuTitle, mouseEvent);
     }
+
+  public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
+    Login.exitButtonClicked(mouseEvent);
+  }
 
 
 

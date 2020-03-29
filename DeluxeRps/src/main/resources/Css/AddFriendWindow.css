@@ -1,0 +1,60 @@
+#addFriend {
+	-fx-min-width: 600px;
+  -fx-max-width: 800px;
+  -fx-min-height: 600px;
+  -fx-max-height: 800px;
+  -fx-background-color: white;
+  -fx-alignment: top-center;
+  -fx-padding: 15;
+}
+
+TextField {
+-fx-background-color: #fce7c0;
+	-fx-shape: "M 350 300 L 500 300 L 500 200 L 350 200 L 350 300";
+	-fx-background-radius: 5em;
+	-fx-font: normal bold 18px 'Arial';
+	-fx-text-fill: #673500;
+	-fx-border-color: black;
+	-fx-border-width: 5;
+}
+
+#header {
+	-fx-font: bold 30px "Arial";
+	-fx-alignment: center;
+	-fx-padding: 5;
+	-fx-text-fill: #673500;
+}
+
+
+TextField:focused {
+	-fx-background-insets: 0, 0, 1, 2;
+	-fx-background-color: #fbd793;
+}
+
+
+#inputAlignment {
+ -fx-alignment: center;
+ -fx-padding: 5;
+ }
+
+ #buttonAlignment {
+ -fx-padding: 5;
+ -fx-alignment: center;
+ }
+
+ #spacing {
+ -fx-padding: 15;
+ }
+
+
+  #confirmButton {
+  -fx-image: url("../Images/ConfirmButton.jpg");
+  }
+
+  #backButton {
+  -fx-image: url("../Images/BackButton.jpg");
+  }
+
+   #exitButton {
+       -fx-image: url("../Images/ExitButton.jpg");
+       }

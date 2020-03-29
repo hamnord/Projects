@@ -1,0 +1,54 @@
+#pvpMenu {
+	-fx-min-width: 600px;
+  -fx-max-width: 800px;
+  -fx-min-height: 600px;
+  -fx-max-height: 800px;
+  -fx-background-color: white;
+  -fx-alignment: top-center;
+  -fx-padding: 15;
+}
+
+#header {
+	-fx-font: bold 30px "Arial";
+	-fx-alignment: center;
+	-fx-padding: 5;
+	-fx-text-fill: #673500;
+}
+
+ChoiceBox:focused {
+	-fx-background-insets: 0, 0, 1, 2;
+	-fx-background-color: #fbd793;
+}
+
+
+#inputAlignment {
+ -fx-alignment: center;
+ -fx-padding: 5;
+ }
+
+ #buttonAlignment {
+ -fx-padding: 5;
+ -fx-alignment: center;
+ }
+
+ #spacing {
+ -fx-padding: 15;
+ }
+
+
+  #inviteFriendButton {
+  -fx-image: url("../Images/inviteFriendButton.jpg");
+  }
+
+  #addFriendButton {
+     -fx-image: url("../Images/2pButton.jpg");
+     }
+
+
+  #backButton {
+  -fx-image: url("../Images/BackButton.jpg");
+  }
+
+   #exitButton {
+       -fx-image: url("../Images/ExitButton.jpg");
+       }

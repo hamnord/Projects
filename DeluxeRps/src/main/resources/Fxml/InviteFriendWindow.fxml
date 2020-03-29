@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<VBox id="inviteFriend"
+      styleClass="inviteFriend"
+      stylesheets="@/Css/InviteFriendWindow.css"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.DeluxeRps.Controllers.InviteFriend">
+
+  <Label id="header" text="INVITE A FRIEND"/>
+
+  <VBox id="inputAlignment">
+    <ChoiceBox fx:id="pickFriendFromList">
+
+    </ChoiceBox>
+  </VBox>
+
+  <VBox id="buttonAlignment">
+    <ImageView id="inviteFriendButton" fitWidth="250" preserveRatio="true" onMouseClicked="#inviteFriendButtonClicked"/>
+    <ImageView id="availableGameButton" fitWidth="250" preserveRatio="true" onMouseClicked="#seeRequestsButtonClicked"/>
+    <ImageView id="startGameButton" fitWidth="250" preserveRatio="true" onMouseClicked="#startGameButtonClicked"/>
+    <ImageView id="backButton" fitWidth="150" preserveRatio="true" onMouseClicked="#backButtonClicked"/>
+    <ImageView id="exitButton" fitWidth="150" preserveRatio="true" onMouseClicked="#exitButtonClicked"/>
+  </VBox>
+
+
+
+</VBox>
