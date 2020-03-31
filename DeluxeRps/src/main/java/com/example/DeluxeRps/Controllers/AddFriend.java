@@ -1,10 +1,10 @@
 package com.example.DeluxeRps.Controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -17,16 +17,20 @@ import java.sql.SQLException;
 public class AddFriend {
 
     Connection con;
-    PreparedStatement checkFriendStmt, addFriendStmt;
-    String usernameFriend, username;
-    int userInt, userFriendInt;
+    PreparedStatement checkFriendStmt, addFriendStmt, checkOnlineSTMNT;
+    String usernameFriend, username, activefriendsList;
+    int userInt, userFriendInt, userid;
+
 
 
     @FXML
     private TextField addFriendToList;
 
+    @FXML
+    private VBox friendListVBOX;
 
-    public void confirmButtonClicked(MouseEvent mouseEvent) throws SQLException {
+
+  public void confirmButtonClicked(MouseEvent mouseEvent) throws SQLException {
 
       con = ConDB.getConnection();
       con.setAutoCommit(false);
@@ -66,6 +70,35 @@ public class AddFriend {
     }
 
 
+    //FRiendsList Button
+   public void refreshButton(MouseEvent mouseEvent) throws SQLException {
+
+     con = ConDB.getConnection();
+     con.setAutoCommit(false);
+
+     username = Login.username;
+     ResultSet a = checkUserId(username);
+
+     while (a.next()){
+       System.out.println("loop running");
+       try {
+
+         System.out.println("adding friend");
+
+         Label friendsLabel = new Label(Integer.toString(checkFriendList()));
+         Font font = new Font("Arial Black", 20);
+         friendsLabel.setFont(font);
+         friendListVBOX.getChildren().addAll(friendsLabel);
+
+       }catch (Exception e){
+         e.printStackTrace();
+         System.out.println("fuck u");
+       }
+      }
+
+    }
+
+
     public void backButtonClicked(MouseEvent mouseEvent) throws IOException {
         Helper.replaceScene(Helper.pvpMenuFXML, Helper.pvpMenuTitle, mouseEvent);
     }
@@ -73,8 +106,6 @@ public class AddFriend {
   public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
     Login.exitButtonClicked(mouseEvent);
   }
-
-
 
 
     //PREPARED STATEMENTS
@@ -100,7 +131,14 @@ public class AddFriend {
 
     }
 
+  public int checkFriendList() throws SQLException {
 
+    checkOnlineSTMNT = con.prepareStatement("SELECT * FROM gamedb.friendslist WHERE userid = ?");
+    checkOnlineSTMNT.setInt(1,userid);
+    checkOnlineSTMNT.executeQuery();
+    con.commit();
+return userid;
+  }
 
 
 

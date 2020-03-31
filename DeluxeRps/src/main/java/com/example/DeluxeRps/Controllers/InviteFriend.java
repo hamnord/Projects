@@ -1,8 +1,8 @@
 package com.example.DeluxeRps.Controllers;
 
-import javafx.collections.ObservableList;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 import java.awt.*;
@@ -16,34 +16,48 @@ public class InviteFriend {
 
   Connection con;
   PreparedStatement checkOnlineSTMNT, gameRequestSTMNT, newGameSTMNT, getUserIDStmt, changeMatchStmt;
-  static String username = Login.username;
-  static int userid, useridplayer1,useridplayer2;
+  String username;
+  String friendId;
+  int userid, useridplayer1,useridplayer2;
   static String matchstatus;
-  ObservableList availableFriends;
 
 
   //FXML-Objects
+
   @FXML
-   private ChoiceBox<String> pickFriendFromList;
-
-
-
+  private TextField inviteFriendFromList;
 
   //TODO implement GameRequest with friend
   public void inviteFriendButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
 
-    availableFriends = pickFriendFromList.getItems();
-
     con = ConDB.getConnection();
+    con.setAutoCommit(false);
+
+    friendId = inviteFriendFromList.getText();
 
     ResultSet a = getUserId(username);
-    useridplayer1 = a.getInt("userid");
-    //set useridplayer2 via någon lista?
+    ResultSet b = getUserId(friendId);
+
+    while (a.next() && b.next()) {
+
+      System.out.println("loop running");
+
+      useridplayer1 = a.getInt("userid");
+      useridplayer2 = b.getInt("userid");
+
+      checkFriendList();
+
+      try {
+
+        newGameRequest(useridplayer1, useridplayer2);
+
+      } catch (Exception e){
+        e.printStackTrace();
+      }
+      //set useridplayer2 via någon lista?
 
 
-    newGameRequest(useridplayer1, useridplayer2);
-
-
+    }
   }
 
   public void seeRequestsButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
@@ -58,7 +72,6 @@ public class InviteFriend {
 
       // Någon form for lista av requests + button for confirm -> to Game
       changeMatchStatus();
-
 
 
     } else {
@@ -101,16 +114,15 @@ public class InviteFriend {
 
   }
 
-  //TODO Check online USERS/Friends
-  public ResultSet checkOnlineUsers(int userid) throws SQLException {
+  //TODO Check online Friends
+  public ResultSet checkFriendList() throws SQLException {
 
-    checkOnlineSTMNT = con.prepareStatement("SELECT * FROM gamedb.logedinusers WHERE userid = ?");
+    checkOnlineSTMNT = con.prepareStatement("SELECT * FROM gamedb.friendslist WHERE userid = ?");
     checkOnlineSTMNT.setInt(1,userid);
     ResultSet onlineUsers = checkOnlineSTMNT.executeQuery();
     con.commit();
     return onlineUsers;
   }
-
 
 
   private void newGameRequest(int player1, int player2) throws SQLException {
@@ -133,7 +145,6 @@ public class InviteFriend {
     con.commit();
 
     return checkUser;
-
 
   }
 

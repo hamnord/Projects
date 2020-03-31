@@ -5,8 +5,10 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TextField?>
 
 <?import javafx.scene.image.ImageView?>
+
 <VBox id="inviteFriend"
       styleClass="inviteFriend"
       stylesheets="@/Css/InviteFriendWindow.css"
@@ -15,21 +17,20 @@
       fx:controller="com.example.DeluxeRps.Controllers.InviteFriend">
 
   <Label id="header" text="INVITE A FRIEND"/>
+  <Label id="header" text="TO A Game"/>
 
   <VBox id="inputAlignment">
-    <ChoiceBox fx:id="pickFriendFromList">
 
-    </ChoiceBox>
+    <TextField fx:id="inviteFriendFromList"
+               promptText="Enter UserName"
+               focusTraversable="false"/>
   </VBox>
 
   <VBox id="buttonAlignment">
-    <ImageView id="inviteFriendButton" fitWidth="250" preserveRatio="true" onMouseClicked="#inviteFriendButtonClicked"/>
-    <ImageView id="availableGameButton" fitWidth="250" preserveRatio="true" onMouseClicked="#seeRequestsButtonClicked"/>
-    <ImageView id="startGameButton" fitWidth="250" preserveRatio="true" onMouseClicked="#startGameButtonClicked"/>
+    <ImageView id="confirmButton" fitWidth="250" preserveRatio="true" onMouseClicked="#inviteFriendButtonClicked"/>
     <ImageView id="backButton" fitWidth="150" preserveRatio="true" onMouseClicked="#backButtonClicked"/>
     <ImageView id="exitButton" fitWidth="150" preserveRatio="true" onMouseClicked="#exitButtonClicked"/>
   </VBox>
-
 
 
 </VBox>

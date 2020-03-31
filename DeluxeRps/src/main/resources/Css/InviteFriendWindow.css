@@ -8,7 +8,7 @@
   -fx-padding: 15;
 }
 
-ChoiceBox {
+TextField {
 -fx-background-color: #fce7c0;
 	-fx-shape: "M 350 300 L 500 300 L 500 200 L 350 200 L 350 300";
 	-fx-background-radius: 5em;
@@ -18,7 +18,7 @@ ChoiceBox {
 	-fx-border-width: 5;
 }
 
-ChoiceBox:focused {
+TextField:focused {
 	-fx-background-insets: 0, 0, 1, 2;
 	-fx-background-color: #fbd793;
 }
@@ -47,6 +47,10 @@ ChoiceBox:focused {
 
   #inviteFriendButton {
   -fx-image: url("../Images/inviteFriendButton.jpg");
+  }
+
+  #confirmButton {
+  -fx-image: url("../Images/ConfirmButton.jpg");
   }
 
    #availableGameButton {

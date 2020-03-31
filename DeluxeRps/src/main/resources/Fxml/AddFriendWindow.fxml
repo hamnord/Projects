@@ -22,13 +22,23 @@
                    focusTraversable="false"/>
     </VBox>
 
+
+<VBox>
+
+<Label id="header" text="FRIENDS"/>
+
+  <VBox fx:id="friendListVBOX" id="friendList" />
+
+
+
+</VBox>
+
     <VBox id="buttonAlignment">
+      <ImageView id="refreshButton" fitWidth="250" preserveRatio="true" onMouseClicked="#refreshButton"/>
     <ImageView id="confirmButton" fitWidth="250" preserveRatio="true" onMouseClicked="#confirmButtonClicked"/>
     <ImageView id="backButton" fitWidth="150" preserveRatio="true" onMouseClicked="#backButtonClicked"/>
       <ImageView id="exitButton" fitWidth="150" preserveRatio="true" onMouseClicked="#exitButtonClicked"/>
 
     </VBox>
-
-
 
 </VBox>
