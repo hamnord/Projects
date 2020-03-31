@@ -26,6 +26,8 @@ TextField {
 	-fx-text-fill: #673500;
 	-fx-border-color: black;
 	-fx-border-width: 5;
+	 -fx-padding: 5;
+   -fx-alignment: center;
 }
 
 #header {

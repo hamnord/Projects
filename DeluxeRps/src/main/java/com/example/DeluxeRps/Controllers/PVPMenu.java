@@ -5,9 +5,9 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class PVPMenu {
+public class PVPMenu extends GenericController{
 
-  public void addFriendButtonClicked (MouseEvent mouseEvent) throws IOException {
+  public void addFriendButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
     Helper.replaceScene(Helper.addFriendFXML, Helper.addFriendTitle, mouseEvent);
   }
 

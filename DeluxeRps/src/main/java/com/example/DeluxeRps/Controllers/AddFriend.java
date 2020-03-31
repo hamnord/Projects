@@ -11,15 +11,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
-
-public class AddFriend {
+public class AddFriend extends GenericController{
 
     Connection con;
     PreparedStatement checkFriendStmt, addFriendStmt, checkOnlineSTMNT;
-    String usernameFriend, username, activefriendsList;
+    String usernameFriend, username, activefriendsList, friendname;
     int userInt, userFriendInt, userid;
+    List<Label> bruhList;
 
 
 
@@ -43,22 +45,23 @@ public class AddFriend {
 
       if (b.next() && a.next()) {
 
-        System.out.println("loop running");
         userInt = a.getInt("userid");
         userFriendInt = b.getInt("userid");
 
         try {
-          System.out.println("adding friend");
-          addFriend(userInt, userFriendInt);
+          addFriend(userInt, userFriendInt, usernameFriend);
           Alert alert = new Alert(Alert.AlertType.NONE, " Friend added!", ButtonType.OK);
           alert.setTitle("FRIEND ADDED");
           alert.show();
+          System.out.println("Friend added to FriendList");
+          postInitialize();
 
         } catch (Exception e) {
           e.printStackTrace();
           Alert alert = new Alert(Alert.AlertType.NONE, " Error! friend already exist in friend list", ButtonType.OK);
           alert.setTitle("Error adding friend");
           alert.show();
+          postInitialize();
         }
       }
       else {
@@ -70,8 +73,8 @@ public class AddFriend {
     }
 
 
-    //FRiendsList Button
-   public void refreshButton(MouseEvent mouseEvent) throws SQLException {
+    //FRiendsList method
+   public void postInitialize() throws SQLException {
 
      con = ConDB.getConnection();
      con.setAutoCommit(false);
@@ -79,22 +82,28 @@ public class AddFriend {
      username = Login.username;
      ResultSet a = checkUserId(username);
 
-     while (a.next()){
-       System.out.println("loop running");
        try {
 
-         System.out.println("adding friend");
+         System.out.println("friendList");
 
-         Label friendsLabel = new Label(Integer.toString(checkFriendList()));
-         Font font = new Font("Arial Black", 20);
-         friendsLabel.setFont(font);
-         friendListVBOX.getChildren().addAll(friendsLabel);
+         List<String> friendListDeluxe = new ArrayList<>();
 
-       }catch (Exception e){
-         e.printStackTrace();
-         System.out.println("fuck u");
-       }
-      }
+         while (a.next()) {
+           System.out.println("loopRunning");
+
+           checkFriendList();
+           Label friendsLabel = new Label(friendname);
+           friendListDeluxe.add(friendname);
+
+           Font font = new Font("Arial Black", 20);
+           friendsLabel.setFont(font);
+           friendListVBOX.getChildren().addAll(friendsLabel);
+
+         }
+         }catch(Exception e){
+           e.printStackTrace();
+           System.out.println("fuck u");
+         }
 
     }
 
@@ -121,23 +130,25 @@ public class AddFriend {
 
     }
 
-    private void addFriend(int user, int friend) throws SQLException{
+    private void addFriend(int user, int friend, String friendName) throws SQLException{
 
-        addFriendStmt = con.prepareStatement("INSERT INTO gamedb.friendslist VALUES (?, ?)");
+        addFriendStmt = con.prepareStatement("INSERT INTO gamedb.friendslist VALUES (?, ?, ?)");
         addFriendStmt.setInt(1, user);
         addFriendStmt.setInt(2, friend);
+        addFriendStmt.setString(3,friendName);
         addFriendStmt.executeUpdate();
         con.commit();
 
     }
 
-  public int checkFriendList() throws SQLException {
+  public String checkFriendList() throws SQLException {
 
-    checkOnlineSTMNT = con.prepareStatement("SELECT * FROM gamedb.friendslist WHERE userid = ?");
-    checkOnlineSTMNT.setInt(1,userid);
+    checkOnlineSTMNT = con.prepareStatement("SELECT * FROM gamedb.friendslist WHERE friendname = ?");
+    checkOnlineSTMNT.setString(1,friendname);
     checkOnlineSTMNT.executeQuery();
     con.commit();
-return userid;
+
+    return friendname;
   }
 
 
