@@ -33,6 +33,10 @@
   -fx-image: url("../Images/pvpButton.jpg");
   }
 
+  #rulesButton {
+  -fx-image: url("../Images/RulesButton.jpg");
+  }
+
 
  #exitButton {
      -fx-image: url("../Images/ExitButton.jpg");

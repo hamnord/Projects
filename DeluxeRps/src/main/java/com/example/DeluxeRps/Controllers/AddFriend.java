@@ -28,33 +28,43 @@ public class AddFriend {
 
     public void confirmButtonClicked(MouseEvent mouseEvent) throws SQLException {
 
+      con = ConDB.getConnection();
+      con.setAutoCommit(false);
 
-            con = ConDB.getConnection();
-            con.setAutoCommit(false);
+      username = Login.username;
+      usernameFriend = addFriendToList.getText();
 
-            username = Login.username;
-            usernameFriend = addFriendToList.getText();
+      ResultSet a = checkUserId(username);
+      ResultSet b = checkUserId(usernameFriend);
 
-            if(checkUserId(usernameFriend).next()){
+      if (b.next() && a.next()) {
 
-               ResultSet a = checkUserId(username);
-              userInt = a.getInt("userid");
-               ResultSet b = checkUserId(usernameFriend);
-               userFriendInt = b.getInt("userid");
+        System.out.println("loop running");
+        userInt = a.getInt("userid");
+        userFriendInt = b.getInt("userid");
 
-               addFriend(userInt, userFriendInt);
+        try {
+          System.out.println("adding friend");
+          addFriend(userInt, userFriendInt);
+          Alert alert = new Alert(Alert.AlertType.NONE, " Friend added!", ButtonType.OK);
+          alert.setTitle("FRIEND ADDED");
+          alert.show();
 
-            }
-            else {
+        } catch (Exception e) {
+          e.printStackTrace();
+          Alert alert = new Alert(Alert.AlertType.NONE, " Error! friend already exist in friend list", ButtonType.OK);
+          alert.setTitle("Error adding friend");
+          alert.show();
+        }
+      }
+      else {
+        Alert alert = new Alert(Alert.AlertType.NONE, " Error! friend already exist in friend list", ButtonType.OK);
+        alert.setTitle("Error adding friend");
+        alert.show();
 
-                Alert alert = new Alert(Alert.AlertType.NONE, "Error! this user does not exist", ButtonType.OK);
-                alert.setTitle("Error in adding friend");
-                alert.show();
-
-            }
-
-
+      }
     }
+
 
     public void backButtonClicked(MouseEvent mouseEvent) throws IOException {
         Helper.replaceScene(Helper.pvpMenuFXML, Helper.pvpMenuTitle, mouseEvent);

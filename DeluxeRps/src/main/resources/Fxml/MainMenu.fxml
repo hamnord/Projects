@@ -23,7 +23,6 @@
   <VBox id="buttonAlignment">
     <ImageView id="loginButton" fitWidth="200" preserveRatio="true" onMouseClicked="#loginButtonClicked"/>
     <ImageView id="createUserButton" fitWidth="200" preserveRatio="true" onMouseClicked="#createPlayerButtonClicked"/>
-    <ImageView id="rulesButton" fitWidth="200" preserveRatio="true" onMouseClicked="#instructionsButtonClicked"/>
     <ImageView id="exitButton" fitWidth="150" preserveRatio="true" onMouseClicked="#exitButtonClicked"/>
   </VBox>
 

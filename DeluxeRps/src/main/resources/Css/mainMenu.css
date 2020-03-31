@@ -30,10 +30,6 @@
  -fx-image: url("../Images/createUserButton.jpg");
  }
 
-  #rulesButton {
-  -fx-image: url("../Images/RulesButton.jpg");
-  }
-
   #exitButton {
        -fx-image: url("../Images/ExitButton.jpg");
        }

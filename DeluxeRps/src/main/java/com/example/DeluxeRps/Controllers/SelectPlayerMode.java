@@ -15,6 +15,10 @@ public class SelectPlayerMode {
     Helper.replaceScene(Helper.pvpMenuFXML, Helper.pvpMenuTitle, mouseEvent);
   }
 
+  public void instructionsButtonClicked (MouseEvent mouseEvent) throws IOException {
+    Helper.replaceScene(Helper.instructionsFXML, Helper.instructionsTitle, mouseEvent);
+  }
+
   public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
     Login.exitButtonClicked(mouseEvent);
   }
