@@ -16,7 +16,7 @@ public class InviteFriend {
 
   Connection con;
   PreparedStatement checkOnlineSTMNT, gameRequestSTMNT, newGameSTMNT, getUserIDStmt, changeMatchStmt;
-  String username;
+  String username = Login.username;
   String friendId;
   int userid, useridplayer1,useridplayer2;
   static String matchstatus;
@@ -45,17 +45,17 @@ public class InviteFriend {
       useridplayer1 = a.getInt("userid");
       useridplayer2 = b.getInt("userid");
 
-      checkFriendList();
+      if(checkFriendList(useridplayer1, useridplayer2).next()) {
 
-      try {
+        try {
 
-        newGameRequest(useridplayer1, useridplayer2);
+          newGameRequest(useridplayer1, useridplayer2);
 
-      } catch (Exception e){
-        e.printStackTrace();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+
       }
-      //set useridplayer2 via någon lista?
-
 
     }
   }
@@ -115,13 +115,15 @@ public class InviteFriend {
   }
 
   //TODO Check online Friends
-  public ResultSet checkFriendList() throws SQLException {
+  private ResultSet checkFriendList(int userID, int friendID) throws SQLException {
 
-    checkOnlineSTMNT = con.prepareStatement("SELECT * FROM gamedb.friendslist WHERE userid = ?");
-    checkOnlineSTMNT.setInt(1,userid);
-    ResultSet onlineUsers = checkOnlineSTMNT.executeQuery();
+    checkOnlineSTMNT = con.prepareStatement("SELECT * FROM gamedb.friendslist WHERE userid = ? AND friendid = ?");
+    checkOnlineSTMNT.setInt(1,userID);
+    checkOnlineSTMNT.setInt(2, friendID);
+    ResultSet friendsList = checkOnlineSTMNT.executeQuery();
     con.commit();
-    return onlineUsers;
+    return friendsList;
+
   }
 
 
