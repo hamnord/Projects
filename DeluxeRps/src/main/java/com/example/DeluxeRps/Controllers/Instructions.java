@@ -9,7 +9,7 @@ public class Instructions {
 
 
   public void backButtonClicked (MouseEvent mouseEvent) throws IOException {
-    Helper.replaceScene(Helper.mainMenuFXML, Helper.mainMenuTitle, mouseEvent);
+    Helper.replaceScene(Helper.selectPlayerModeFXML, Helper.selectPlayerModeTitle, mouseEvent);
   }
 
   public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
