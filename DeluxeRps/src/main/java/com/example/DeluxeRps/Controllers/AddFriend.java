@@ -50,9 +50,6 @@ public class AddFriend extends GenericController{
 
         try {
           addFriend(userInt, userFriendInt, usernameFriend);
-          Alert alert = new Alert(Alert.AlertType.NONE, " Friend added!", ButtonType.OK);
-          alert.setTitle("FRIEND ADDED");
-          alert.show();
           System.out.println("Friend added to FriendList");
           postInitialize();
 
@@ -75,35 +72,36 @@ public class AddFriend extends GenericController{
     //FRiendsList method
    public void postInitialize() throws SQLException {
 
-       try {
-
          con = ConDB.getConnection();
          con.setAutoCommit(false);
 
+     try {
          username = Login.username;
          ResultSet a = checkUserId(username);
-         ResultSet b = checkFriendList();
+           ResultSet b = checkFriendList();
 
-         while (b.next()) {
-           System.out.println("loopRunning");
-           FriendList friendListDeluxe = new FriendList(
-               b.getInt("userid"),
-               b.getInt("friendid"),
-               b.getString("friendname"));
+           checkFriendList();
 
-           Label friendsLabel = new Label(friendListDeluxe.getFriendName());
-           System.out.println("Label added");
+       while (b.next()) {
 
-           Font font = new Font("Arial Black", 20);
-           friendsLabel.setFont(font);
-           friendListVBOX.getChildren().add(friendsLabel);
+         System.out.println("loopRunning");
 
-         }
-         }catch(Exception e){
-           e.printStackTrace();
-           System.out.println("fuck u");
-         }
+             FriendList friendListDeluxe = new FriendList(
+                 b.getInt("userid"),
+                 b.getInt("friendid"),
+                 b.getString("friendname"));
 
+               Label friendsLabel = new Label(friendListDeluxe.getFriendName());
+               System.out.println("Label added");
+
+               Font font = new Font("Arial Black", 20);
+               friendsLabel.setFont(font);
+               friendListVBOX.getChildren().addAll(friendsLabel);
+             }
+           }catch (Exception e){
+       e.printStackTrace();
+       System.out.println("Fuck this spaghetti code");
+     }
     }
 
     public void backButtonClicked(MouseEvent mouseEvent) throws IOException {
@@ -143,10 +141,10 @@ public class AddFriend extends GenericController{
 
     checkOnlineSTMNT = con.prepareStatement("SELECT * FROM gamedb.friendslist WHERE friendname = ?");
     checkOnlineSTMNT.setString(1,usernameFriend);
-    ResultSet checkfriend = checkOnlineSTMNT.executeQuery();
+    ResultSet checkFriend = checkOnlineSTMNT.executeQuery();
     con.commit();
 
-    return checkfriend;
+    return checkFriend;
   }
 
 
