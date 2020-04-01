@@ -23,8 +23,6 @@ public class AddFriend extends GenericController{
     PreparedStatement checkFriendStmt, addFriendStmt, checkOnlineSTMNT;
     String usernameFriend, username, activefriendsList, friendname;
     int userInt, userFriendInt, userid;
-    List<FriendList> bruhList;
-
 
     @FXML
     private TextField addFriendToList;

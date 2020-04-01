@@ -157,6 +157,8 @@ public class StartGamePlayer{
     }
 
 
+
+
     //PREPARED STATEMENTS
 
     //THESE ARE NOT DONE WHAT SO EVER, NEED TO ADJUST DB AND STUFF
@@ -173,7 +175,7 @@ public class StartGamePlayer{
 
     private int getMove(int userid, int matchid) throws SQLException{
 
-        getMove = con.prepareStatement("SELECT * FROM gamedb.move WHERE userid = ? AND matchid = ?");
+        getMove = con.prepareStatement("SELECT * FROM gamedb.match WHERE userid = ? AND matchid = ?");
         getMove.setInt(1, userid);
         getMove.setInt(2, matchid);
         ResultSet movRs = getMove.executeQuery();
@@ -184,7 +186,7 @@ public class StartGamePlayer{
 
     private void sendMove(int userid, int matchid, int move) throws SQLException {
 
-        sendMove = con.prepareStatement("INSERT INTO gamedb.move VALUES (?, ?, ?)");
+        sendMove = con.prepareStatement("INSERT INTO gamedb.match VALUES (?, ?, ?)");
         sendMove.setInt(1, userid);
         sendMove.setInt(2, matchid);
         sendMove.setInt(3, move);
