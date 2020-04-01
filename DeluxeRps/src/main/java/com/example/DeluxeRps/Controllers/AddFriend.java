@@ -1,5 +1,7 @@
 package com.example.DeluxeRps.Controllers;
 
+import com.example.DeluxeRps.Models.FriendList;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -21,16 +23,14 @@ public class AddFriend extends GenericController{
     PreparedStatement checkFriendStmt, addFriendStmt, checkOnlineSTMNT;
     String usernameFriend, username, activefriendsList, friendname;
     int userInt, userFriendInt, userid;
-    List<Label> bruhList;
-
+    List<FriendList> bruhList;
 
 
     @FXML
     private TextField addFriendToList;
 
     @FXML
-    private VBox friendListVBOX;
-
+   private VBox friendListVBOX;
 
   public void confirmButtonClicked(MouseEvent mouseEvent) throws SQLException {
 
@@ -72,32 +72,31 @@ public class AddFriend extends GenericController{
       }
     }
 
-
     //FRiendsList method
    public void postInitialize() throws SQLException {
 
-     con = ConDB.getConnection();
-     con.setAutoCommit(false);
-
-     username = Login.username;
-     ResultSet a = checkUserId(username);
-
        try {
 
-         System.out.println("friendList");
+         con = ConDB.getConnection();
+         con.setAutoCommit(false);
 
-         List<String> friendListDeluxe = new ArrayList<>();
+         username = Login.username;
+         ResultSet a = checkUserId(username);
+         ResultSet b = checkFriendList();
 
-         while (a.next()) {
+         while (b.next()) {
            System.out.println("loopRunning");
+           FriendList friendListDeluxe = new FriendList(
+               b.getInt("userid"),
+               b.getInt("friendid"),
+               b.getString("friendname"));
 
-           checkFriendList();
-           Label friendsLabel = new Label(friendname);
-           friendListDeluxe.add(friendname);
+           Label friendsLabel = new Label(friendListDeluxe.getFriendName());
+           System.out.println("Label added");
 
            Font font = new Font("Arial Black", 20);
            friendsLabel.setFont(font);
-           friendListVBOX.getChildren().addAll(friendsLabel);
+           friendListVBOX.getChildren().add(friendsLabel);
 
          }
          }catch(Exception e){
@@ -106,7 +105,6 @@ public class AddFriend extends GenericController{
          }
 
     }
-
 
     public void backButtonClicked(MouseEvent mouseEvent) throws IOException {
         Helper.replaceScene(Helper.pvpMenuFXML, Helper.pvpMenuTitle, mouseEvent);
@@ -141,14 +139,14 @@ public class AddFriend extends GenericController{
 
     }
 
-  public String checkFriendList() throws SQLException {
+  public ResultSet checkFriendList() throws SQLException {
 
     checkOnlineSTMNT = con.prepareStatement("SELECT * FROM gamedb.friendslist WHERE friendname = ?");
-    checkOnlineSTMNT.setString(1,friendname);
-    checkOnlineSTMNT.executeQuery();
+    checkOnlineSTMNT.setString(1,usernameFriend);
+    ResultSet checkfriend = checkOnlineSTMNT.executeQuery();
     con.commit();
 
-    return friendname;
+    return checkfriend;
   }
 
 
