@@ -10,20 +10,19 @@ public class Match {
 
 
   private int matchId, userId;
-  PreparedStatement matchSTMNT, matchUserSTMNT;
-  Connection conn = ConDB.getConnection();
+  static PreparedStatement matchSTMNT, matchUserSTMNT;
+ Connection conn = ConDB.getConnection();
 
   public Match(int matchId, int userId) throws SQLException {
     this.matchId = matchId;
     this.userId = userId;
   }
 
-  public int getMatchId() throws SQLException {
+  public void getMatchId() throws SQLException {
     matchSTMNT = conn.prepareStatement("SELECT * FROM gamedb.match WHERE matchid = ?");
     matchSTMNT.setInt(1,matchId);
     matchSTMNT.executeQuery();
     conn.commit();
-    return matchId;
   }
 
   public void setMatchId(int userId, int matchId) throws SQLException {
@@ -32,16 +31,16 @@ public class Match {
     matchSTMNT.setInt(2,matchId);
     matchSTMNT.executeUpdate();
     conn.commit();
-    this.matchId = matchId;
+
   }
 
-  public int getUserId(int userId) throws SQLException {
+  public void getUserId(int userId) throws SQLException {
     matchUserSTMNT = conn.prepareStatement("SELECT * FROM gamedb.match WHERE userid = ?");
     matchUserSTMNT.setInt(1, userId);
     matchUserSTMNT.executeQuery();
     conn.commit();
 
-    return userId;
+
   }
 
 

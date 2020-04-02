@@ -9,13 +9,9 @@ public class GameEngine {
   private Player player1, player2;
   private Match match;
   private Move player1Move, player2Move;
-  private int player1Score, player2Score, userId, move;
-
-  //moves
-  public static  final int DRAW = 0;
-  public static  final int ROCK = 1;
-  public static  final int SCISSORS = 2;
-  public static  final int PAPER = 3;
+  private int player1Score, player2Score;
+  public int  userId, move, matchId, moveId;
+  static String userName;
 
   //players
   public static final int PLAYER1 = 1;
@@ -35,24 +31,40 @@ public class GameEngine {
   }
 
 
-  public Player getPlayer1() {
+  public Player getPlayer1() throws SQLException {
+    Player player1 = new Player(userName, userId);
+    player1.getUserId();
+    player1.getUserName();
     return player1;
   }
 
-  public Player getPlayer2() {
+  public Player getPlayer2() throws SQLException {
+    Player player2 = new Player(userName,userId);
+    player2.getUserId();
+    player2.getUserName();
     return player2;
   }
 
-  public Match getMatch() {
-    return match;
+  public Match getMatch() throws SQLException {
+    Match newMatch = new Match(matchId,userId);
+    newMatch.getMatchId();
+    newMatch.getUserId(userId);
+    return newMatch;
   }
 
-  public Move getPlayer1Move() {
-    return player1Move;
-  }
-
-  public Move getPlayer2Move() {
+  public Move getPlayer2Move() throws SQLException {
+    Move player2Move = new Move(moveId,move,userId);
+    player2Move.getMoveId();
+    player2Move.getMove(userId,move);
     return player2Move;
+  }
+
+  // behövs nog inte
+  public Move getPlayer1Move() throws SQLException {
+    Move player1Move = new Move(moveId,move,userId);
+    player1Move.getMoveId();
+    player1Move.getMove(userId,move);
+    return player1Move;
   }
 
   public int getPlayer1Score() {
