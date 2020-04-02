@@ -32,6 +32,7 @@
 
 
   <VBox id="buttonAlignment">
+    <Button id="provisoriskButton" onMouseClicked="#checkforfriends" />
     <ImageView id="backButton" fitWidth="150" preserveRatio="true" onMouseClicked="#backButtonClicked"/>
     <ImageView id="exitButton" fitWidth="150" preserveRatio="true" onMouseClicked="#exitButtonClicked"/>
   </VBox>

@@ -3,16 +3,21 @@ package com.example.DeluxeRps.Controllers;
 
 import com.example.DeluxeRps.Models.Player;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 import java.awt.*;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
+import java.util.concurrent.Executor;
 
 public class InviteFriend extends GenericController{
 
@@ -22,6 +27,7 @@ public class InviteFriend extends GenericController{
   String friendUsername;
   int useridplayer1,useridplayer2;
   static String matchstatus;
+
 
 
 
@@ -35,45 +41,49 @@ public class InviteFriend extends GenericController{
 
 
 
+
+
   @Override
-  public void postInitialize() throws SQLException{
+  public void postInitialize() throws SQLException {
 
-    friendsList.getItems().clear();
-    requestsList.getItems().clear();
+    con = ConDB.getConnection();
+    con.setAutoCommit(false);
 
+    if (getUserId(username).next()) {
+      ResultSet a = getUserId(username);
+      useridplayer1 = a.getInt("userid");
+      ResultSet b = checkFriendList(useridplayer1);
+      useridplayer2 = b.getInt("friendid");
 
-    try{
+      try {
 
-       useridplayer1 = getUserId(username);
-       ResultSet a = checkFriendList(useridplayer1);
-       useridplayer2 = a.getInt("friendid");
-
-        while(getOnlineFriends(useridplayer1).next()){
-                ResultSet b = getOnlineFriends(useridplayer1);
-                Player player2 = new Player(b.getString("username"), b.getInt("userid"));
-                friendsList.getItems().add(player2);
+        while (getOnlineFriends(useridplayer1).next()) {
+          ResultSet c = getOnlineFriends(useridplayer1);
+          Player player2 = new Player(b.getString("username"), c.getInt("userid"));
+          friendsList.getItems().add(player2);
         }
 
 
-
-        while(gameRequests(useridplayer1).next()){
-              ResultSet c = gameRequests(useridplayer1);
-              int player2userID = c.getInt("useridplayer1");
-              Player player2 = new Player(Player.getUserName(player2userID), player2userID);
-              requestsList.getItems().add(player2);
+        while (gameRequests(useridplayer1).next()) {
+          ResultSet d = gameRequests(useridplayer1);
+          int player2userID = d.getInt("useridplayer1");
+          Player player2 = new Player(Player.getUserName(player2userID), player2userID);
+          requestsList.getItems().add(player2);
         }
 
 
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
 
 
-    } catch (SQLException e) {
-      e.printStackTrace();
     }
 
-
-
-
   }
+
+
+
+
 
 
 
@@ -147,6 +157,10 @@ public class InviteFriend extends GenericController{
     Login.exitButtonClicked(mouseEvent);
   }
 
+  public void checkforfriends(MouseEvent mouseEvent) throws SQLException {
+    postInitialize();
+  }
+
 
 
 
@@ -170,7 +184,6 @@ public class InviteFriend extends GenericController{
     checkFriendsList = con.prepareStatement("SELECT * FROM gamedb.friendslist WHERE userid = ?");
     checkFriendsList.setInt(1,userID);
     ResultSet friendsList = checkFriendsList.executeQuery();
-    con.commit();
     return friendsList;
 
   }
@@ -188,15 +201,14 @@ public class InviteFriend extends GenericController{
 
   }
 
-  private int getUserId(String username) throws SQLException{
+  private ResultSet getUserId(String username) throws SQLException{
 
     getUserIDStmt = con.prepareStatement("SELECT * FROM gamedb.users where username = ?");
     getUserIDStmt.setString(1, username);
     ResultSet checkUser = getUserIDStmt.executeQuery();
-    int a = checkUser.getInt("userid");
     con.commit();
 
-    return a;
+    return checkUser;
 
   }
 
@@ -214,12 +226,10 @@ public class InviteFriend extends GenericController{
 
     whoIsOnlineStmt = con.prepareStatement("select * from gamedb.users inner join gamedb.friendslist on friendslist.friendid = users.userid where friendslist.userid in (select users.userid from gamedb.users inner join gamedb.tokens on tokens.userid = users.userid where users.userid = ?)");
     whoIsOnlineStmt.setInt(1, userid);
-    ResultSet a = whoIsOnlineStmt.executeQuery();
 
-    return a;
+    return whoIsOnlineStmt.executeQuery();
 
   }
-
 
 
 
