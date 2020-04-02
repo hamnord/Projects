@@ -8,8 +8,9 @@ import java.sql.SQLException;
 
 public class Match {
 
+
   private int matchId, userId;
-  PreparedStatement matchSTMNT;
+  PreparedStatement matchSTMNT, matchUserSTMNT;
   Connection conn = ConDB.getConnection();
 
   public Match(int matchId, int userId) throws SQLException {
@@ -25,18 +26,24 @@ public class Match {
     return matchId;
   }
 
-  public void setMatchId(int matchId) throws SQLException {
-    matchSTMNT = conn.prepareStatement("INSERT INTO gamedb.match VALUES matchid = ?");
-    matchSTMNT.setInt(1,matchId);
+  public void setMatchId(int userId, int matchId) throws SQLException {
+    matchSTMNT = conn.prepareStatement("INSERT INTO gamedb.match VALUES (?, ?)");
+    matchSTMNT.setInt(1,userId);
+    matchSTMNT.setInt(2,matchId);
     matchSTMNT.executeUpdate();
     conn.commit();
     this.matchId = matchId;
   }
 
+  public int getUserId(int userId) throws SQLException {
+    matchUserSTMNT = conn.prepareStatement("SELECT * FROM gamedb.match WHERE userid = ?");
+    matchUserSTMNT.setInt(1, userId);
+    matchUserSTMNT.executeQuery();
+    conn.commit();
 
-  public int getUserId() {
     return userId;
   }
+
 
   public void setUserId(int userId) {
     this.userId = userId;
