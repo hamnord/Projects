@@ -8,9 +8,10 @@ import java.sql.SQLException;
 
 public class Move {
 
+
   private int moveId, move, userId;
-  Connection conn = ConDB.getConnection();
-  PreparedStatement sendMoveSTMNT,moveIdSTMNT,getMoveSTMNT;
+   Connection conn = ConDB.getConnection();
+  static PreparedStatement sendMoveSTMNT,moveIdSTMNT,getMoveSTMNT;
 
   public Move (int moveId, int move, int userId) throws SQLException {
     this.moveId = moveId;
@@ -29,12 +30,14 @@ public class Move {
   }
 
   // sets moveId to 1 or 2 to players.
-  public int setMoveId(int moveId) throws SQLException {
+  public static void setMoveId(int moveId) throws SQLException {
+    Connection conn = ConDB.getConnection();
+    conn.setAutoCommit(false);
+
     moveIdSTMNT = conn.prepareStatement("INSERT * FROM gamedb.match WHERE moveid= ?");
     moveIdSTMNT.setInt(1,moveId);
     moveIdSTMNT.executeQuery();
     conn.commit();
-    return this.moveId = moveId;
   }
 
   // send move/choice to db
@@ -47,7 +50,10 @@ public class Move {
   }
 
   // get your opponents move
-  public int getMove(int userId, int move) throws SQLException {
+  public static int getMove(int userId, int move) throws SQLException {
+    Connection conn = ConDB.getConnection();
+    conn.setAutoCommit(false);
+
     getMoveSTMNT = conn.prepareStatement("SELECT * FROM gamedb.match WHERE userid = ? AND move = ?");
     getMoveSTMNT.setInt(1,userId);
     getMoveSTMNT.setInt(2,move);
@@ -68,7 +74,4 @@ public class Move {
     this.userId = userId;
   }
 
-  public int getWinner(int userId){
-    return userId;
-  }
 }
