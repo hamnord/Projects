@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.control.TextField?>
+
 
 <?import javafx.scene.image.ImageView?>
 
@@ -16,15 +13,23 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.DeluxeRps.Controllers.InviteFriend">
 
-  <Label id="header" text="INVITE A FRIEND"/>
-  <Label id="header" text="TO A Game"/>
+  <Label id="header" text="Start a Multiplayer-game"/>
 
   <VBox id="inputAlignment">
 
-    <TextField fx:id="inviteFriendFromList"
-               promptText="Enter UserName"
+    <Label id="header" text="ONLINE FRIENDS"/>
+    <ListView fx:id="friendsList"
                focusTraversable="false"/>
   </VBox>
+
+  <VBox id="inputAlignment">
+
+    <Label id="header" text="ACTIVE REQUESTS"/>
+    <ListView fx:id="requestsList"
+              focusTraversable="false"/>
+  </VBox>
+
+
 
   <VBox id="buttonAlignment">
     <ImageView id="confirmButton" fitWidth="250" preserveRatio="true" onMouseClicked="#inviteFriendButtonClicked"/>

@@ -33,15 +33,15 @@ public class GameEngine {
 
   public Player getPlayer1() throws SQLException {
     Player player1 = new Player(userName, userId);
-    player1.getUserId();
-    player1.getUserName();
+    player1.getUserId(userName);
+    player1.getUserName(userId);
     return player1;
   }
 
   public Player getPlayer2() throws SQLException {
     Player player2 = new Player(userName,userId);
-    player2.getUserId();
-    player2.getUserName();
+    player2.getUserId(userName);
+    player2.getUserName(userId);
     return player2;
   }
 
