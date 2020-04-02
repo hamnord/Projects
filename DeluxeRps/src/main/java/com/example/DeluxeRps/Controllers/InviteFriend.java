@@ -54,12 +54,24 @@ public class InviteFriend extends GenericController{
                 friendsList.getItems().add(player2);
         }
 
+        while(!getOnlineFriends(useridplayer1).next()){
+
+          System.out.println("No Active Friends");
+
+        }
+
 
         while(gameRequests(useridplayer1).next()){
               ResultSet c = gameRequests(useridplayer1);
               int player2userID = c.getInt("useridplayer1");
               Player player2 = new Player(Player.getUserName(player2userID), player2userID);
               requestsList.getItems().add(player2);
+        }
+
+        while (!gameRequests(useridplayer1).next()){
+
+          System.out.println("No Active Request");
+
         }
 
 
