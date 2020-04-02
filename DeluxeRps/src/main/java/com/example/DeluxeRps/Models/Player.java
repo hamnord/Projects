@@ -2,6 +2,7 @@ package com.example.DeluxeRps.Models;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Player {
@@ -19,23 +20,29 @@ public class Player {
   }
 
 
-  public void getUserId() throws SQLException {
+  public int getUserId(String username) throws SQLException {
 
-    userIdSTMNT = conn.prepareStatement("SELECT * FROM gamedb.users WHERE userid = ?");
-    userIdSTMNT.setInt(1,userId);
-    userIdSTMNT.executeQuery();
+    userIdSTMNT = conn.prepareStatement("SELECT * FROM gamedb.users WHERE username = ?");
+    userIdSTMNT.setString(1, username);
+    ResultSet a = userIdSTMNT.executeQuery();
+    int userID = a.getInt("userid");
     conn.commit();
+
+    return userID;
   }
 
   public void setUserId(int userId) {
     this.userId = userId;
   }
 
-  public void getUserName() throws SQLException {
-    usernameSTMNT = conn.prepareStatement("SELECT * FROM gamedb.users WHERE username = ?");
-    usernameSTMNT.setString(1,userName);
-    usernameSTMNT.executeQuery();
+  public static String getUserName(int userID) throws SQLException {
+    usernameSTMNT = conn.prepareStatement("SELECT * FROM gamedb.users WHERE userid = ?");
+    usernameSTMNT.setInt(1,userID);
+    ResultSet a = usernameSTMNT.executeQuery();
+    String username = a.getString("username");
     conn.commit();
+
+    return username;
   }
 
   public void setUserName(String userName) {

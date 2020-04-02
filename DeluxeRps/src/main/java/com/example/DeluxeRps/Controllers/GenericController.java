@@ -6,5 +6,7 @@ public abstract class GenericController {
 
   public void postInitialize() throws SQLException {
     // suhduuude, you here chillin too? cool! im just and doing nothing.
+
+
   }
 }
