@@ -14,90 +14,82 @@ import java.sql.SQLException;
 
 
 
-public class StartGamePlayer{
-
-
-    private static final int PLAYER1 = 1;
-    private static final int PLAYER2 = 2;
+public class StartGamePlayer extends GenericController{
 
     Player player1, player2;
     Match newMatch;
     Move player1Move,player2Move;
 
+    public int moveId, move, userId;
+
     PreparedStatement getUserId, getMove, sendMove, getMatch;
     Connection con;
-    String username = Login.username;
     String matchstatus;
+
+    // insert it in invitefriend and call this from invitefriend maybee ???
+    GameEngine game = new GameEngine(player1,player2, newMatch, player1Move,player2Move);
 
     public static  final int DRAW = 0;
     public static  final int ROCK = 1;
     public static  final int SCISSORS = 2;
     public static  final int PAPER = 3;
 
-
-    //FXML-OBJECTS
-
-    // insert in inviteplayer ?
-    public void startGameButtonClicked(MouseEvent mouseEvent ) throws SQLException, IOException {
-        GameEngine game = new GameEngine(player1,player2, newMatch, player1Move,player2Move);
-        Helper.replaceScene(Helper.startGamePlayerFXML, Helper.startGamePlayerTitle, mouseEvent);
+    public StartGamePlayer() throws SQLException {
     }
 
 
     public void RockButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
-        GameEngine game = new GameEngine(player1,player2, newMatch, player1Move,player2Move);
-        con = ConDB.getConnection();
-        con.setAutoCommit(false);
+        Move rockMove = new Move(moveId, move, userId);
+        //skapar möjligtvis nullpointer, använder den player id ?
+        //rockMove.setMoveId(ROCK,game.getPlayer1());
+        rockMove.setMoveId(ROCK);
+        game.getPlayer2Move();
 
-        Move.setMoveId(ROCK);
-        player2Move.getMoveId();
 
-
-        if () {
+        if (game.getPlayer2Move().equals(SCISSORS)) {
             System.out.println("You win");
             Helper.replaceScene(Helper.covidWinnerFXML, Helper.covidWinnerTitle, mouseEvent);
-        } else if (player2.beats(player1)) {
+        } else if (game.getPlayer2Move().equals(PAPER)) {
             System.out.println("You Loose");
             Helper.replaceScene(Helper.covidLoserFXML, Helper.covidLoserTitle, mouseEvent);
-        } else if (player1.equals(player2)){
+        } else if (game.getPlayer2Move().equals(ROCK)){
             System.out.println("TIE");
             Helper.replaceScene(Helper.covidTIEFXML, Helper.covidTIETitle, mouseEvent);
         }
     }
 
     public void PaperButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
-        con = ConDB.getConnection();
-        con.setAutoCommit(false);
+        Move paperMove = new Move(moveId, move, userId);
+        paperMove.setMoveId(PAPER);
+        game.getPlayer2Move();
 
-        Move.setMoveId(PAPER);
-
-        if (player1.beats(player2)) {
+        if (game.getPlayer2Move().equals(ROCK)) {
             System.out.println("You win");
             Helper.replaceScene(Helper.paperWinnerFXML, Helper.paperWinnerTitle, mouseEvent);
-        } else if (player2.beats(player1)) {
+        } else if (game.getPlayer2Move().equals(SCISSORS)) {
             System.out.println("You Loose");
             Helper.replaceScene(Helper.paperLoserFXML, Helper.paperLoserTitle, mouseEvent);
-        } else if (player1.equals(player2)){
+        } else if (game.getPlayer2Move().equals(PAPER)){
             System.out.println("TIE");
             Helper.replaceScene(Helper.paperTIEFXML, Helper.paperTIETitle, mouseEvent);
         }
     }
 
     public void ScissorButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
-        con = ConDB.getConnection();
-        con.setAutoCommit(false);
+        Move scissorMove = new Move(moveId, move, userId);
+        scissorMove.setMoveId(SCISSORS);
+        game.getPlayer2Move();
 
-        Move.setMoveId(SCISSORS);
 
-        if (player1.beats(player2)) {
+        if (game.getPlayer2Move().equals(PAPER)) {
             System.out.println("You win");
-            Helper.replaceScene(Helper.handWinnerFXML, Helper.handWinnerTitle, mouseEvent);
-        } else if (player2.beats(player1)) {
+            Helper.replaceScene(Helper.paperWinnerFXML, Helper.paperWinnerTitle, mouseEvent);
+        } else if (game.getPlayer2Move().equals(ROCK)) {
             System.out.println("You Loose");
-            Helper.replaceScene(Helper.handLoserFXML, Helper.handLoserTitle, mouseEvent);
-        } else if (player1.equals(player2)){
+            Helper.replaceScene(Helper.paperLoserFXML, Helper.paperLoserTitle, mouseEvent);
+        } else if (game.getPlayer2Move().equals(SCISSORS)){
             System.out.println("TIE");
-            Helper.replaceScene(Helper.handTIEFXML, Helper.handTIETitle, mouseEvent);
+            Helper.replaceScene(Helper.paperTIEFXML, Helper.paperTIETitle, mouseEvent);
         }
 
     }
@@ -109,7 +101,7 @@ public class StartGamePlayer{
 
 
 
-
+/*
 
     //player2-choices if computer
     private void getPlayer2() throws SQLException {
@@ -164,7 +156,7 @@ public class StartGamePlayer{
 
 
     }
-
+*/
 
 
 
