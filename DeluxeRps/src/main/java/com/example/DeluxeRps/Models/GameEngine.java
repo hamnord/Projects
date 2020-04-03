@@ -54,7 +54,7 @@ public class GameEngine {
   public Move getPlayer2Move() throws SQLException {
     Move player2Move = new Move(moveId,userId);
     player2Move.getMoveId();
-    player2Move.getMove(userId,move);
+    player2Move.getMove(userId);
     return player2Move;
   }
 
@@ -62,7 +62,7 @@ public class GameEngine {
   public Move getPlayer1Move() throws SQLException {
     Move player1Move = new Move(moveId,userId);
     player1Move.getMoveId();
-    player1Move.getMove(userId,move);
+    player1Move.getMove(userId);
     return player1Move;
   }
 

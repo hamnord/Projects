@@ -4,6 +4,7 @@ import com.example.DeluxeRps.Controllers.ConDB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Move {
@@ -12,6 +13,7 @@ public class Move {
   private int moveId, userId;
    Connection conn = ConDB.getConnection();
   static PreparedStatement sendMoveSTMNT,moveIdSTMNT,getMoveSTMNT;
+  public int move;
 
   public Move (int moveId, int userId) throws SQLException {
     this.moveId = moveId;
@@ -46,13 +48,14 @@ public class Move {
   }
 
   // get your opponents move
-  public void getMove(int userId, int move) throws SQLException {
+  public int getMove(int userId) throws SQLException {
 
     getMoveSTMNT = conn.prepareStatement("SELECT move FROM gamedb.match WHERE userid = ?");
     getMoveSTMNT.setInt(1,userId);
     getMoveSTMNT.setInt(2,move);
     getMoveSTMNT.executeQuery();
     conn.commit();
+    return move;
   }
 
   public int getUserId() {

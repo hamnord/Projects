@@ -122,8 +122,6 @@ public class InviteFriend extends GenericController{
 
     try {
       changeMatchStatus(getUserId(requestsList.getSelectionModel().getSelectedItem()));
-      //selectMatchID();
-    //  newMatch(matchId);
       Helper.replaceScene(Helper.startGamePlayerFXML, Helper.startGamePlayerTitle, arg0);
 
     } catch (SQLException | IOException e) {
@@ -142,20 +140,6 @@ public class InviteFriend extends GenericController{
    * @return ResultSet requests
    * @throws SQLException
    */
-
-  private void newMatch (int matchId) throws SQLException {
-    matchSTMNT = con.prepareStatement("INSERT INTO gamedb.match WHERE matchid = ?");
-    matchSTMNT.setInt(1,matchId);
-    matchSTMNT.executeUpdate();
-    con.commit();
-  }
-
-  private void selectMatchID () throws SQLException {
-    matchIDSTMNT = con.prepareStatement("SELECT FROM gamedb.newgame WHERE matchid = ?");
-    matchIDSTMNT.setInt(1,matchId);
-    matchIDSTMNT.executeQuery();
-    con.commit();
-  }
 
   private ResultSet gameRequests(int userid) throws SQLException {
 

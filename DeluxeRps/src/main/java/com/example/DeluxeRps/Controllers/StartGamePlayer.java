@@ -22,12 +22,13 @@ public class StartGamePlayer extends GenericController{
 
     public int moveId, move, userId;
 
-    PreparedStatement getUserId, getMove,getMatch, sendMove, getMatchSTMNT,getUserIDStmt, gameStmt;
+    PreparedStatement getUserId, opponentSTMNT, getMove,getMatch, sendMove, getMatchSTMNT,getUserIDStmt, gameStmt;
     Connection con;
     String matchstatus;
     private String username = Login.username;
     private int userIDPlayer1;
     int player2Move;
+    private int player2Id;
     public int matchId;
 
 
@@ -36,51 +37,9 @@ public class StartGamePlayer extends GenericController{
     public static  final int SCISSORS = 2;
     public static  final int PAPER = 3;
 
-
-    public StartGamePlayer() throws SQLException {
-    }
-
-    public void getOpponentMove() throws SQLException, IOException {
-      con = ConDB.getConnection();
-      con.setAutoCommit(false);
-
-      int userIDPlayer2 = getOpponent();
-
-      ResultSet activeMatch = getMatch();
-
-      while (activeMatch.next()) {
-
-        try {
-          Move opponentMove = new Move(player2Move, userIDPlayer2);
-          opponentMove.getMove(userIDPlayer2, player2Move);
-
-          switch (player2Move) {
-            case ROCK:
-              opponentMove.sendMove(userIDPlayer2, ROCK);
-              break;
-            case PAPER:
-              opponentMove.sendMove(userIDPlayer2, PAPER);
-              break;
-            case SCISSORS:
-              opponentMove.sendMove(userIDPlayer2, SCISSORS);
-              break;
-
-            default:
-              throw new IllegalStateException();
-          }
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
-    }
-
-
     public void RockButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
       con = ConDB.getConnection();
       con.setAutoCommit(false);
-      ResultSet activeMatch = getMatch();
-
-      while (activeMatch.next()) {
 
         try {
           userIDPlayer1 = getUserId(username);
@@ -89,7 +48,11 @@ public class StartGamePlayer extends GenericController{
           rockMove.sendMove(userIDPlayer1, ROCK);
           System.out.println("ROCK SELECTED");
 
-          getOpponentMove();
+          player2Id = getOpponentId();
+
+          Move opponentMove = new Move(player2Move, player2Id);
+          player2Move = opponentMove.getMove(player2Id);
+
 
           if (player2Move == SCISSORS) {
             System.out.println("You win");
@@ -97,15 +60,15 @@ public class StartGamePlayer extends GenericController{
           } else if (player2Move == PAPER) {
             System.out.println("You Loose");
             Helper.replaceScene(Helper.covidLoserFXML, Helper.covidLoserTitle, mouseEvent);
-          } else if (player2Move == ROCK) {
+          } else if (player2Move == ROCK){
             System.out.println("TIE");
             Helper.replaceScene(Helper.covidTIEFXML, Helper.covidTIETitle, mouseEvent);
           }
-        } catch (Exception e) {
+      }catch (Exception e){
           e.printStackTrace();
         }
       }
-    }
+
 
     public void PaperButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
 
@@ -122,7 +85,6 @@ public class StartGamePlayer extends GenericController{
           paperMove.setMoveId(PAPER);
           paperMove.sendMove(userIDPlayer1, ROCK);
 
-          getOpponentMove();
 
           if (player2Move == ROCK) {
             System.out.println("You win");
@@ -155,8 +117,6 @@ public class StartGamePlayer extends GenericController{
           Move scissorMove = new Move(SCISSORS, userIDPlayer1);
           scissorMove.setMoveId(SCISSORS);
           scissorMove.sendMove(userIDPlayer1, SCISSORS);
-
-          getOpponentMove();
 
           if (player2Move == PAPER) {
             System.out.println("You win");
@@ -193,9 +153,16 @@ public class StartGamePlayer extends GenericController{
 
       return userIDPlayer1;
     }
-
     return 0;
+  }
 
+  private int getOpponentId () throws SQLException {
+      opponentSTMNT = con.prepareStatement("SELECT * FROM gamedb.newgame WHERE useridplayer2 = ?");
+      opponentSTMNT.setInt(1, player2Id);
+      opponentSTMNT.executeQuery();
+      con.commit();
+
+      return player2Id;
   }
 
   private ResultSet getMatch () throws SQLException {
@@ -240,7 +207,7 @@ public class StartGamePlayer extends GenericController{
         return a;
 
     }
-
+/*
     private int getOpponent() throws SQLException {
 
         gameStmt = con.prepareStatement("SELECT * FROM gamedb.newgame WHERE useridplayer2 = ?");
@@ -249,5 +216,39 @@ public class StartGamePlayer extends GenericController{
         return userId;
 
     }
+
+  public void getOpponentMove() throws SQLException, IOException {
+    con = ConDB.getConnection();
+    con.setAutoCommit(false);
+
+    int userIDPlayer2 = getOpponent();
+
+    ResultSet activeMatch = getMatch();
+
+    while (activeMatch.next()) {
+
+      try {
+        Move opponentMove = new Move(player2Move, userIDPlayer2);
+
+        switch (player2Move) {
+          case ROCK:
+            opponentMove.sendMove(userIDPlayer2, ROCK);
+            break;
+          case PAPER:
+            opponentMove.sendMove(userIDPlayer2, PAPER);
+            break;
+          case SCISSORS:
+            opponentMove.sendMove(userIDPlayer2, SCISSORS);
+            break;
+
+          default:
+            throw new IllegalStateException();
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+*/
 
 }
