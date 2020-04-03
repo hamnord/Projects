@@ -17,31 +17,26 @@ import java.sql.SQLException;
 public class InviteFriend extends GenericController{
 
   Connection con;
-  PreparedStatement checkFriendsList, gameRequestSTMNT, newGameSTMNT, getUserIDStmt, changeMatchStmt, whoIsOnlineStmt;
+  PreparedStatement checkFriendsList, gameRequestSTMNT, newGameSTMNT, getUserIDStmt, changeMatchStmt, whoIsOnlineStmt, getUsernameStmt;
   String username = Login.username;
-  String friendUsername;
-  int useridplayer1,useridplayer2;
+  int useridplayer1;
   static String matchstatus;
-  ResultSet c, d;
-
-
 
 
 
   //FXML-Objects
+  @FXML
+  private ListView<String> friendsList = new ListView<>();
 
   @FXML
-  private ListView<Player> friendsList = new ListView<>();
-
-
-  @FXML
-  private ListView<Player> requestsList = new ListView<>();
+  private ListView<String> requestsList = new ListView<>();
 
 
 
   @Override
   public void postInitialize() throws SQLException {
 
+    //Searching for info in DB + listing them in ListView
     friendsList.getItems().clear();
     requestsList.getItems().clear();
 
@@ -59,10 +54,8 @@ public class InviteFriend extends GenericController{
         ResultSet c = getOnlineFriends(useridplayer1);
 
         while (c.next()) {
-          String friendname = c.getString("friendname");
-          int friendid = c.getInt("friendid");
-          Player player2 = new Player(friendname, friendid);
-          friendsList.getItems().add(player2);
+          String friendName = c.getString("friendname");
+          friendsList.getItems().add(friendName);
         }
 
 
@@ -70,8 +63,8 @@ public class InviteFriend extends GenericController{
 
         while (d.next()) {
           int player2userID = d.getInt("useridplayer1");
-          Player player2 = new Player(Player.getUserName(player2userID), player2userID);
-          requestsList.getItems().add(player2);
+          String friendName = getUsername(player2userID);
+          requestsList.getItems().add(friendName);
         }
 
         return;
@@ -86,12 +79,12 @@ public class InviteFriend extends GenericController{
   }
 
 
-
+  //REMOVE THIS ONE
   public void startGameButtonClicked (MouseEvent mouseEvent) throws IOException {
     Helper.replaceScene(Helper.startGamePlayerFXML, Helper.startGamePlayerTitle, mouseEvent);
   }
 
-
+  //Buttons
   public void backButtonClicked(MouseEvent mouseEvent) throws IOException {
     Helper.replaceScene(Helper.pvpMenuFXML, Helper.pvpMenuTitle, mouseEvent);
   }
@@ -104,18 +97,34 @@ public class InviteFriend extends GenericController{
     postInitialize();
   }
 
+
+
+  //INVITE FRIEND TO GAME BY CLICKING ON ITEM
   public void clickInviteFriend(MouseEvent arg0) {
+
     System.out.println("clicked on " + friendsList.getSelectionModel().getSelectedItem());
+
     try {
-      newGameRequest(useridplayer1, Player.getUserId(friendsList.getSelectionModel().getSelectedItem().toString()));
-    } catch (SQLException e) {
+      newGameRequest(useridplayer1, getUserId(friendsList.getSelectionModel().getSelectedItem()));
+      Helper.replaceScene(Helper.startGamePlayerFXML, Helper.startGamePlayerTitle, arg0);
+    } catch (SQLException | IOException e) {
       e.printStackTrace();
     }
 
   }
 
+  //ACCEPT REQUEST BY CLICKING ON ITEM
   public void clickAcceptRequest(MouseEvent arg0) {
     System.out.println("clicked on " + requestsList.getSelectionModel().getSelectedItem());
+
+    try {
+      changeMatchStatus(getUserId(requestsList.getSelectionModel().getSelectedItem()));
+      Helper.replaceScene(Helper.startGamePlayerFXML, Helper.startGamePlayerTitle, arg0);
+    } catch (SQLException | IOException e) {
+      e.printStackTrace();
+    }
+
+
   }
 
 
@@ -123,7 +132,6 @@ public class InviteFriend extends GenericController{
 
   //PREPARED STATEMENTS
 
-  //TODO implement gameInvite
   private ResultSet gameRequests(int userid) throws SQLException {
 
     matchstatus = "PENDING";
@@ -135,24 +143,14 @@ public class InviteFriend extends GenericController{
 
   }
 
-  //TODO Check online Friends
-  private ResultSet checkFriendList(int userID) throws SQLException {
-
-    checkFriendsList = con.prepareStatement("SELECT * FROM gamedb.friendslist WHERE userid = ?");
-    checkFriendsList.setInt(1,userID);
-    ResultSet friendsList = checkFriendsList.executeQuery();
-    return friendsList;
-
-  }
-
 
   private void newGameRequest(int player1, int player2) throws SQLException {
 
     matchstatus = "PENDING";
     newGameSTMNT = con.prepareStatement("INSERT INTO gamedb.newgame (useridplayer1, useridplayer2, matchstatus) VALUES (?,?,?)");
-    newGameSTMNT.setInt(2, player1);
-    newGameSTMNT.setInt(3,player2);
-    newGameSTMNT.setString(4,matchstatus);
+    newGameSTMNT.setInt(1, player1);
+    newGameSTMNT.setInt(2,player2);
+    newGameSTMNT.setString(3, matchstatus);
     newGameSTMNT.executeUpdate();
     con.commit();
 
@@ -163,20 +161,41 @@ public class InviteFriend extends GenericController{
     getUserIDStmt = con.prepareStatement("SELECT * FROM gamedb.users where username = ?");
     getUserIDStmt.setString(1, username);
     ResultSet checkUser = getUserIDStmt.executeQuery();
-    while (checkUser.next()) {
+
+    if(checkUser.next()) {
+
       useridplayer1 = checkUser.getInt("userid");
 
       return useridplayer1;
     }
 
     return 0;
+
   }
 
-  private void changeMatchStatus() throws SQLException {
+  private String getUsername(int playerID) throws SQLException {
+
+    getUsernameStmt = con.prepareStatement("SELECT * FROM gamedb.users WHERE userid = ?");
+    getUsernameStmt.setInt(1, playerID);
+    ResultSet a = getUsernameStmt.executeQuery();
+
+    while (a.next()) {
+      String username = a.getString("username");
+
+      return username;
+    }
+
+    return null;
+
+  }
+
+
+  private void changeMatchStatus(int useridplayer1) throws SQLException {
 
     matchstatus = "ONGOING";
-    changeMatchStmt = con.prepareStatement("UPDATE gamedb.newgame SET (matchstatus) = ?");
+    changeMatchStmt = con.prepareStatement("UPDATE gamedb.newgame SET matchstatus = ? where useridplayer1 = ?");
     changeMatchStmt.setString(1, matchstatus);
+    changeMatchStmt.setInt(2, useridplayer1);
     changeMatchStmt.executeUpdate();
     con.commit();
 
@@ -190,6 +209,8 @@ public class InviteFriend extends GenericController{
     return whoIsOnlineStmt.executeQuery();
 
   }
+
+
 
 
 
