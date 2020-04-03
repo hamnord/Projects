@@ -7,11 +7,9 @@ import java.sql.SQLException;
 
 public class Player {
 
-
-  private static Connection conn;
   private String userName;
-  private  int userId;
-  static PreparedStatement usernameSTMNT, userIdSTMNT;
+  private int userId;
+
 
   public Player (String userName, int userId) throws SQLException {
     this.userName = userName;
@@ -20,7 +18,11 @@ public class Player {
   }
 
 
-  public int getUserId(String username) throws SQLException {
+
+  private static Connection conn;
+  static PreparedStatement usernameSTMNT, userIdSTMNT;
+
+  public static int getUserId(String username) throws SQLException {
 
     userIdSTMNT = conn.prepareStatement("SELECT * FROM gamedb.users WHERE username = ?");
     userIdSTMNT.setString(1, username);
@@ -44,6 +46,8 @@ public class Player {
 
     return username;
   }
+
+
 
   public void setUserName(String userName) {
     this.userName = userName;

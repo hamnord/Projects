@@ -3,21 +3,16 @@ package com.example.DeluxeRps.Controllers;
 
 import com.example.DeluxeRps.Models.Player;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-import java.awt.*;
+import javax.xml.crypto.Data;
 import java.io.IOException;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
-import java.util.concurrent.Executor;
 
 public class InviteFriend extends GenericController{
 
@@ -27,6 +22,8 @@ public class InviteFriend extends GenericController{
   String friendUsername;
   int useridplayer1,useridplayer2;
   static String matchstatus;
+  ResultSet c, d;
+
 
 
 
@@ -34,43 +31,50 @@ public class InviteFriend extends GenericController{
   //FXML-Objects
 
   @FXML
-  private ListView<Player> friendsList;
+  private ListView<Player> friendsList = new ListView<>();
+
 
   @FXML
-  private ListView<Player> requestsList;
-
-
+  private ListView<Player> requestsList = new ListView<>();
 
 
 
   @Override
   public void postInitialize() throws SQLException {
 
+    friendsList.getItems().clear();
+    requestsList.getItems().clear();
+
     con = ConDB.getConnection();
     con.setAutoCommit(false);
 
-    if (getUserId(username).next()) {
-      ResultSet a = getUserId(username);
-      useridplayer1 = a.getInt("userid");
-      ResultSet b = checkFriendList(useridplayer1);
-      useridplayer2 = b.getInt("friendid");
+    useridplayer1 = getUserId(username);
+
+    while (useridplayer1 != 0) {
 
       try {
 
-        while (getOnlineFriends(useridplayer1).next()) {
-          ResultSet c = getOnlineFriends(useridplayer1);
-          Player player2 = new Player(b.getString("username"), c.getInt("userid"));
+        System.out.println("Looking for friends");
+
+        ResultSet c = getOnlineFriends(useridplayer1);
+
+        while (c.next()) {
+          String friendname = c.getString("friendname");
+          int friendid = c.getInt("friendid");
+          Player player2 = new Player(friendname, friendid);
           friendsList.getItems().add(player2);
         }
 
 
-        while (gameRequests(useridplayer1).next()) {
-          ResultSet d = gameRequests(useridplayer1);
+        ResultSet d = gameRequests(useridplayer1);
+
+        while (d.next()) {
           int player2userID = d.getInt("useridplayer1");
           Player player2 = new Player(Player.getUserName(player2userID), player2userID);
           requestsList.getItems().add(player2);
         }
 
+        return;
 
       } catch (SQLException e) {
         e.printStackTrace();
@@ -82,67 +86,6 @@ public class InviteFriend extends GenericController{
   }
 
 
-
-
-
-
-
-  //TODO implement GameRequest with friend
-  /* public void inviteFriendButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
-
-    con = ConDB.getConnection();
-    con.setAutoCommit(false);
-
-    friendId = inviteFriendFromList.getText();
-
-    ResultSet a = getUserId(username);
-    ResultSet b = getUserId(friendId);
-
-    while (a.next() && b.next()) {
-
-      System.out.println("loop running");
-
-      useridplayer1 = a.getInt("userid");
-      useridplayer2 = b.getInt("userid");
-
-      if(checkFriendList(useridplayer1).next()) {
-
-        try {
-
-          newGameRequest(useridplayer1, useridplayer2);
-
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-
-      }
-
-    }
-  }
-
-  public void seeRequestsButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
-
-    con = ConDB.getConnection();
-
-    ResultSet a = getUserId(username);
-    userid = a.getInt("userid");
-
-
-    if (gameRequests(userid).next()) {
-
-      // Någon form for lista av requests + button for confirm -> to Game
-      changeMatchStatus();
-
-
-    } else {
-
-      System.out.println("No active requests");
-      //Button til invite-friend?
-
-    }
-
-
-  } */
 
   public void startGameButtonClicked (MouseEvent mouseEvent) throws IOException {
     Helper.replaceScene(Helper.startGamePlayerFXML, Helper.startGamePlayerTitle, mouseEvent);
@@ -159,6 +102,20 @@ public class InviteFriend extends GenericController{
 
   public void checkforfriends(MouseEvent mouseEvent) throws SQLException {
     postInitialize();
+  }
+
+  public void clickInviteFriend(MouseEvent arg0) {
+    System.out.println("clicked on " + friendsList.getSelectionModel().getSelectedItem());
+    try {
+      newGameRequest(useridplayer1, Player.getUserId(friendsList.getSelectionModel().getSelectedItem().toString()));
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+  }
+
+  public void clickAcceptRequest(MouseEvent arg0) {
+    System.out.println("clicked on " + requestsList.getSelectionModel().getSelectedItem());
   }
 
 
@@ -201,15 +158,18 @@ public class InviteFriend extends GenericController{
 
   }
 
-  private ResultSet getUserId(String username) throws SQLException{
+  private int getUserId(String username) throws SQLException{
 
     getUserIDStmt = con.prepareStatement("SELECT * FROM gamedb.users where username = ?");
     getUserIDStmt.setString(1, username);
     ResultSet checkUser = getUserIDStmt.executeQuery();
-    con.commit();
+    while (checkUser.next()) {
+      useridplayer1 = checkUser.getInt("userid");
 
-    return checkUser;
+      return useridplayer1;
+    }
 
+    return 0;
   }
 
   private void changeMatchStatus() throws SQLException {
