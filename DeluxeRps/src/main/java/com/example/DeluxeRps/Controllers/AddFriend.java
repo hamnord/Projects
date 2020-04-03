@@ -1,20 +1,16 @@
 package com.example.DeluxeRps.Controllers;
 
-import com.example.DeluxeRps.Models.FriendList;
-import javafx.collections.ObservableList;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
+
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class AddFriend extends GenericController{
@@ -29,8 +25,6 @@ public class AddFriend extends GenericController{
     @FXML
     private TextField addFriendToList;
 
-    @FXML
-    private VBox friendListVBOX;
 
 
 
@@ -53,14 +47,12 @@ public class AddFriend extends GenericController{
         try {
           addFriend(userInt, userFriendInt, usernameFriend);
           System.out.println("Friend added to FriendList");
-          postInitialize();
 
         } catch (Exception e) {
           e.printStackTrace();
           Alert alert = new Alert(Alert.AlertType.NONE, " Error! friend already exist in friend list", ButtonType.OK);
           alert.setTitle("Error adding friend");
           alert.show();
-          postInitialize();
         }
       }
       else {
@@ -71,40 +63,7 @@ public class AddFriend extends GenericController{
       }
     }
 
-    //FRiendsList method
-   public void postInitialize() throws SQLException {
 
-         con = ConDB.getConnection();
-         con.setAutoCommit(false);
-
-     try {
-         username = Login.username;
-         ResultSet a = checkUserId(username);
-           ResultSet b = checkFriendList();
-
-           checkFriendList();
-
-       while (b.next()) {
-
-         System.out.println("loopRunning");
-
-             FriendList friendListDeluxe = new FriendList(
-                 b.getInt("userid"),
-                 b.getInt("friendid"),
-                 b.getString("friendname"));
-
-               Label friendsLabel = new Label(friendListDeluxe.getFriendName());
-               System.out.println("Label added");
-
-               Font font = new Font("Arial Black", 20);
-               friendsLabel.setFont(font);
-               friendListVBOX.getChildren().addAll(friendsLabel);
-             }
-           }catch (Exception e){
-       e.printStackTrace();
-       System.out.println("Fuck this spaghetti code");
-     }
-    }
 
 
 

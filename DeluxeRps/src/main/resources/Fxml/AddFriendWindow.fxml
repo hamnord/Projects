@@ -20,16 +20,6 @@
     </VBox>
 
 
-<VBox id="buttonAlignment">
-
-<Label id="header" text="FRIENDS"/>
-
-  <VBox fx:id="friendListVBOX" id="friendList" />
-
-
-
-</VBox>
-
     <VBox id="buttonAlignment">
     <ImageView id="confirmButton" fitWidth="250" preserveRatio="true" onMouseClicked="#confirmButtonClicked"/>
     <ImageView id="backButton" fitWidth="150" preserveRatio="true" onMouseClicked="#backButtonClicked"/>
