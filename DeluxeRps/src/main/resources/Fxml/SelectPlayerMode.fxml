@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -21,8 +18,8 @@
   </VBox>
 
  <VBox id="buttonAlignment">
-   <ImageView id="pvpButton" fitWidth="250" preserveRatio="true" onMouseClicked="#playvsplayerButtonClicked"/>
-   <ImageView id="pveButton" fitWidth="250" preserveRatio="true" onMouseClicked="#playvscomButtonClicked"/>
+   <ImageView id="pvpButton" fitWidth="250" preserveRatio="true" onMouseClicked="#playVSPlayerButtonClicked"/>
+   <ImageView id="pveButton" fitWidth="250" preserveRatio="true" onMouseClicked="#playVSComButtonClicked"/>
    <ImageView id="rulesButton" fitWidth="225" preserveRatio="true" onMouseClicked="#instructionsButtonClicked"/>
    <ImageView id="backButton" fitWidth="150" preserveRatio="true" onMouseClicked="#backButtonClicked"/>
    <ImageView id="exitButton" fitWidth="150" preserveRatio="true" onMouseClicked="#exitButtonClicked"/>

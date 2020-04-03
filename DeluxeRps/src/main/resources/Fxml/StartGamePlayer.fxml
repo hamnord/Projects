@@ -14,15 +14,15 @@
     <Label id="header" text="MAKE YOUR MOVE"/>
 
     <VBox id="covidAlignment">
-      <ImageView id="covidLogo" fitWidth="250" preserveRatio="true" onMouseClicked="#covidButtonClicked"/>
+      <ImageView id="covidLogo" fitWidth="250" preserveRatio="true" onMouseClicked="#RockButtonClicked"/>
     </VBox>
 
     <VBox id="spacing">
     </VBox>
 
     <HBox id="buttonAlignment">
-      <ImageView id="handLogo" fitWidth="200" preserveRatio="true" onMouseClicked="#handButtonClicked"/>
-      <ImageView id="paperLogo" fitWidth="165" preserveRatio="true" onMouseClicked="#paperButtonClicked"/>
+      <ImageView id="handLogo" fitWidth="200" preserveRatio="true" onMouseClicked="#ScissorButtonClicked"/>
+      <ImageView id="paperLogo" fitWidth="165" preserveRatio="true" onMouseClicked="#PaperButtonClicked"/>
     </HBox>
 
     <VBox  id="buttonAlignment">

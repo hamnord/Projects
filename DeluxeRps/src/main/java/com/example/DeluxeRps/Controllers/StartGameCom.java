@@ -1,9 +1,8 @@
 package com.example.DeluxeRps.Controllers;
 
-import com.example.DeluxeRps.Models.GameEngine;
+
 import javafx.scene.input.MouseEvent;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Random;
@@ -11,9 +10,9 @@ import java.util.Random;
 public class StartGameCom {
 
 
-   RPS player1;
-   static RPS player2;
-  static Random generator = new Random();
+   private RPS player1;
+   private static RPS player2;
+   private static Random generator = new Random();
 
 
   public void covidButtonClicked(MouseEvent mouseEvent) throws IOException {
@@ -72,6 +71,7 @@ public class StartGameCom {
     Login.exitButtonClicked(mouseEvent);
   }
 
+  //Can we implement this in a model?
   public enum RPS {
 
     ROCK, PAPER, SCISSORS;

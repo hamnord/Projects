@@ -24,9 +24,9 @@ public class CreatePlayer {
 
   final FileChooser fileChooser = new FileChooser();
 
-  String username, password, repeatPass, email, securePW;
-  Connection con;
-  PreparedStatement existingUser, regPlayerStmnt, tokenStmnt, logIn;
+  private String username, password, repeatPass, email, securePW;
+  private Connection con;
+  private PreparedStatement existingUser, regPlayerStmnt;
 
 
   //FXML-Objects
@@ -51,7 +51,7 @@ public class CreatePlayer {
 
 
     //Crypting pw with BCrypt
-    securePW = BCryptify.hashPassword(password);
+    securePW = BCryptic.hashPassword(password);
 
 
     //Get Connection

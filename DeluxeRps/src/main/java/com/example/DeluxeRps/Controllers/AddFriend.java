@@ -19,16 +19,20 @@ import java.util.List;
 
 public class AddFriend extends GenericController{
 
-    Connection con;
-    PreparedStatement checkFriendStmt, addFriendStmt, checkOnlineSTMNT;
-    String usernameFriend, username, activefriendsList, friendname;
-    int userInt, userFriendInt, userid;
+    private Connection con;
+    private PreparedStatement checkFriendStmt, addFriendStmt, checkOnlineStmt;
+    private String usernameFriend, username;
+    private int userInt, userFriendInt;
+
+
 
     @FXML
     private TextField addFriendToList;
 
     @FXML
-   private VBox friendListVBOX;
+    private VBox friendListVBOX;
+
+
 
   public void confirmButtonClicked(MouseEvent mouseEvent) throws SQLException {
 
@@ -102,13 +106,17 @@ public class AddFriend extends GenericController{
      }
     }
 
+
+
     public void backButtonClicked(MouseEvent mouseEvent) throws IOException {
         Helper.replaceScene(Helper.pvpMenuFXML, Helper.pvpMenuTitle, mouseEvent);
     }
 
-  public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
-    Login.exitButtonClicked(mouseEvent);
-  }
+    public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
+        Login.exitButtonClicked(mouseEvent);
+    }
+
+
 
 
     //PREPARED STATEMENTS
@@ -135,14 +143,14 @@ public class AddFriend extends GenericController{
 
     }
 
-  public ResultSet checkFriendList() throws SQLException {
+    private ResultSet checkFriendList() throws SQLException {
 
-    checkOnlineSTMNT = con.prepareStatement("SELECT * FROM gamedb.friendslist WHERE friendname = ?");
-    checkOnlineSTMNT.setString(1,usernameFriend);
-    ResultSet checkFriend = checkOnlineSTMNT.executeQuery();
-    con.commit();
+        checkOnlineStmt = con.prepareStatement("SELECT * FROM gamedb.friendslist WHERE friendname = ?");
+        checkOnlineStmt.setString(1,usernameFriend);
+        ResultSet checkFriend = checkOnlineStmt.executeQuery();
+        con.commit();
 
-    return checkFriend;
+        return checkFriend;
   }
 
 

@@ -1,26 +1,24 @@
 package com.example.DeluxeRps.Controllers;
 
-
-import com.example.DeluxeRps.Models.Player;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
+
 public class InviteFriend extends GenericController{
 
-  Connection con;
-  PreparedStatement checkFriendsList, gameRequestSTMNT, newGameSTMNT, getUserIDStmt, changeMatchStmt, whoIsOnlineStmt, getUsernameStmt;
-  String username = Login.username;
-  int useridplayer1;
-  static String matchstatus;
+  private Connection con;
+  private PreparedStatement gameRequestStmt, newGameStmt, getUserIDStmt, changeMatchStmt, whoIsOnlineStmt, getUsernameStmt;
+  private String username = Login.username;
+  private int userIDPlayer1;
+  private static String matchStatus;
 
 
 
@@ -43,15 +41,15 @@ public class InviteFriend extends GenericController{
     con = ConDB.getConnection();
     con.setAutoCommit(false);
 
-    useridplayer1 = getUserId(username);
+    userIDPlayer1 = getUserId(username);
 
-    while (useridplayer1 != 0) {
+    while (userIDPlayer1 != 0) {
 
       try {
 
         System.out.println("Looking for friends");
 
-        ResultSet c = getOnlineFriends(useridplayer1);
+        ResultSet c = getOnlineFriends(userIDPlayer1);
 
         while (c.next()) {
           String friendName = c.getString("friendname");
@@ -59,7 +57,7 @@ public class InviteFriend extends GenericController{
         }
 
 
-        ResultSet d = gameRequests(useridplayer1);
+        ResultSet d = gameRequests(userIDPlayer1);
 
         while (d.next()) {
           int player2userID = d.getInt("useridplayer1");
@@ -93,7 +91,7 @@ public class InviteFriend extends GenericController{
     Login.exitButtonClicked(mouseEvent);
   }
 
-  public void checkforfriends(MouseEvent mouseEvent) throws SQLException {
+  public void checkForFriends(MouseEvent mouseEvent) throws SQLException {
     postInitialize();
   }
 
@@ -105,7 +103,7 @@ public class InviteFriend extends GenericController{
     System.out.println("clicked on " + friendsList.getSelectionModel().getSelectedItem());
 
     try {
-      newGameRequest(useridplayer1, getUserId(friendsList.getSelectionModel().getSelectedItem()));
+      newGameRequest(userIDPlayer1, getUserId(friendsList.getSelectionModel().getSelectedItem()));
       Helper.replaceScene(Helper.startGamePlayerFXML, Helper.startGamePlayerTitle, arg0);
     } catch (SQLException | IOException e) {
       e.printStackTrace();
@@ -134,11 +132,11 @@ public class InviteFriend extends GenericController{
 
   private ResultSet gameRequests(int userid) throws SQLException {
 
-    matchstatus = "PENDING";
-    gameRequestSTMNT = con.prepareStatement("SELECT * FROM gamedb.newgame WHERE useridplayer2 = ? AND matchstatus = ?");
-    gameRequestSTMNT.setInt(1, userid);
-    gameRequestSTMNT.setString(2, matchstatus);
-    ResultSet requests = gameRequestSTMNT.executeQuery();
+    matchStatus = "PENDING";
+    gameRequestStmt = con.prepareStatement("SELECT * FROM gamedb.newgame WHERE useridplayer2 = ? AND matchstatus = ?");
+    gameRequestStmt.setInt(1, userid);
+    gameRequestStmt.setString(2, matchStatus);
+    ResultSet requests = gameRequestStmt.executeQuery();
     return requests;
 
   }
@@ -146,12 +144,12 @@ public class InviteFriend extends GenericController{
 
   private void newGameRequest(int player1, int player2) throws SQLException {
 
-    matchstatus = "PENDING";
-    newGameSTMNT = con.prepareStatement("INSERT INTO gamedb.newgame (useridplayer1, useridplayer2, matchstatus) VALUES (?,?,?)");
-    newGameSTMNT.setInt(1, player1);
-    newGameSTMNT.setInt(2,player2);
-    newGameSTMNT.setString(3, matchstatus);
-    newGameSTMNT.executeUpdate();
+    matchStatus = "PENDING";
+    newGameStmt = con.prepareStatement("INSERT INTO gamedb.newgame (useridplayer1, useridplayer2, matchstatus) VALUES (?,?,?)");
+    newGameStmt.setInt(1, player1);
+    newGameStmt.setInt(2,player2);
+    newGameStmt.setString(3, matchStatus);
+    newGameStmt.executeUpdate();
     con.commit();
 
   }
@@ -164,9 +162,9 @@ public class InviteFriend extends GenericController{
 
     if(checkUser.next()) {
 
-      useridplayer1 = checkUser.getInt("userid");
+      userIDPlayer1 = checkUser.getInt("userid");
 
-      return useridplayer1;
+      return userIDPlayer1;
     }
 
     return 0;
@@ -192,9 +190,9 @@ public class InviteFriend extends GenericController{
 
   private void changeMatchStatus(int useridplayer1) throws SQLException {
 
-    matchstatus = "ONGOING";
+    matchStatus = "ONGOING";
     changeMatchStmt = con.prepareStatement("UPDATE gamedb.newgame SET matchstatus = ? where useridplayer1 = ?");
-    changeMatchStmt.setString(1, matchstatus);
+    changeMatchStmt.setString(1, matchStatus);
     changeMatchStmt.setInt(2, useridplayer1);
     changeMatchStmt.executeUpdate();
     con.commit();

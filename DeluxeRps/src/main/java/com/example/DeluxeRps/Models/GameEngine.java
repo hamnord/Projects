@@ -19,7 +19,6 @@ public class GameEngine {
 
 
 
-
   public GameEngine (Player player1, Player player2, Match match, Move player1Move, Move player2Move) throws SQLException {
     this.player1 = player1;
     this.player2 = player2;

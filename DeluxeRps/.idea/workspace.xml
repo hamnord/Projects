@@ -8,7 +8,18 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/AddFriend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/AddFriend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/BCryptify.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/BCryptic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/ConDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/ConDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/CreatePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/CreatePlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/InviteFriend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/InviteFriend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/SelectPlayerMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/SelectPlayerMode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/StartGameCom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/StartGameCom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Models/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Models/GameEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Fxml/InviteFriendWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Fxml/InviteFriendWindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Fxml/SelectPlayerMode.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Fxml/SelectPlayerMode.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Fxml/StartGamePlayer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Fxml/StartGamePlayer.fxml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

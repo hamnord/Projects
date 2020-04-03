@@ -2,16 +2,10 @@ package com.example.DeluxeRps.Controllers;
 
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import org.graalvm.compiler.phases.common.NodeCounterPhase;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
@@ -25,13 +19,13 @@ import java.util.Base64;
 
 public class Login {
 
-  public static final SecureRandom secure = new SecureRandom();
-  PreparedStatement logIn, logout, loginStmt, tokenStmt, removeTokenStmnt;
+  private static final SecureRandom secure = new SecureRandom();
+  private PreparedStatement logIn, loginStmt, tokenStmt;
   static String username;
   private String password;
-  static int userid;
-  Connection con;
- static Connection connection;
+  private static int userid;
+  private Connection con;
+  private static Connection connection;
 
 
   //FXML-Objects
@@ -40,7 +34,8 @@ public class Login {
   @FXML
   PasswordField passwordField;
 
-  public static String generateToken () {
+
+  private static String generateToken() {
       byte[] randomBytes = new byte[24];
       secure.nextBytes(randomBytes);
       String token = Base64.getEncoder().encodeToString(randomBytes);
@@ -71,7 +66,7 @@ public class Login {
           System.out.println("Authentication successful");
           userid = validUser.getInt("userid");
 
-          logedIn();
+          loggedIn();
           String token = generateToken();
           insertToken(token);
 
@@ -88,7 +83,7 @@ public class Login {
         }
       }
         //If no input
-        if (validUser == null){
+        if (userNameInput == null && passwordField == null){
         Alert alert = new Alert(AlertType.NONE, " Error! Credential fields are empty", ButtonType.OK);
         alert.setTitle("Error in authentication");
         alert.show();
@@ -108,7 +103,7 @@ public class Login {
 
 
   //SQL-STATEMENTS:
-  public ResultSet checkUser() throws SQLException{
+  private ResultSet checkUser() throws SQLException{
 
     loginStmt = con.prepareStatement("SELECT * FROM gamedb.users WHERE username = ?");
     loginStmt.setString(1, username);
@@ -118,7 +113,7 @@ public class Login {
 
 
   // WORKS
-  public void logedIn () throws SQLException {
+  private void loggedIn() throws SQLException {
 
     logIn = con.prepareStatement("INSERT INTO gamedb.logedinusers VALUES (?,?)");
     logIn.setInt(1,userid);
@@ -129,21 +124,21 @@ public class Login {
   }
 
   //NOT IN USE CURRENTLY BUT SHOULD BE CALLED WHEN SYSTEM.EXIT(0)
-  public static void logOut() throws SQLException {
+  static void logOut() throws SQLException {
 
     connection = ConDB.getConnection();
     connection.setAutoCommit(false);
 
     PreparedStatement logout = connection.prepareStatement("DELETE FROM gamedb.logedinusers WHERE \"userid\" = ?; ");
-      logout.setInt(1, userid);
-      logout.executeUpdate();
-      connection.commit();
+    logout.setInt(1, userid);
+    logout.executeUpdate();
+    connection.commit();
 
     }
 
 
   //WORKSSSSSS, NOT SURE HOW TO SET VALUE AND HOW TO MAKE TOKENS GO AWAY
-  public void insertToken (String token) throws SQLException{
+  private void insertToken(String token) throws SQLException{
 
       tokenStmt = con.prepareStatement("INSERT INTO gamedb.tokens VALUES (?, ?, ?);");
       tokenStmt.setString(1, token);
@@ -154,19 +149,19 @@ public class Login {
 
   }
 
-  public static void removeToken() throws SQLException {
+  static void removeToken() throws SQLException {
 
     connection = ConDB.getConnection();
     connection.setAutoCommit(false);
 
     PreparedStatement removeTokenStmnt = connection.prepareStatement("DELETE FROM gamedb.tokens WHERE \"userid\" = ?;");
-      removeTokenStmnt.setInt(1, userid);
-      removeTokenStmnt.executeUpdate();
-      connection.commit();
+    removeTokenStmnt.setInt(1, userid);
+    removeTokenStmnt.executeUpdate();
+    connection.commit();
 
   }
 
-// exit button
+  //exit button
   static void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
 
     try {

@@ -1,12 +1,11 @@
 package com.example.DeluxeRps.Controllers;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 
 public class ConDB {
 
   private static Connection con;
-  PreparedStatement tokenStmt;
+
 
   public static Connection getConnection() throws SQLException {
 
