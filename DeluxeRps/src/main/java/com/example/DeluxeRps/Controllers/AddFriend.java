@@ -57,6 +57,9 @@ public class AddFriend extends GenericController{
         try {
           addFriend(userInt, userFriendInt, usernameFriend);
           System.out.println("Friend added to FriendList");
+          Alert alert = new Alert(Alert.AlertType.NONE, "Friend: " + usernameFriend + ", added!", ButtonType.OK);
+          alert.setTitle("FriendList");
+          alert.show();
 
         } catch (Exception e) {
           e.printStackTrace();

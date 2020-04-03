@@ -1,9 +1,9 @@
 package com.example.DeluxeRps.Controllers;
 
-import com.example.DeluxeRps.Models.GameEngine;
 import com.example.DeluxeRps.Models.Match;
 import com.example.DeluxeRps.Models.Move;
 import com.example.DeluxeRps.Models.Player;
+import com.sun.org.apache.bcel.internal.generic.ARETURN;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -18,80 +18,160 @@ public class StartGamePlayer extends GenericController{
 
     Player player1, player2;
     Match newMatch;
-    Move player1Move,player2Move;
+  //  Move player1Move,player2Move;
 
     public int moveId, move, userId;
 
-    PreparedStatement getUserId, getMove, sendMove, getMatch;
+    PreparedStatement getUserId, getMove,getMatch, sendMove, getMatchSTMNT,getUserIDStmt, gameStmt;
     Connection con;
     String matchstatus;
+    private String username = Login.username;
+    private int userIDPlayer1;
+    int player2Move;
+    public int matchId;
 
-    // insert it in invitefriend and call this from invitefriend maybee ???
-    GameEngine game = new GameEngine(player1,player2, newMatch, player1Move,player2Move);
 
     public static  final int DRAW = 0;
     public static  final int ROCK = 1;
     public static  final int SCISSORS = 2;
     public static  final int PAPER = 3;
 
+
     public StartGamePlayer() throws SQLException {
+    }
+
+    public void getOpponentMove() throws SQLException, IOException {
+      con = ConDB.getConnection();
+      con.setAutoCommit(false);
+
+      int userIDPlayer2 = getOpponent();
+
+      ResultSet activeMatch = getMatch();
+
+      while (activeMatch.next()) {
+
+        try {
+          Move opponentMove = new Move(player2Move, userIDPlayer2);
+          opponentMove.getMove(userIDPlayer2, player2Move);
+
+          switch (player2Move) {
+            case ROCK:
+              opponentMove.sendMove(userIDPlayer2, ROCK);
+              break;
+            case PAPER:
+              opponentMove.sendMove(userIDPlayer2, PAPER);
+              break;
+            case SCISSORS:
+              opponentMove.sendMove(userIDPlayer2, SCISSORS);
+              break;
+
+            default:
+              throw new IllegalStateException();
+          }
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
     }
 
 
     public void RockButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
-        Move rockMove = new Move(moveId, move, userId);
-        //skapar möjligtvis nullpointer, använder den player id ?
-        //rockMove.setMoveId(ROCK,game.getPlayer1());
-        rockMove.setMoveId(ROCK);
-        game.getPlayer2Move();
+      con = ConDB.getConnection();
+      con.setAutoCommit(false);
+      ResultSet activeMatch = getMatch();
 
+      while (activeMatch.next()) {
 
-        if (game.getPlayer2Move().equals(SCISSORS)) {
+        try {
+          userIDPlayer1 = getUserId(username);
+          Move rockMove = new Move(ROCK, userIDPlayer1);
+          rockMove.setMoveId(ROCK);
+          rockMove.sendMove(userIDPlayer1, ROCK);
+          System.out.println("ROCK SELECTED");
+
+          getOpponentMove();
+
+          if (player2Move == SCISSORS) {
             System.out.println("You win");
             Helper.replaceScene(Helper.covidWinnerFXML, Helper.covidWinnerTitle, mouseEvent);
-        } else if (game.getPlayer2Move().equals(PAPER)) {
+          } else if (player2Move == PAPER) {
             System.out.println("You Loose");
             Helper.replaceScene(Helper.covidLoserFXML, Helper.covidLoserTitle, mouseEvent);
-        } else if (game.getPlayer2Move().equals(ROCK)){
+          } else if (player2Move == ROCK) {
             System.out.println("TIE");
             Helper.replaceScene(Helper.covidTIEFXML, Helper.covidTIETitle, mouseEvent);
+          }
+        } catch (Exception e) {
+          e.printStackTrace();
         }
+      }
     }
 
     public void PaperButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
-        Move paperMove = new Move(moveId, move, userId);
-        paperMove.setMoveId(PAPER);
-        game.getPlayer2Move();
 
-        if (game.getPlayer2Move().equals(ROCK)) {
+      con = ConDB.getConnection();
+      con.setAutoCommit(false);
+      ResultSet activeMatch = getMatch();
+
+      while (activeMatch.next()) {
+
+
+        try {
+          userIDPlayer1 = getUserId(username);
+          Move paperMove = new Move(PAPER, userIDPlayer1);
+          paperMove.setMoveId(PAPER);
+          paperMove.sendMove(userIDPlayer1, ROCK);
+
+          getOpponentMove();
+
+          if (player2Move == ROCK) {
             System.out.println("You win");
             Helper.replaceScene(Helper.paperWinnerFXML, Helper.paperWinnerTitle, mouseEvent);
-        } else if (game.getPlayer2Move().equals(SCISSORS)) {
+          } else if (player2Move == SCISSORS) {
             System.out.println("You Loose");
             Helper.replaceScene(Helper.paperLoserFXML, Helper.paperLoserTitle, mouseEvent);
-        } else if (game.getPlayer2Move().equals(PAPER)){
+          } else if (player2Move == PAPER) {
             System.out.println("TIE");
             Helper.replaceScene(Helper.paperTIEFXML, Helper.paperTIETitle, mouseEvent);
+          }
+        } catch (Exception e) {
+          e.printStackTrace();
         }
+      }
     }
 
     public void ScissorButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
-        Move scissorMove = new Move(moveId, move, userId);
-        scissorMove.setMoveId(SCISSORS);
-        game.getPlayer2Move();
+
+      con = ConDB.getConnection();
+      con.setAutoCommit(false);
+
+      ResultSet activeMatch = getMatch();
+
+      while (activeMatch.next()) {
 
 
-        if (game.getPlayer2Move().equals(PAPER)) {
+        try {
+          userIDPlayer1 = getUserId(username);
+          Move scissorMove = new Move(SCISSORS, userIDPlayer1);
+          scissorMove.setMoveId(SCISSORS);
+          scissorMove.sendMove(userIDPlayer1, SCISSORS);
+
+          getOpponentMove();
+
+          if (player2Move == PAPER) {
             System.out.println("You win");
             Helper.replaceScene(Helper.paperWinnerFXML, Helper.paperWinnerTitle, mouseEvent);
-        } else if (game.getPlayer2Move().equals(ROCK)) {
+          } else if (player2Move == ROCK) {
             System.out.println("You Loose");
             Helper.replaceScene(Helper.paperLoserFXML, Helper.paperLoserTitle, mouseEvent);
-        } else if (game.getPlayer2Move().equals(SCISSORS)){
+          } else if (player2Move == SCISSORS) {
             System.out.println("TIE");
             Helper.replaceScene(Helper.paperTIEFXML, Helper.paperTIETitle, mouseEvent);
+          }
+        } catch (Exception e) {
+          e.printStackTrace();
         }
-
+      }
     }
 
     public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
@@ -99,82 +179,34 @@ public class StartGamePlayer extends GenericController{
     }
 
 
-
-
-/*
-
-    //player2-choices if computer
-    private void getPlayer2() throws SQLException {
-
-        ResultSet match = getMatchDetails(getUserId(username));
-        int idplayer2 = match.getInt("useridplayer2");
-        int idmatch = match.getInt("matchid");
-
-
-        int playerMove = getMove(idplayer2, idmatch);
-
-
-        if (playerMove == 1){
-            player2 = StartGamePlayer.RPS.ROCK;
-        }
-
-        else if (playerMove == 2){
-            player2 = StartGamePlayer.RPS.PAPER;
-        }
-
-        else if (playerMove == 3){
-            player2 = StartGamePlayer.RPS.SCISSORS;
-        }
-
-
-
-    }
-
-
-    //Lagar Objekt och bestämmer vad som slår vad
-    public enum RPS {
-
-        ROCK, PAPER, SCISSORS;
-
-        boolean beats() {
-
-            switch (this) {
-                case ROCK:
-                    return other == SCISSORS;
-                case PAPER:
-                    return other == ROCK;
-                case SCISSORS:
-                    return other == PAPER;
-
-                default:
-                    throw new IllegalStateException();
-
-            }
-
-
-        }
-
-
-    }
-*/
-
-
-
     //PREPARED STATEMENTS
 
-    //THESE ARE NOT DONE WHAT SO EVER, NEED TO ADJUST DB AND STUFF
+  private int getUserId(String username) throws SQLException{
 
-    private int getUserId(String username) throws SQLException{
+    getUserIDStmt = con.prepareStatement("SELECT * FROM gamedb.users where username = ?");
+    getUserIDStmt.setString(1, username);
+    ResultSet checkUser = getUserIDStmt.executeQuery();
 
-       getUserId = con.prepareStatement("SELECT * FROM gamedb.users WHERE username = ?");
-       getUserId.setString(1, username);
-       ResultSet validUser = getUserId.executeQuery();
-       int userid = validUser.getInt("userid");
-       return userid;
+    if(checkUser.next()) {
 
+      userIDPlayer1 = checkUser.getInt("userid");
+
+      return userIDPlayer1;
     }
 
-    private int getMove(int userid, int matchid) throws SQLException{
+    return 0;
+
+  }
+
+  private ResultSet getMatch () throws SQLException {
+      getMatchSTMNT = con.prepareStatement("SELECT * FROM gamedb.match WHERE matchid = ? ");
+      getMatchSTMNT.setInt(1, matchId);
+      ResultSet rs = getMatchSTMNT.executeQuery();
+      con.commit();
+      return rs;
+  }
+
+  private int getMove(int userid, int matchid) throws SQLException{
 
         getMove = con.prepareStatement("SELECT * FROM gamedb.match WHERE userid = ? AND matchid = ?");
         getMove.setInt(1, userid);
@@ -184,6 +216,7 @@ public class StartGamePlayer extends GenericController{
         return player2Move;
 
     }
+
 
     private void sendMove(int userid, int matchid, int move) throws SQLException {
 
@@ -196,12 +229,11 @@ public class StartGamePlayer extends GenericController{
 
     }
 
-    private ResultSet getMatchDetails(int userid) throws SQLException{
+    private ResultSet getMatch(int matchid) throws SQLException{
 
         matchstatus = "ONGOING";
-        getMatch = con.prepareStatement("SELECT * FROM gamedb.newgame WHERE userid = ? AND matchstatus = ?");
-        getMatch.setInt(1, userid);
-        getMatch.setString(2, matchstatus);
+        getMatch = con.prepareStatement("SELECT * FROM gamedb.newgame WHERE matchid = ?");
+        getMatch.setInt(1, matchid);
         ResultSet a = getMatch.executeQuery();
         con.commit();
 
@@ -209,6 +241,13 @@ public class StartGamePlayer extends GenericController{
 
     }
 
+    private int getOpponent() throws SQLException {
 
+        gameStmt = con.prepareStatement("SELECT * FROM gamedb.newgame WHERE useridplayer2 = ?");
+        gameStmt.setInt(1, userId);
+        gameStmt.executeQuery();
+        return userId;
+
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.example.DeluxeRps.Controllers;
 
+import com.example.DeluxeRps.Models.Match;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -17,9 +18,10 @@ import java.sql.SQLException;
 public class InviteFriend extends GenericController{
 
   private Connection con;
-  private PreparedStatement gameRequestStmt, newGameStmt, getUserIDStmt, changeMatchStmt, whoIsOnlineStmt, getUsernameStmt;
+  private PreparedStatement matchIDSTMNT,matchSTMNT,gameRequestStmt, newGameStmt, getUserIDStmt, changeMatchStmt, whoIsOnlineStmt, getUsernameStmt;
   private String username = Login.username;
   private int userIDPlayer1;
+  public int matchId;
   private static String matchStatus;
 
 
@@ -85,11 +87,6 @@ public class InviteFriend extends GenericController{
   }
 
 
-  //REMOVE THIS ONE
-  public void startGameButtonClicked (MouseEvent mouseEvent) throws IOException {
-    Helper.replaceScene(Helper.startGamePlayerFXML, Helper.startGamePlayerTitle, mouseEvent);
-  }
-
   //Buttons
   public void backButtonClicked(MouseEvent mouseEvent) throws IOException {
     Helper.replaceScene(Helper.pvpMenuFXML, Helper.pvpMenuTitle, mouseEvent);
@@ -125,7 +122,10 @@ public class InviteFriend extends GenericController{
 
     try {
       changeMatchStatus(getUserId(requestsList.getSelectionModel().getSelectedItem()));
+      //selectMatchID();
+    //  newMatch(matchId);
       Helper.replaceScene(Helper.startGamePlayerFXML, Helper.startGamePlayerTitle, arg0);
+
     } catch (SQLException | IOException e) {
       e.printStackTrace();
     }
@@ -134,16 +134,29 @@ public class InviteFriend extends GenericController{
   }
 
 
-
-
   //PREPARED STATEMENTS
 
   /**
    * Checks for newmatch in DB with matchstatus "PENDING"
-   * @param userid
+   * @param
    * @return ResultSet requests
    * @throws SQLException
    */
+
+  private void newMatch (int matchId) throws SQLException {
+    matchSTMNT = con.prepareStatement("INSERT INTO gamedb.match WHERE matchid = ?");
+    matchSTMNT.setInt(1,matchId);
+    matchSTMNT.executeUpdate();
+    con.commit();
+  }
+
+  private void selectMatchID () throws SQLException {
+    matchIDSTMNT = con.prepareStatement("SELECT FROM gamedb.newgame WHERE matchid = ?");
+    matchIDSTMNT.setInt(1,matchId);
+    matchIDSTMNT.executeQuery();
+    con.commit();
+  }
+
   private ResultSet gameRequests(int userid) throws SQLException {
 
     matchStatus = "PENDING";
@@ -233,6 +246,8 @@ public class InviteFriend extends GenericController{
     con.commit();
 
   }
+
+
 
   /**
    * Checks for online users in friendslist via tokens
