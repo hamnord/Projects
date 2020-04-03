@@ -19,6 +19,9 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.sql.Connection;
 
+/**
+ *
+ */
 
 public class CreatePlayer {
 
@@ -26,7 +29,7 @@ public class CreatePlayer {
 
   private String username, password, repeatPass, email, securePW;
   private Connection con;
-  private PreparedStatement existingUser, regPlayerStmnt;
+  private PreparedStatement existingUser, regPlayerStmt;
 
 
   //FXML-Objects
@@ -40,7 +43,15 @@ public class CreatePlayer {
   private TextField newEmail;
 
 
-
+  /**
+   * Throws Alerts if some input is missing or the user already exists, if not user is created
+   * with hashed and salted password in DB
+   *
+   * @param mouseEvent
+   * @throws IOException
+   * @throws SQLException
+   * @throws NoSuchAlgorithmException
+   */
   public void confirmButtonClicked(MouseEvent mouseEvent) throws IOException, SQLException, NoSuchAlgorithmException {
 
     //Getting input
@@ -107,8 +118,8 @@ public class CreatePlayer {
     catch (Exception e) {
       e.printStackTrace();
     } finally {
-      if (regPlayerStmnt != null) {
-        regPlayerStmnt.close();
+      if (regPlayerStmt != null) {
+        regPlayerStmt.close();
       }
       if (existingUser != null) {
         existingUser.close();
@@ -144,7 +155,14 @@ public class CreatePlayer {
 
   }
 
-  //SQL STATEMENTS:
+  //STATEMENTS
+
+  /**
+   * Checks whether or not the input is already stored in DB
+   * @param username
+   * @return ResultSet storedUser
+   * @throws SQLException
+   */
   public ResultSet existingUserMt(String username) throws SQLException {
 
     existingUser = con.prepareStatement("SELECT * FROM gamedb.users WHERE username = ?");
@@ -156,13 +174,20 @@ public class CreatePlayer {
 
   }
 
+  /**
+   * Creates player in DB using input
+   * @param username
+   * @param pw
+   * @param email
+   * @throws SQLException
+   */
   public void addPlayerToDB(String username, String pw, String email) throws SQLException {
 
-    regPlayerStmnt = con.prepareStatement("INSERT INTO gamedb.users (username, password, email) VALUES (?,?,?)");
-    regPlayerStmnt.setString(1, username);
-    regPlayerStmnt.setString(2, pw);
-    regPlayerStmnt.setString(3, email);
-    regPlayerStmnt.executeUpdate();
+    regPlayerStmt = con.prepareStatement("INSERT INTO gamedb.users (username, password, email) VALUES (?,?,?)");
+    regPlayerStmt.setString(1, username);
+    regPlayerStmt.setString(2, pw);
+    regPlayerStmt.setString(3, email);
+    regPlayerStmt.executeUpdate();
     con.commit();
 
   }

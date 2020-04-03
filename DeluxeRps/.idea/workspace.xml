@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9f6c83ee-e1e9-4d78-a4cc-d2eb6e3049b6" name="Default Changelist" comment="" />
+    <list default="true" id="9f6c83ee-e1e9-4d78-a4cc-d2eb6e3049b6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/AddFriend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/AddFriend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/BCryptic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/BCryptic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/ConDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/ConDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/CreatePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/CreatePlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/GenericController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/GenericController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/InviteFriend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/InviteFriend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/SelectPlayerMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/SelectPlayerMode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/StartGameCom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/StartGameCom.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

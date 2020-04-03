@@ -1,5 +1,10 @@
 package com.example.DeluxeRps.Controllers;
 
+/**
+ * Controller is called upon when something is encrypted, hashes and salts via BCrypt.
+ *
+ * @author heidiguneriussen
+ */
 
 class BCryptic {
 

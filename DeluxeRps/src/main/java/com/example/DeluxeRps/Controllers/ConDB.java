@@ -2,10 +2,22 @@ package com.example.DeluxeRps.Controllers;
 
 import java.sql.*;
 
+/**
+ * Connection Controller in use for minimizing number of connections and keeping the code as clean
+ * as possible. Connects to Cloud DB at Heroku written in PostgreSQL.
+ *
+ * @author heidiguneriussen
+ */
+
 public class ConDB {
 
   private static Connection con;
 
+  /**
+   * Getting the actual connection via DriverManager
+   * @return Connection con
+   * @throws SQLException
+   */
 
   public static Connection getConnection() throws SQLException {
 

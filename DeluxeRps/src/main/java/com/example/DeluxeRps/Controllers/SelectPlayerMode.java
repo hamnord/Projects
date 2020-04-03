@@ -20,6 +20,7 @@ public class SelectPlayerMode {
     Helper.replaceScene(Helper.instructionsFXML, Helper.instructionsTitle, mouseEvent);
   }
 
+  //Whats This?
   public void backButtonClicked (MouseEvent mouseEvent) throws IOException {
     try {
       Login.logOut();

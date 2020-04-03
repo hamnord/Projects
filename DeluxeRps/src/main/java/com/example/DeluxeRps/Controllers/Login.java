@@ -15,7 +15,9 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.Base64;
 
-
+/**
+ *
+ */
 
 public class Login {
 
@@ -34,7 +36,10 @@ public class Login {
   @FXML
   PasswordField passwordField;
 
-
+    /**
+     *
+     * @return token
+     */
   private static String generateToken() {
       byte[] randomBytes = new byte[24];
       secure.nextBytes(randomBytes);
@@ -43,6 +48,15 @@ public class Login {
   }
 
  //ON MOUSE CLICKED
+
+    /**
+     * Sets of Alerts if something is wrongly entered or missing.
+     * Checks if password is correctly entered via BCrypt.
+     * @param mouseEvent
+     * @throws IOException
+     * @throws SQLException
+     * @throws NoSuchAlgorithmException
+     */
   public void loginButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException, NoSuchAlgorithmException {
 
     //Getting input
@@ -101,8 +115,30 @@ public class Login {
     Helper.replaceScene(Helper.mainMenuFXML, Helper.mainMenuTitle, mouseEvent);
   }
 
+  static void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
+      try {
+          logOut();
+          removeToken();
+          System.out.println("exiting fucking program");
+          System.exit(0);
+          Platform.exit();
+      } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
-  //SQL-STATEMENTS:
+    public void closeButtonClicked(MouseEvent mouseEvent) throws SQLException {
+        exitButtonClicked(mouseEvent);
+    }
+
+
+
+  //STATEMENTS
+    /**
+     * Checks for users in DB
+     * @return ResultSet
+     * @throws SQLException
+     */
   private ResultSet checkUser() throws SQLException{
 
     loginStmt = con.prepareStatement("SELECT * FROM gamedb.users WHERE username = ?");
@@ -112,7 +148,10 @@ public class Login {
   }
 
 
-  // WORKS
+    /**
+     * Creates logedinuser in DB
+     * @throws SQLException
+     */
   private void loggedIn() throws SQLException {
 
     logIn = con.prepareStatement("INSERT INTO gamedb.logedinusers VALUES (?,?)");
@@ -123,7 +162,10 @@ public class Login {
 
   }
 
-  //NOT IN USE CURRENTLY BUT SHOULD BE CALLED WHEN SYSTEM.EXIT(0)
+    /**
+     * Removes user from logedinusers in DB
+     * @throws SQLException
+     */
   static void logOut() throws SQLException {
 
     connection = ConDB.getConnection();
@@ -137,7 +179,11 @@ public class Login {
     }
 
 
-  //WORKSSSSSS, NOT SURE HOW TO SET VALUE AND HOW TO MAKE TOKENS GO AWAY
+    /**
+     * Creates token in DB
+     * @param token
+     * @throws SQLException
+     */
   private void insertToken(String token) throws SQLException{
 
       tokenStmt = con.prepareStatement("INSERT INTO gamedb.tokens VALUES (?, ?, ?);");
@@ -149,6 +195,10 @@ public class Login {
 
   }
 
+    /**
+     * Removes token from DB
+     * @throws SQLException
+     */
   static void removeToken() throws SQLException {
 
     connection = ConDB.getConnection();
@@ -161,21 +211,5 @@ public class Login {
 
   }
 
-  //exit button
-  static void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
 
-    try {
-      logOut();
-      removeToken();
-      System.out.println("exiting fucking program");
-      System.exit(0);
-      Platform.exit();
-    } catch (Exception e){
-      e.printStackTrace();
-    }
-  }
-
-  public void closeButtonClicked(MouseEvent mouseEvent) throws SQLException {
-    exitButtonClicked(mouseEvent);
-  }
 }

@@ -12,6 +12,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This Class adds users to friendslist in DB
+ */
+
 
 public class AddFriend extends GenericController{
 
@@ -26,7 +30,13 @@ public class AddFriend extends GenericController{
     private TextField addFriendToList;
 
 
-
+    /**
+     * Button checks for users in gamedb.friendslist and gamedb.users and add friend to friendlist if
+     * it is possible, if not Alert is initiated.
+     *
+     * @param mouseEvent
+     * @throws SQLException
+     */
 
   public void confirmButtonClicked(MouseEvent mouseEvent) throws SQLException {
 
@@ -64,9 +74,7 @@ public class AddFriend extends GenericController{
     }
 
 
-
-
-
+    //Rest of Buttons in Scene
     public void backButtonClicked(MouseEvent mouseEvent) throws IOException {
         Helper.replaceScene(Helper.pvpMenuFXML, Helper.pvpMenuTitle, mouseEvent);
     }
@@ -79,6 +87,13 @@ public class AddFriend extends GenericController{
 
 
     //PREPARED STATEMENTS
+    /**
+     *
+     * @param username
+     * @return ResultSet checkUser
+     * @throws SQLException
+     */
+
     private ResultSet checkUserId(String username) throws SQLException{
 
         checkFriendStmt = con.prepareStatement("SELECT * FROM gamedb.users where username = ?");
@@ -91,6 +106,14 @@ public class AddFriend extends GenericController{
 
     }
 
+    /**
+     *
+     * @param user
+     * @param friend
+     * @param friendName
+     * @throws SQLException
+     */
+
     private void addFriend(int user, int friend, String friendName) throws SQLException{
 
         addFriendStmt = con.prepareStatement("INSERT INTO gamedb.friendslist VALUES (?, ?, ?)");
@@ -101,6 +124,12 @@ public class AddFriend extends GenericController{
         con.commit();
 
     }
+
+    /**
+     *
+     * @return ResultSet checkFriend
+     * @throws SQLException
+     */
 
     private ResultSet checkFriendList() throws SQLException {
 

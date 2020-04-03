@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Random;
 
+
+/**
+ *
+ */
 public class StartGameCom {
 
 
@@ -14,7 +18,11 @@ public class StartGameCom {
    private static RPS player2;
    private static Random generator = new Random();
 
-
+  /**
+   * Player chooses Rock (Covid), RPS checks who won -> new scene
+   * @param mouseEvent
+   * @throws IOException
+   */
   public void covidButtonClicked(MouseEvent mouseEvent) throws IOException {
     player1 = RPS.ROCK;
 
@@ -33,6 +41,11 @@ public class StartGameCom {
   }
 
 
+  /**
+   * Player chooses Paper (Paper), RPS checks who won -> new scene
+   * @param mouseEvent
+   * @throws IOException
+   */
   public void paperButtonClicked(MouseEvent mouseEvent) throws IOException {
     player1 = RPS.PAPER;
 
@@ -50,6 +63,11 @@ public class StartGameCom {
     }
   }
 
+  /**
+   * Player chooses Hand (Hand), RPS checks who won -> new scene
+   * @param mouseEvent
+   * @throws IOException
+   */
   public void handButtonClicked(MouseEvent mouseEvent) throws IOException {
     player1 = RPS.SCISSORS;
 
@@ -72,6 +90,11 @@ public class StartGameCom {
   }
 
   //Can we implement this in a model?
+
+  /**
+   * Creates enum with boolean beats
+   * @author heidiguneriussen
+   */
   public enum RPS {
 
     ROCK, PAPER, SCISSORS;
@@ -92,6 +115,10 @@ public class StartGameCom {
       }
     }
 
+    /**
+     * Generates random number between 1 and 3
+     * @author heidiguneriussen
+     */
     public static void cpGenerator() {
 
       int cp = generator.nextInt(3) + 1;

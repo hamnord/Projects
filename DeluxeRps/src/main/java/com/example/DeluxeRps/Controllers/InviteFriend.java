@@ -11,7 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-
+/**
+ *
+ */
 public class InviteFriend extends GenericController{
 
   private Connection con;
@@ -30,7 +32,13 @@ public class InviteFriend extends GenericController{
   private ListView<String> requestsList = new ListView<>();
 
 
-
+  /**
+   * Checks for online users who also exists in friendslist in DB.
+   * Checks for newmatch with value "PENDING" in DB as requests.
+   * @throws SQLException
+   *
+   * @author heidiguneriussen
+   */
   @Override
   public void postInitialize() throws SQLException {
 
@@ -130,6 +138,12 @@ public class InviteFriend extends GenericController{
 
   //PREPARED STATEMENTS
 
+  /**
+   * Checks for newmatch in DB with matchstatus "PENDING"
+   * @param userid
+   * @return ResultSet requests
+   * @throws SQLException
+   */
   private ResultSet gameRequests(int userid) throws SQLException {
 
     matchStatus = "PENDING";
@@ -141,7 +155,12 @@ public class InviteFriend extends GenericController{
 
   }
 
-
+  /**
+   * Creates newmatch in DB with params
+   * @param player1
+   * @param player2
+   * @throws SQLException
+   */
   private void newGameRequest(int player1, int player2) throws SQLException {
 
     matchStatus = "PENDING";
@@ -154,6 +173,12 @@ public class InviteFriend extends GenericController{
 
   }
 
+  /**
+   * Getter for userid in DB
+   * @param username
+   * @return int userIDPlayer1 if possible
+   * @throws SQLException
+   */
   private int getUserId(String username) throws SQLException{
 
     getUserIDStmt = con.prepareStatement("SELECT * FROM gamedb.users where username = ?");
@@ -171,6 +196,12 @@ public class InviteFriend extends GenericController{
 
   }
 
+  /**
+   * Getter for username in DB
+   * @param playerID
+   * @return String username
+   * @throws SQLException
+   */
   private String getUsername(int playerID) throws SQLException {
 
     getUsernameStmt = con.prepareStatement("SELECT * FROM gamedb.users WHERE userid = ?");
@@ -187,7 +218,11 @@ public class InviteFriend extends GenericController{
 
   }
 
-
+  /**
+   * Changes matchstatus in DB
+   * @param useridplayer1
+   * @throws SQLException
+   */
   private void changeMatchStatus(int useridplayer1) throws SQLException {
 
     matchStatus = "ONGOING";
@@ -199,6 +234,12 @@ public class InviteFriend extends GenericController{
 
   }
 
+  /**
+   * Checks for online users in friendslist via tokens
+   * @param userid
+   * @return Resultset
+   * @throws SQLException
+   */
   private ResultSet getOnlineFriends(int userid) throws SQLException{
 
     whoIsOnlineStmt = con.prepareStatement("select * from gamedb.users inner join gamedb.friendslist on friendslist.friendid = users.userid where friendslist.userid in (select users.userid from gamedb.users inner join gamedb.tokens on tokens.userid = users.userid where users.userid = ?)");
