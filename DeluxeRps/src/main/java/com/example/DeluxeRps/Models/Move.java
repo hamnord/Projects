@@ -30,21 +30,25 @@ public class Move {
     conn.commit();
   }
 
-  // sets moveId to 1 or 2 to players.
+  /*
+  // sets moveId to dependent on choice
   public void setMoveId(int moveId) throws SQLException {
     moveIdSTMNT = conn.prepareStatement("INSERT INTO gamedb.match WHERE moveid= ? ");
     moveIdSTMNT.setInt(1,moveId);
     moveIdSTMNT.executeUpdate();
     conn.commit();
   }
+*/
 
   // send move/choice to db
-  public void sendMove(int userId, int move) throws SQLException {
-    sendMoveSTMNT = conn.prepareStatement("INSERT INTO gamedb.match VALUES (?, ?)");
+  public void sendMove(int userId, int matchId, int move) throws SQLException {
+    sendMoveSTMNT = conn.prepareStatement("INSERT INTO gamedb.match VALUES (?,?,?)");
    sendMoveSTMNT.setInt(1,userId);
-   sendMoveSTMNT.setInt(2,move);
+    sendMoveSTMNT.setInt(2,matchId);
+   sendMoveSTMNT.setInt(3, move);
     sendMoveSTMNT.executeUpdate();
     conn.commit();
+
   }
 
   // get your opponents move

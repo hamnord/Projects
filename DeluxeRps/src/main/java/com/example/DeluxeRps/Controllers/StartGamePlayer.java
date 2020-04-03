@@ -43,9 +43,16 @@ public class StartGamePlayer extends GenericController{
 
         try {
           userIDPlayer1 = getUserId(username);
+          ResultSet activeMatch = getMatch(matchId);
+
+          while(activeMatch.next()) {
+            System.out.println("activeMatch called");
+
+            int currentMatchId = activeMatch.getInt("matchid");
+
           Move rockMove = new Move(ROCK, userIDPlayer1);
-          rockMove.setMoveId(ROCK);
-          rockMove.sendMove(userIDPlayer1, ROCK);
+         // rockMove.setMoveId(ROCK);
+          rockMove.sendMove(userIDPlayer1,currentMatchId, ROCK);
           System.out.println("ROCK SELECTED");
 
           player2Id = getOpponentId();
@@ -64,7 +71,8 @@ public class StartGamePlayer extends GenericController{
             System.out.println("TIE");
             Helper.replaceScene(Helper.covidTIEFXML, Helper.covidTIETitle, mouseEvent);
           }
-      }catch (Exception e){
+          }
+        }catch (Exception e){
           e.printStackTrace();
         }
       }
@@ -74,65 +82,83 @@ public class StartGamePlayer extends GenericController{
 
       con = ConDB.getConnection();
       con.setAutoCommit(false);
-      ResultSet activeMatch = getMatch();
-
-      while (activeMatch.next()) {
-
 
         try {
           userIDPlayer1 = getUserId(username);
-          Move paperMove = new Move(PAPER, userIDPlayer1);
-          paperMove.setMoveId(PAPER);
-          paperMove.sendMove(userIDPlayer1, ROCK);
+          ResultSet activeMatch = getMatch(matchId);
+
+          while(activeMatch.next()) {
+
+            int currentMatchId = activeMatch.getInt("matchid");
+            Move paperMove = new Move(PAPER, userIDPlayer1);
+            // paperMove.setMoveId(PAPER);
+            paperMove.sendMove(userIDPlayer1, currentMatchId, PAPER);
+            System.out.println("PAPER SELECTED");
 
 
-          if (player2Move == ROCK) {
-            System.out.println("You win");
-            Helper.replaceScene(Helper.paperWinnerFXML, Helper.paperWinnerTitle, mouseEvent);
-          } else if (player2Move == SCISSORS) {
-            System.out.println("You Loose");
-            Helper.replaceScene(Helper.paperLoserFXML, Helper.paperLoserTitle, mouseEvent);
-          } else if (player2Move == PAPER) {
-            System.out.println("TIE");
-            Helper.replaceScene(Helper.paperTIEFXML, Helper.paperTIETitle, mouseEvent);
+            player2Id = getOpponentId();
+
+            Move opponentMove = new Move(player2Move, player2Id);
+            player2Move = opponentMove.getMove(player2Id);
+
+
+            if (player2Move == ROCK) {
+              System.out.println("You win");
+              Helper.replaceScene(Helper.paperWinnerFXML, Helper.paperWinnerTitle, mouseEvent);
+            } else if (player2Move == SCISSORS) {
+              System.out.println("You Loose");
+              Helper.replaceScene(Helper.paperLoserFXML, Helper.paperLoserTitle, mouseEvent);
+            } else if (player2Move == PAPER) {
+              System.out.println("TIE");
+              Helper.replaceScene(Helper.paperTIEFXML, Helper.paperTIETitle, mouseEvent);
+            }
           }
         } catch (Exception e) {
           e.printStackTrace();
         }
       }
-    }
+
 
     public void ScissorButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
 
       con = ConDB.getConnection();
       con.setAutoCommit(false);
 
-      ResultSet activeMatch = getMatch();
-
-      while (activeMatch.next()) {
-
-
         try {
           userIDPlayer1 = getUserId(username);
-          Move scissorMove = new Move(SCISSORS, userIDPlayer1);
-          scissorMove.setMoveId(SCISSORS);
-          scissorMove.sendMove(userIDPlayer1, SCISSORS);
+          ResultSet activeMatch = getMatch(matchId);
 
-          if (player2Move == PAPER) {
-            System.out.println("You win");
-            Helper.replaceScene(Helper.paperWinnerFXML, Helper.paperWinnerTitle, mouseEvent);
-          } else if (player2Move == ROCK) {
-            System.out.println("You Loose");
-            Helper.replaceScene(Helper.paperLoserFXML, Helper.paperLoserTitle, mouseEvent);
-          } else if (player2Move == SCISSORS) {
-            System.out.println("TIE");
-            Helper.replaceScene(Helper.paperTIEFXML, Helper.paperTIETitle, mouseEvent);
+          while(activeMatch.next()) {
+
+            int currentMatchId = activeMatch.getInt("matchid");
+
+            Move scissorMove = new Move(SCISSORS, userIDPlayer1);
+            //  scissorMove.setMoveId(SCISSORS);
+            scissorMove.sendMove(userIDPlayer1,currentMatchId, SCISSORS);
+            System.out.println("SCISSORS SELECTED");
+
+            player2Id = getOpponentId();
+
+            Move opponentMove = new Move(player2Move, player2Id);
+            player2Move = opponentMove.getMove(player2Id);
+
+            if (player2Move == PAPER) {
+              System.out.println("You win");
+              Helper.replaceScene(Helper.paperWinnerFXML, Helper.paperWinnerTitle, mouseEvent);
+            } else if (player2Move == ROCK) {
+              System.out.println("You Loose");
+              Helper.replaceScene(Helper.paperLoserFXML, Helper.paperLoserTitle, mouseEvent);
+            } else if (player2Move == SCISSORS) {
+              System.out.println("TIE");
+              Helper.replaceScene(Helper.paperTIEFXML, Helper.paperTIETitle, mouseEvent);
+            }
           }
         } catch (Exception e) {
           e.printStackTrace();
         }
+
       }
-    }
+
 
     public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
         Login.exitButtonClicked(mouseEvent);
@@ -165,12 +191,12 @@ public class StartGamePlayer extends GenericController{
       return player2Id;
   }
 
-  private ResultSet getMatch () throws SQLException {
-      getMatchSTMNT = con.prepareStatement("SELECT * FROM gamedb.match WHERE matchid = ? ");
+  private int getMatchId () throws SQLException {
+      getMatchSTMNT = con.prepareStatement("SELECT * FROM gamedb.newgame WHERE matchid = ? ");
       getMatchSTMNT.setInt(1, matchId);
-      ResultSet rs = getMatchSTMNT.executeQuery();
+      getMatchSTMNT.executeQuery();
       con.commit();
-      return rs;
+      return matchId;
   }
 
   private int getMove(int userid, int matchid) throws SQLException{
