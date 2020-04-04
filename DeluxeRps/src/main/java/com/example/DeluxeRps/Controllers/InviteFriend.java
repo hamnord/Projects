@@ -205,10 +205,9 @@ public class InviteFriend extends GenericController{
     getUsernameStmt.setInt(1, playerID);
     ResultSet a = getUsernameStmt.executeQuery();
 
-    while (a.next()) {
-      String username = a.getString("username");
+    if(a.next()) {
 
-      return username;
+      return a.getString("username");
     }
 
     return null;
@@ -245,6 +244,21 @@ public class InviteFriend extends GenericController{
     whoIsOnlineStmt.setInt(1, userid);
 
     return whoIsOnlineStmt.executeQuery();
+
+  }
+
+
+  //Skall till Start Game Player
+  private void endMatch(int matchId) throws SQLException{
+
+    String matchstatus = "ENDED";
+    PreparedStatement endMatchStmt;
+    endMatchStmt = con.prepareStatement("UPDATE gamedb.newgame SET matchstatus = ? WHERE matchid = ?");
+    endMatchStmt.setString(1, matchstatus);
+    endMatchStmt.setInt(2, matchId);
+    endMatchStmt.executeQuery();
+    con.commit();
+
 
   }
 
