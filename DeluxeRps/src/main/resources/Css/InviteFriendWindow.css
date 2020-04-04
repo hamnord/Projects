@@ -18,6 +18,19 @@ TextField {
 	-fx-border-width: 5;
 }
 
+#listViews {
+-fx-background-color: #fce7c0;
+	-fx-shape: "M 350 300 L 500 300 L 500 200 L 350 200 L 350 300";
+	-fx-background-radius: 5em;
+	-fx-font: normal bold 18px 'Arial';
+	-fx-text-fill: #673500;
+	-fx-border-color: black;
+	-fx-border-width: 5;
+	 -fx-padding: 5;
+   -fx-alignment: center;
+}
+
+
 TextField:focused {
 	-fx-background-insets: 0, 0, 1, 2;
 	-fx-background-color: #fbd793;
@@ -25,6 +38,14 @@ TextField:focused {
 
 #header {
 	-fx-font: bold 30px "Arial";
+	-fx-alignment: center;
+	-fx-padding: 5;
+	-fx-text-fill: #673500;
+}
+
+
+#underLine {
+	-fx-font: bold 20px "Arial";
 	-fx-alignment: center;
 	-fx-padding: 5;
 	-fx-text-fill: #673500;

@@ -18,15 +18,15 @@
   <VBox id="inputAlignment">
 
     <Label id="header" text="ONLINE FRIENDS"/>
-    <Label id="underline" text="click to invite"/>
-    <ListView fx:id="friendsList" focusTraversable="false" onMouseClicked="#clickInviteFriend"/>
+    <Label id="underLine" text="click to invite"/>
+    <ListView fx:id="friendsList" id="listViews" focusTraversable="false" onMouseClicked="#clickInviteFriend"/>
   </VBox>
 
   <VBox id="inputAlignment">
 
     <Label id="header" text="ACTIVE REQUESTS"/>
-    <Label id="underline" text="click to accept"/>
-    <ListView fx:id="requestsList" focusTraversable="false" onMouseClicked="#clickAcceptRequest"/>
+    <Label id="underLine" text="click to accept"/>
+    <ListView fx:id="requestsList" id="listViews" focusTraversable="false" onMouseClicked="#clickAcceptRequest"/>
   </VBox>
 
 
