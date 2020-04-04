@@ -144,13 +144,13 @@ public class StartGamePlayer extends GenericController{
 
                 if (player2Move == PAPER) {
                     System.out.println("You win");
-                    Helper.replaceScene(Helper.paperWinnerFXML, Helper.paperWinnerTitle, mouseEvent);
+                    Helper.replaceScene(Helper.handWinnerFXML, Helper.handWinnerTitle, mouseEvent);
                 } else if (player2Move == ROCK) {
                     System.out.println("You Loose");
-                    Helper.replaceScene(Helper.paperLoserFXML, Helper.paperLoserTitle, mouseEvent);
+                    Helper.replaceScene(Helper.handLoserFXML, Helper.handLoserTitle, mouseEvent);
                 } else if (player2Move == SCISSORS) {
                     System.out.println("TIE");
-                    Helper.replaceScene(Helper.paperTIEFXML, Helper.paperTIETitle, mouseEvent);
+                    Helper.replaceScene(Helper.handTIEFXML, Helper.handTIETitle, mouseEvent);
                 }
 
                 endMatch(matchId);

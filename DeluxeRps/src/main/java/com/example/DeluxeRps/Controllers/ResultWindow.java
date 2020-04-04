@@ -7,7 +7,8 @@ import java.sql.SQLException;
 
 public class ResultWindow {
 
-  public void backButtonClicked (MouseEvent mouseEvent) throws IOException {
+  public void backButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
+    Login.deleteMatch();
     Helper.replaceScene(Helper.startGameComFXML, Helper.startGameComTitle, mouseEvent);
   }
 
