@@ -7,6 +7,12 @@ import java.sql.SQLException;
 
 public class Instructions {
 
+  /**
+   * rule view
+   * @param mouseEvent
+   * @throws IOException
+   */
+
 
   public void backButtonClicked (MouseEvent mouseEvent) throws IOException {
     Helper.replaceScene(Helper.selectPlayerModeFXML, Helper.selectPlayerModeTitle, mouseEvent);

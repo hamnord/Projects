@@ -5,6 +5,12 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
+/**
+ * seleect pvp or pve match
+ * show rules for RPS game
+ * logout/back button, log user out from session
+ */
+
 
 public class SelectPlayerMode {
 

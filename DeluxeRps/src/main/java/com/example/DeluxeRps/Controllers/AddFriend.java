@@ -14,6 +14,7 @@ import java.sql.SQLException;
 
 /**
  * This Class adds users to friendslist in DB
+ * @author Heidi & Hampus
  */
 
 
@@ -36,6 +37,7 @@ public class AddFriend extends GenericController{
      *
      * @param mouseEvent
      * @throws SQLException
+     *
      */
 
   public void confirmButtonClicked(MouseEvent mouseEvent) throws SQLException {

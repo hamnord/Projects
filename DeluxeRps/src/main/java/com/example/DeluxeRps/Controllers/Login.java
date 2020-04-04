@@ -17,6 +17,7 @@ import java.util.Base64;
 
 /**
  * Class logging user in, generates tokens
+ * @author Heidi & Hampus
  */
 
 public class Login {
@@ -115,6 +116,12 @@ public class Login {
     Helper.replaceScene(Helper.mainMenuFXML, Helper.mainMenuTitle, mouseEvent);
   }
 
+  /**
+   * exit button, deletes token,sign user out from session, and deletesmatches.
+   * @author hampus
+   * @param mouseEvent
+   */
+
   static void exitButtonClicked(MouseEvent mouseEvent) {
       try {
           logOut();
@@ -211,6 +218,11 @@ public class Login {
     connection.commit();
 
   }
+
+  /**
+   * deletes matches from database
+   * @throws SQLException
+   */
 
   static void deleteMatch() throws SQLException {
 

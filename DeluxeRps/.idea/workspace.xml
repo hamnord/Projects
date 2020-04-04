@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f6c83ee-e1e9-4d78-a4cc-d2eb6e3049b6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/AddFriend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/AddFriend.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/CreatePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/CreatePlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/GenericController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/GenericController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/InviteFriend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/InviteFriend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/Helper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/Instructions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/Instructions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/MainMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/PVPMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/PVPMenu.java" afterDir="false" />
@@ -14,9 +13,6 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/SelectPlayerMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/SelectPlayerMode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/StartGameCom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/StartGameCom.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/StartGamePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Controllers/StartGamePlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Models/GameEngine.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Models/PveMatch.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/DeluxeRps/Models/Rounds.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,10 +186,11 @@
     </state>
     <state x="609" y="147" key="#com.intellij.ide.util.MemberChooser/0.0.1600.864@0.0.1600.864" timestamp="1583400460555" />
     <state x="731" y="177" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.2.1920.1040@0.0.1920.1040" timestamp="1584048320422" />
-    <state x="774" y="390" width="309" height="215" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1584042948933">
+    <state x="774" y="390" width="309" height="215" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1586025206474">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="645" y="324" width="309" height="215" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1600.864@0.0.1600.864" timestamp="1583832012089" />
+    <state x="774" y="390" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1586025206474" />
     <state x="774" y="390" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1040/1920.2.1920.1040@0.0.1920.1040" timestamp="1584042948933" />
     <state x="691" y="148" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1584398712212">
       <screen x="0" y="0" width="1920" height="1040" />

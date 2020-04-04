@@ -5,7 +5,14 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * show result view
+ * playaagain /backbutton
+ * exit button
+ */
+
 public class ResultWindow {
+
 
   public void backButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
     Login.deleteMatch();

@@ -6,9 +6,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+/**
+ *
+ * @author  Heidi & Hampus
+ *
+ * initiate game with another user
+ *
 
-
-
+**/
 public class StartGamePlayer extends GenericController{
 
 
@@ -27,7 +32,20 @@ public class StartGamePlayer extends GenericController{
     public static  final int SCISSORS = 2;
     public static  final int PAPER = 3;
 
-    public void RockButtonClicked (MouseEvent mouseEvent) throws SQLException {
+  /**
+   *
+   * @param mouseEvent
+   * @throws SQLException
+   *
+   * creates connection
+   * fetch user from database
+   * fetch opponent from database
+   * get current match ID from request
+   * send users move to database
+   * get opponents move, if its not null announce winner with view change.
+   */
+
+  public void RockButtonClicked (MouseEvent mouseEvent) throws SQLException {
 
         con = ConDB.getConnection();
         con.setAutoCommit(false);
@@ -70,7 +88,18 @@ public class StartGamePlayer extends GenericController{
         }
     }
 
-
+  /**
+   *
+   * @param mouseEvent
+   * @throws SQLException
+   *
+   * creates connection
+   * fetch user from database
+   * fetch opponent from database
+   * get current match ID from request
+   * send users move to database
+   * get opponents move, if its not null announce winner with view change.
+   */
 
     public void PaperButtonClicked (MouseEvent mouseEvent) throws SQLException {
 
@@ -115,6 +144,18 @@ public class StartGamePlayer extends GenericController{
         }
 
     }
+  /**
+   *
+   * @param mouseEvent
+   * @throws SQLException
+   *
+   * creates connection
+   * fetch user from database
+   * fetch opponent from database
+   * get current match ID from request
+   * send users move to database
+   * get opponents move, if its not null announce winner with view change.
+   */
 
     public void ScissorButtonClicked (MouseEvent mouseEvent) throws SQLException {
 
@@ -161,13 +202,21 @@ public class StartGamePlayer extends GenericController{
         }
     }
 
+  /**
+   *  exit button
+   * @param mouseEvent
+   */
     public void exitButtonClicked(MouseEvent mouseEvent){
         Login.exitButtonClicked(mouseEvent);
     }
 
-
-
-    //PREPARED STATEMENTS
+  /**
+   * prepared statements
+   * gets userid from database
+   * @param username
+   * @return
+   * @throws SQLException
+   */
 
   private int getUserId(String username) throws SQLException{
 
@@ -183,6 +232,15 @@ public class StartGamePlayer extends GenericController{
     }
     return 0;
   }
+
+  /**
+   *  * prepared statements
+   *    * gets opponents ID from database
+   *
+   * @param playerid
+   * @return
+   * @throws SQLException
+   */
 
   private int getOpponentId (int playerid) throws SQLException {
       matchstatus = "ONGOING";
@@ -213,6 +271,14 @@ public class StartGamePlayer extends GenericController{
 
   }
 
+  /**
+   *  * prepared statements
+   *    * gets match data from database
+   * @param playerid
+   * @return
+   * @throws SQLException
+   */
+
   private int getMatchId (int playerid) throws SQLException {
     matchstatus = "ONGOING";
     getMatchStmt = con.prepareStatement("SELECT * FROM gamedb.newgame WHERE useridplayer1 = ? or useridplayer2 = ? and matchstatus = ?");
@@ -228,6 +294,15 @@ public class StartGamePlayer extends GenericController{
 
     return 0;
   }
+
+  /**
+   *  * prepared statements
+   *    * gets move daata from database
+   * @param userId
+   * @param matchid
+   * @return
+   * @throws SQLException
+   */
 
   private int getMove(int userId, int matchid) throws SQLException{
 
@@ -247,6 +322,14 @@ public class StartGamePlayer extends GenericController{
 
   }
 
+  /**
+   *  * prepared statements
+   *    * sets move data to database
+   * @param userid
+   * @param matchid
+   * @param move
+   * @throws SQLException
+   */
 
   private void sendMove(int userid, int matchid, int move) throws SQLException {
 
@@ -259,6 +342,12 @@ public class StartGamePlayer extends GenericController{
 
     }
 
+  /**
+   *  * prepared statements
+   *    * update data to database, ends current match
+   * @param matchId
+   * @throws SQLException
+   */
 
     private void endMatch(int matchId) throws SQLException{
 

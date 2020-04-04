@@ -9,6 +9,9 @@ import java.util.Random;
 
 /**
  *
+ * play versus computer
+ * @author Heidi & Hampus
+ *
  */
 public class StartGameCom {
 

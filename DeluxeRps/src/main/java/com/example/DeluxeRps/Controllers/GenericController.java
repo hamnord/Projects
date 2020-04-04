@@ -3,7 +3,7 @@ package com.example.DeluxeRps.Controllers;
 import java.sql.SQLException;
 
 /**
- *
+ *generic controller
  */
 public abstract class GenericController {
 

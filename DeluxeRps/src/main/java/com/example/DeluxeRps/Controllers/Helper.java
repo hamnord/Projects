@@ -18,6 +18,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * handles all views and scenes
+ *
+ * @author Hampus
+ *
+ * shoutout to dogeDice-fam for help
+ */
+
 public class Helper {
 
   //TITLE
@@ -77,6 +85,13 @@ public class Helper {
     return new FXMLLoader(getRes(fxmlpath));
   }
 
+  /**
+   * reeplaces scene
+   * @param fxmlPath
+   * @param windowTitle
+   * @param mouseEvent
+   * @throws IOException
+   */
   static void replaceScene(String fxmlPath, String windowTitle, MouseEvent mouseEvent) throws IOException {
 
     Stage stage = (Stage) ((Node) mouseEvent.getSource())
