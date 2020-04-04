@@ -4,7 +4,7 @@ package com.example.DeluxeRps.Controllers;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
-import java.sql.SQLException;
+
 
 public class SelectPlayerMode {
 
@@ -20,8 +20,8 @@ public class SelectPlayerMode {
     Helper.replaceScene(Helper.instructionsFXML, Helper.instructionsTitle, mouseEvent);
   }
 
-  //Whats This?
-  public void backButtonClicked (MouseEvent mouseEvent) throws IOException {
+
+  public void backButtonClicked (MouseEvent mouseEvent) {
     try {
       Login.logOut();
       Login.removeToken();
@@ -32,7 +32,7 @@ public class SelectPlayerMode {
     }
   }
 
-  public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
+  public void exitButtonClicked(MouseEvent mouseEvent) {
     Login.exitButtonClicked(mouseEvent);
   }
 

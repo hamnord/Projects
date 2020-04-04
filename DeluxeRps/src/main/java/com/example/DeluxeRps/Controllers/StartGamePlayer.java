@@ -2,7 +2,6 @@ package com.example.DeluxeRps.Controllers;
 
 import javafx.scene.input.MouseEvent;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -73,7 +72,7 @@ public class StartGamePlayer extends GenericController{
 
 
 
-    public void PaperButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException, InterruptedException {
+    public void PaperButtonClicked (MouseEvent mouseEvent) throws SQLException {
 
         con = ConDB.getConnection();
         con.setAutoCommit(false);
@@ -117,7 +116,7 @@ public class StartGamePlayer extends GenericController{
 
     }
 
-    public void ScissorButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException, InterruptedException {
+    public void ScissorButtonClicked (MouseEvent mouseEvent) throws SQLException {
 
         con = ConDB.getConnection();
         con.setAutoCommit(false);
@@ -162,7 +161,7 @@ public class StartGamePlayer extends GenericController{
         }
     }
 
-    public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
+    public void exitButtonClicked(MouseEvent mouseEvent){
         Login.exitButtonClicked(mouseEvent);
     }
 

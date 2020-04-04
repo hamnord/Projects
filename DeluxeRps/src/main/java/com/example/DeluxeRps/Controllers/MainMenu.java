@@ -15,7 +15,7 @@ public class MainMenu{
     Helper.replaceScene(Helper.createPlayerFXML, Helper.createPlayerTitle, mouseEvent);
   }
 
-  public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
+  public void exitButtonClicked(MouseEvent mouseEvent){
     Login.exitButtonClicked(mouseEvent);
   }
 

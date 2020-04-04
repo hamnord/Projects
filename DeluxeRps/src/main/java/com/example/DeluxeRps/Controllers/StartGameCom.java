@@ -4,7 +4,6 @@ package com.example.DeluxeRps.Controllers;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Random;
 
 
@@ -85,11 +84,10 @@ public class StartGameCom {
     }
   }
 
-  public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
+  public void exitButtonClicked(MouseEvent mouseEvent) {
     Login.exitButtonClicked(mouseEvent);
   }
 
-  //Can we implement this in a model?
 
   /**
    * Creates enum with boolean beats

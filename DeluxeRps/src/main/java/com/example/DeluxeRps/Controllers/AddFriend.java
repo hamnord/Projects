@@ -91,7 +91,7 @@ public class AddFriend extends GenericController{
 
     //PREPARED STATEMENTS
     /**
-     *
+     * Checks UserID
      * @param username
      * @return ResultSet checkUser
      * @throws SQLException
@@ -110,7 +110,7 @@ public class AddFriend extends GenericController{
     }
 
     /**
-     *
+     * Creates friendid in friendslist
      * @param user
      * @param friend
      * @param friendName
@@ -127,24 +127,6 @@ public class AddFriend extends GenericController{
         con.commit();
 
     }
-
-    /**
-     *
-     * @return ResultSet checkFriend
-     * @throws SQLException
-     */
-
-    private ResultSet checkFriendList() throws SQLException {
-
-        checkOnlineStmt = con.prepareStatement("SELECT * FROM gamedb.friendslist WHERE friendname = ?");
-        checkOnlineStmt.setString(1,usernameFriend);
-        ResultSet checkFriend = checkOnlineStmt.executeQuery();
-        con.commit();
-
-        return checkFriend;
-  }
-
-
 
 
 

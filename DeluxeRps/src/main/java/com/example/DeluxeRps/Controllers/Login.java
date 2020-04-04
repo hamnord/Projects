@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import java.util.Base64;
 
 /**
- *
+ * Class logging user in, generates tokens
  */
 
 public class Login {
@@ -30,14 +30,14 @@ public class Login {
   private static Connection connection;
 
 
-  //FXML-Objects
+
   @FXML
   TextField userNameInput;
   @FXML
   PasswordField passwordField;
 
     /**
-     *
+     * Generates tokens
      * @return token
      */
   private static String generateToken() {
@@ -47,7 +47,7 @@ public class Login {
       return token;
   }
 
- //ON MOUSE CLICKED
+
 
     /**
      * Sets of Alerts if something is wrongly entered or missing.
@@ -57,17 +57,17 @@ public class Login {
      * @throws SQLException
      * @throws NoSuchAlgorithmException
      */
-  public void loginButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException, NoSuchAlgorithmException {
+  public void loginButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException{
 
-    //Getting input
+
     username = userNameInput.getText();
     password = passwordField.getText();
 
-    //Get Connection
+
     con = ConDB.getConnection();
     con.setAutoCommit(false);
 
-    //Check for user in DB
+
     try {
 
       ResultSet validUser = checkUser();
@@ -96,7 +96,7 @@ public class Login {
 
         }
       }
-        //If no input
+
         if (userNameInput == null && passwordField == null){
         Alert alert = new Alert(AlertType.NONE, " Error! Credential fields are empty", ButtonType.OK);
         alert.setTitle("Error in authentication");
@@ -104,18 +104,18 @@ public class Login {
         }
 
     }
-    //Exceptions
+
     catch (SQLException e) {
       e.printStackTrace();
     }
     }
 
-  //Back-Button works great
+
   public void backButtonClicked (MouseEvent mouseEvent) throws IOException {
     Helper.replaceScene(Helper.mainMenuFXML, Helper.mainMenuTitle, mouseEvent);
   }
 
-  static void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
+  static void exitButtonClicked(MouseEvent mouseEvent) {
       try {
           logOut();
           removeToken();

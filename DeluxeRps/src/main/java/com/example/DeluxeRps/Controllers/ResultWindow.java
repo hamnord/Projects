@@ -12,7 +12,7 @@ public class ResultWindow {
     Helper.replaceScene(Helper.startGameComFXML, Helper.startGameComTitle, mouseEvent);
   }
 
-  public void exitButtonClicked(MouseEvent mouseEvent) throws SQLException {
+  public void exitButtonClicked(MouseEvent mouseEvent) {
     Login.exitButtonClicked(mouseEvent);
   }
 }

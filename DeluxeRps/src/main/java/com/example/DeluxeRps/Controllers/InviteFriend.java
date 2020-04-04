@@ -13,20 +13,17 @@ import java.sql.SQLException;
 
 
 /**
- *
+ * Class checks for online friends, sends requests and starts a game
  */
 public class InviteFriend extends GenericController{
 
   private Connection con;
-  private PreparedStatement matchIDSTMNT,matchSTMNT,gameRequestStmt, newGameStmt, getUserIDStmt, changeMatchStmt, whoIsOnlineStmt, getUsernameStmt;
+  private PreparedStatement gameRequestStmt, newGameStmt, getUserIDStmt, changeMatchStmt, whoIsOnlineStmt, getUsernameStmt;
   private String username = Login.username;
   private int userIDPlayer1;
-  public int matchId;
   private static String matchStatus;
 
 
-
-  //FXML-Objects
   @FXML
   private ListView<String> friendsList = new ListView<>();
 
@@ -44,7 +41,6 @@ public class InviteFriend extends GenericController{
   @Override
   public void postInitialize() throws SQLException {
 
-    //Searching for info in DB + listing them in ListView
     friendsList.getItems().clear();
     requestsList.getItems().clear();
 
@@ -87,7 +83,7 @@ public class InviteFriend extends GenericController{
   }
 
 
-  //Buttons
+
   public void backButtonClicked(MouseEvent mouseEvent) throws IOException {
     Helper.replaceScene(Helper.pvpMenuFXML, Helper.pvpMenuTitle, mouseEvent);
   }
@@ -132,7 +128,6 @@ public class InviteFriend extends GenericController{
   }
 
 
-  //PREPARED STATEMENTS
 
   /**
    * Checks for newmatch in DB with matchstatus "PENDING"
