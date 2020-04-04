@@ -27,9 +27,10 @@ public class StartGamePlayer extends GenericController{
     String matchstatus;
     private String username = Login.username;
     private int userIDPlayer1;
+    private int userIDPlayer2;
     int player2Move;
     private int player2Id;
-    public int matchId;
+    public int matchId, opponentMatchId;
 
 
     public static  final int DRAW = 0;
@@ -45,15 +46,11 @@ public class StartGamePlayer extends GenericController{
 
         try {
 
-            Move rockMove = new Move(ROCK, userIDPlayer1);
-            // rockMove.setMoveId(ROCK);
             sendMove(userIDPlayer1, matchId, ROCK);
             System.out.println("ROCK SELECTED");
 
             player2Id = getOpponentId();
-
-            Move opponentMove = new Move(player2Move, player2Id);
-            player2Move = getMove(player2Id,matchId);
+            player2Move = getMove(player2Id,opponentMatchId);
 
 
             if (player2Move == SCISSORS) {
@@ -82,17 +79,15 @@ public class StartGamePlayer extends GenericController{
       con.setAutoCommit(false);
       userIDPlayer1 = getUserId(username);
       matchId = getMatchId();
+
         try {
 
-            Move paperMove = new Move(PAPER, userIDPlayer1);
-            // paperMove.setMoveId(PAPER);
+
             sendMove(userIDPlayer1, matchId, PAPER);
             System.out.println("PAPER SELECTED");
 
             player2Id = getOpponentId();
-
-            Move opponentMove = new Move(player2Move, player2Id);
-            player2Move = getMove(player2Id,matchId);
+            player2Move = getMove(player2Id,opponentMatchId);
 
 
             if (player2Move == ROCK) {
@@ -121,16 +116,11 @@ public class StartGamePlayer extends GenericController{
       matchId = getMatchId();
         try {
 
-
-            Move scissorMove = new Move(SCISSORS, userIDPlayer1);
-            //  scissorMove.setMoveId(SCISSORS);
             sendMove(userIDPlayer1, matchId, SCISSORS);
             System.out.println("SCISSORS SELECTED");
 
             player2Id = getOpponentId();
-
-            Move opponentMove = new Move(player2Move, player2Id);
-            player2Move = getMove(player2Id,matchId);
+            player2Move = getMove(player2Id,opponentMatchId);
 
             if (player2Move == PAPER) {
               System.out.println("You win");
@@ -181,22 +171,33 @@ public class StartGamePlayer extends GenericController{
   }
 
   private int getMatchId () throws SQLException {
-      getMatchSTMNT = con.prepareStatement("SELECT * FROM gamedb.newgame WHERE matchid = ? ");
-      getMatchSTMNT.setInt(1, matchId);
-      getMatchSTMNT.executeQuery();
+      getMatchSTMNT = con.prepareStatement("SELECT * FROM gamedb.newgame WHERE useridplayer1 = ?");
+      getMatchSTMNT.setInt(1, userIDPlayer1);
+     ResultSet rs = getMatchSTMNT.executeQuery();
       con.commit();
+
+    if(rs.next()) {
+      matchId = rs.getInt("matchid");
       return matchId;
+    } else {
+      System.out.println("couldn't fetch matchid");
+      return -1;
+    }
   }
 
-  private int getMove(int userid, int matchid) throws SQLException{
+  private int getMove(int userid, int matchId) throws SQLException{
 
-        getMove = con.prepareStatement("SELECT * FROM gamedb.match WHERE userid = ? AND matchid = ?");
+        getMove = con.prepareStatement("SELECT move FROM gamedb.match WHERE userid =? AND matchid =?");
         getMove.setInt(1, userid);
-        getMove.setInt(2, matchid);
+         getMove.setInt(2,matchId);
         ResultSet movRs = getMove.executeQuery();
-        int player2Move = movRs.getInt("move");
-        return player2Move;
+        con.commit();
 
+        if (movRs.next()) {
+          return movRs.getInt("move");
+        }
+    System.out.println("bruh, couldn't fetch opponent move");
+        return -1;
     }
 
 
