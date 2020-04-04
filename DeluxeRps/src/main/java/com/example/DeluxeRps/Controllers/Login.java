@@ -119,6 +119,7 @@ public class Login {
       try {
           logOut();
           removeToken();
+          deleteMatch();
           System.out.println("exiting fucking program");
           System.exit(0);
           Platform.exit();
@@ -210,6 +211,19 @@ public class Login {
     connection.commit();
 
   }
+
+  static void deleteMatch() throws SQLException {
+
+    connection = ConDB.getConnection();
+    connection.setAutoCommit(false);
+
+    PreparedStatement delete = connection.prepareStatement("DELETE FROM gamedb.match WHERE \"userid\" = ?; ");
+    delete.setInt(1, userid);
+    delete.executeUpdate();
+    connection.commit();
+
+  }
+
 
 
 }
