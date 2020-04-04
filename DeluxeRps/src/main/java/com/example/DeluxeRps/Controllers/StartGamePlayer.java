@@ -27,7 +27,7 @@ public class StartGamePlayer extends GenericController{
     public static  final int SCISSORS = 2;
     public static  final int PAPER = 3;
 
-    public void RockButtonClicked (MouseEvent mouseEvent) throws SQLException, InterruptedException {
+    public void RockButtonClicked (MouseEvent mouseEvent) throws SQLException {
 
       con = ConDB.getConnection();
       con.setAutoCommit(false);
@@ -36,11 +36,10 @@ public class StartGamePlayer extends GenericController{
       matchId = getMatchId(userIDPlayer1);
       sendMove(userIDPlayer1, matchId, ROCK);
 
-      wait(2000);
 
         try {
 
-          player2Move = getMove(player2Id);
+          player2Move = getMove(player2Id, matchId);
           System.out.println(player2Move);
 
             if (player2Move == SCISSORS) {
@@ -71,11 +70,10 @@ public class StartGamePlayer extends GenericController{
       matchId = getMatchId(userIDPlayer1);
       sendMove(userIDPlayer1, matchId, PAPER);
 
-      wait(2000);
 
         try {
 
-          player2Move = getMove(player2Id);
+          player2Move = getMove(player2Id, matchId);
           System.out.println(player2Move);
 
             if (player2Move == ROCK) {
@@ -105,11 +103,10 @@ public class StartGamePlayer extends GenericController{
       matchId = getMatchId(userIDPlayer1);
       sendMove(userIDPlayer1, matchId, SCISSORS);
 
-      wait(2000);
 
         try {
 
-          player2Move = getMove(player2Id);
+          player2Move = getMove(player2Id, matchId);
           System.out.println(player2Move);
 
 
@@ -199,19 +196,19 @@ public class StartGamePlayer extends GenericController{
     return 0;
   }
 
-  private int getMove(int userId) throws SQLException{
+  private int getMove(int userId, int matchid) throws SQLException{
 
-    getUserIDStmt = con.prepareStatement("SELECT move FROM gamedb.match where userid  = ?");
+    getUserIDStmt = con.prepareStatement("SELECT * FROM gamedb.match where userid  = ? and matchid = ?");
     getUserIDStmt.setInt(1, userId);
+    getUserIDStmt.setInt(2, matchid);
     ResultSet rs = getUserIDStmt.executeQuery();
 
     if(rs.next()) {
-
-      player2Move = rs.getInt("move");
-
-      return player2Move;
+        return rs.getInt("move");
     }
+
     return 0;
+
   }
 
 
@@ -226,5 +223,18 @@ public class StartGamePlayer extends GenericController{
 
     }
 
+
+    private void endMatch(int matchId) throws SQLException{
+
+        String matchstatus = "ENDED";
+        PreparedStatement endMatchStmt;
+        endMatchStmt = con.prepareStatement("UPDATE gamedb.newgame SET matchstatus = ? WHERE matchid = ?");
+        endMatchStmt.setString(1, matchstatus);
+        endMatchStmt.setInt(2, matchId);
+        endMatchStmt.executeQuery();
+        con.commit();
+
+
+    }
 
 }

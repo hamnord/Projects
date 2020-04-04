@@ -248,20 +248,6 @@ public class InviteFriend extends GenericController{
   }
 
 
-  //Skall till Start Game Player
-  private void endMatch(int matchId) throws SQLException{
-
-    String matchstatus = "ENDED";
-    PreparedStatement endMatchStmt;
-    endMatchStmt = con.prepareStatement("UPDATE gamedb.newgame SET matchstatus = ? WHERE matchid = ?");
-    endMatchStmt.setString(1, matchstatus);
-    endMatchStmt.setInt(2, matchId);
-    endMatchStmt.executeQuery();
-    con.commit();
-
-
-  }
-
 
 
 
