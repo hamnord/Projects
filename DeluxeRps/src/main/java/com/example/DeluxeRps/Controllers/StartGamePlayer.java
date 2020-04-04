@@ -40,27 +40,20 @@ public class StartGamePlayer extends GenericController{
     public void RockButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
       con = ConDB.getConnection();
       con.setAutoCommit(false);
-
-      while (userIDPlayer1 != 0) {
+      userIDPlayer1 = getUserId(username);
+      matchId = getMatchId();
 
         try {
-          userIDPlayer1 = getUserId(username);
-          ResultSet activeMatch = getMatch(matchId);
-
-          while (activeMatch.next()) {
-            System.out.println("activeMatch called");
-
-            int currentMatchId = activeMatch.getInt("matchid");
 
             Move rockMove = new Move(ROCK, userIDPlayer1);
             // rockMove.setMoveId(ROCK);
-            sendMove(userIDPlayer1, currentMatchId, ROCK);
+            sendMove(userIDPlayer1, matchId, ROCK);
             System.out.println("ROCK SELECTED");
 
             player2Id = getOpponentId();
 
             Move opponentMove = new Move(player2Move, player2Id);
-            player2Move = getMove(player2Id,currentMatchId);
+            player2Move = getMove(player2Id,matchId);
 
 
             if (player2Move == SCISSORS) {
@@ -73,37 +66,33 @@ public class StartGamePlayer extends GenericController{
               System.out.println("TIE");
               Helper.replaceScene(Helper.covidTIEFXML, Helper.covidTIETitle, mouseEvent);
             }
-          }
-        } catch (Exception e) {
+
+        }
+        catch (Exception e) {
           e.printStackTrace();
         }
       }
-    }
+
+
 
 
     public void PaperButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
 
       con = ConDB.getConnection();
       con.setAutoCommit(false);
-
-      while (userIDPlayer1 != 0) {
-
+      userIDPlayer1 = getUserId(username);
+      matchId = getMatchId();
         try {
-          userIDPlayer1 = getUserId(username);
-          ResultSet activeMatch = getMatch(matchId);
 
-          while (activeMatch.next()) {
-
-            int currentMatchId = activeMatch.getInt("matchid");
             Move paperMove = new Move(PAPER, userIDPlayer1);
             // paperMove.setMoveId(PAPER);
-            sendMove(userIDPlayer1, currentMatchId, PAPER);
+            sendMove(userIDPlayer1, matchId, PAPER);
             System.out.println("PAPER SELECTED");
 
             player2Id = getOpponentId();
 
             Move opponentMove = new Move(player2Move, player2Id);
-            player2Move = getMove(player2Id,currentMatchId);
+            player2Move = getMove(player2Id,matchId);
 
 
             if (player2Move == ROCK) {
@@ -116,38 +105,32 @@ public class StartGamePlayer extends GenericController{
               System.out.println("TIE");
               Helper.replaceScene(Helper.paperTIEFXML, Helper.paperTIETitle, mouseEvent);
             }
-          }
+
         } catch (Exception e) {
           e.printStackTrace();
         }
       }
-    }
+
 
 
     public void ScissorButtonClicked (MouseEvent mouseEvent) throws IOException, SQLException {
 
       con = ConDB.getConnection();
       con.setAutoCommit(false);
-
-      while (userIDPlayer1 != 0) {
-
+      userIDPlayer1 = getUserId(username);
+      matchId = getMatchId();
         try {
-          userIDPlayer1 = getUserId(username);
-          ResultSet activeMatch = getMatch(matchId);
 
-          while (activeMatch.next()) {
-
-            int currentMatchId = activeMatch.getInt("matchid");
 
             Move scissorMove = new Move(SCISSORS, userIDPlayer1);
             //  scissorMove.setMoveId(SCISSORS);
-            sendMove(userIDPlayer1, currentMatchId, SCISSORS);
+            sendMove(userIDPlayer1, matchId, SCISSORS);
             System.out.println("SCISSORS SELECTED");
 
             player2Id = getOpponentId();
 
             Move opponentMove = new Move(player2Move, player2Id);
-            player2Move = getMove(player2Id,currentMatchId);
+            player2Move = getMove(player2Id,matchId);
 
             if (player2Move == PAPER) {
               System.out.println("You win");
@@ -159,12 +142,10 @@ public class StartGamePlayer extends GenericController{
               System.out.println("TIE");
               Helper.replaceScene(Helper.paperTIEFXML, Helper.paperTIETitle, mouseEvent);
             }
-          }
 
         } catch (Exception e) {
           e.printStackTrace();
         }
-      }
       }
 
 
