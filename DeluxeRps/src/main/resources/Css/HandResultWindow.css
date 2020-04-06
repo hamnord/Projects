@@ -29,11 +29,11 @@
     }
 
        #handTIE {
-        -fx-image: url("../Images/HandTIE.jpg");
+        -fx-image: url("../Images/HandTie.jpg");
         }
 
   #backButton {
-  -fx-image: url("../Images/BackButton.jpg");
+  -fx-image: url("../Images/playAgain.jpg");
   }
 
  #exitButton {

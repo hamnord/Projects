@@ -75,7 +75,7 @@ TextField:focused {
   }
 
    #availableGameButton {
-    -fx-image: url("../Images/2pButton.jpg");
+    -fx-image: url("../Images/refresh.jpg");
     }
 
     #startGameButton {

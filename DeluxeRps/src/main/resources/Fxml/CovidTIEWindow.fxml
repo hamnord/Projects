@@ -16,7 +16,7 @@
 
   <VBox id="covidAlignment">
     <ImageView id="covidTIE" fitWidth="425" preserveRatio="true" />
-    <ImageView id="backButton" fitWidth="200" preserveRatio="true" onMouseClicked="#backButtonClicked"/>
+    <ImageView id="backButton" fitWidth="250" preserveRatio="true" onMouseClicked="#backButtonClicked"/>
     <ImageView id="exitButton" fitWidth="200" preserveRatio="true" onMouseClicked="#exitButtonClicked"/>
   </VBox>
 

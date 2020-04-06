@@ -41,7 +41,7 @@ ChoiceBox:focused {
   }
 
   #addFriendButton {
-     -fx-image: url("../Images/2pButton.jpg");
+     -fx-image: url("../Images/addFriend.jpg");
      }
 
 

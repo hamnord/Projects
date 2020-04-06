@@ -29,11 +29,11 @@
     }
 
     #covidTIE {
-        -fx-image: url("../Images/CovidTIE.jpg");
+        -fx-image: url("../Images/CovidTie.jpg");
         }
 
   #backButton {
-  -fx-image: url("../Images/BackButton.jpg");
+  -fx-image: url("../Images/playAgain.jpg");
   }
 
    #exitButton {

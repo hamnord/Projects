@@ -68,7 +68,7 @@ ListView:focused {
   }
 
     #refreshButton {
-    -fx-image: url("../Images/1pButton.jpg");
+    -fx-image: url("../Refresh.jpg");
     }
 
   #backButton {

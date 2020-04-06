@@ -29,12 +29,12 @@
     }
 
     #paperTIE {
-     -fx-image: url("../Images/PaperTIE.jpg");
+     -fx-image: url("../Images/TPTie.jpg");
      }
 
 
   #backButton {
-  -fx-image: url("../Images/BackButton.jpg");
+  -fx-image: url("../Images/playAgain.jpg");
   }
 
  #exitButton {

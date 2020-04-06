@@ -15,7 +15,7 @@
 
   <VBox id="buttonAlignment">
     <ImageView id="inviteFriendButton" fitWidth="250" preserveRatio="true" onMouseClicked="#inviteFriendButtonClicked"/>
-    <ImageView id="addFriendButton" fitWidth="250" preserveRatio="true" onMouseClicked="#addFriendButtonClicked"/>
+    <ImageView id="addFriendButton" fitWidth="200" preserveRatio="true" onMouseClicked="#addFriendButtonClicked"/>
     <ImageView id="backButton" fitWidth="150" preserveRatio="true" onMouseClicked="#backButtonClicked"/>
     <ImageView id="exitButton" fitWidth="150" preserveRatio="true" onMouseClicked="#exitButtonClicked"/>
   </VBox>
